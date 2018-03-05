@@ -4,7 +4,7 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups(:assets => %w(development test)))
 
-require 'spree/auth'
+require 'spree_wholesale'
 
 module Dummy
   class Application < Rails::Application
