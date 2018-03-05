@@ -4,6 +4,6 @@
 
 <ul class="nav nav-sidebar">
   <li class="sidebar-menu-item">
-    <%= tab(:wholesalers, spree.admin_wholesale_configurations_path, icon: 'box') %>
+    <%= tab(:wholesalers, spree.admin_wholesale_configurations_path, icon: 'tags') %>
   </li>
 </ul>
