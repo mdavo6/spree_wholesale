@@ -1,17 +1,49 @@
-<div class='toolbar'>
-  <ul class='actions'>
-    <li>
-      <p><%= button_link_to t("new_wholesaler"), new_object_url, :icon => 'add' %></p>
-    </li>
-  </ul>
-  <br class='clear' />
-</div>
+<% content_for :page_title do %>
+  <%= Spree.t(:wholesalers) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_wholesaler), new_object_url, icon: 'add', class: 'btn btn-success' %>
+<% end %>
+
+<% content_for :table_filter_title do %>
+  <%= Spree.t(:search) %>
+<% end %>
+
+<% content_for :table_filter do %>
+  <div data-hook="admin_users_index_search">
+    <%= search_form_for [:admin, @search], url: spree.admin_wholesalers_url do |f| %>
+      <div class="form-group">
+        <%= f.label Spree.t(:company) %>
+        <%= f.text_field :company_cont, class: "form-control js-quick-search-target" %>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label Spree.t(:contact) %>
+            <%= f.text_field :buyer_contact_cont, :class => 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label Spree.t(:email) %>
+            <%= f.text_field :user_email_cont, :class => 'form-control' %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label Spree.t(:phone) %>
+        <%= f.text_field :phone_cont, :class => 'form-control' %>
+      </div>
+      <div data-hook="admin_users_index_search_buttons" class="form-actions">
+        <%= button Spree.t(:search), 'search' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
 
-<h1><%= t("listing_wholesalers") %></h1>
-
-
-<table class="index">
+<table class="table" id="listing_wholesalers" data-hook>
   <thead>
   <tr>
     <th><%= sort_link @search, :company, t('wholesaler') %></th>
