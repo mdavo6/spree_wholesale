@@ -75,39 +75,3 @@
 </table>
 
 <%= paginate @wholesalers %>
-
-<!--
-
-<% content_for :sidebar do %>
-<div class="box">
-  <h3><%= t('search') %></h3>
-
-  <% @wholesaler = Spree::Wholesaler.search %>
-
-  <%= search_form_for [:admin, @wholesaler] do |f| %>
-    <%- locals = {:f => f} %>
-    <p>
-      <%= t(".company") %><br />
-      <%= f.text_field :company_cont, :size=>18 %>
-    </p>
-    <p>
-      <%= t(".buyer_contact") %><br />
-      <%= f.text_field :buyer_contact_cont, :size=>18 %>
-    </p>
-    <p>
-      <%= t(".manager_contact") %><br />
-      <%= f.text_field :manager_contact_cont, :size=>18 %>
-    </p>
-    <p>
-      <%= t("phone") %><br />
-      <%= f.text_field :phone_cont, :size=>18 %>
-    </p>
-    <p>
-      <%= t(".notes") %><br />
-      <%= f.text_field :notes_cont, :size=>18 %>
-    </p>
-
-    <p><%= button t("search") %></p>
-  <% end %>
-</div>
-<% end %> -->
