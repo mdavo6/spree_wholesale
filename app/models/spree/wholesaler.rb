@@ -10,9 +10,9 @@ class Spree::Wholesaler < ActiveRecord::Base
   accepts_nested_attributes_for :user
 
   attr_accessor :use_billing
-  before_validation :clone_billing_address, :if => "@use_billing"  
+  before_validation :clone_billing_address, :if => "@use_billing"
   validates :company, :buyer_contact, :phone, :presence => true
-  
+
   delegate_belongs_to :user, :spree_roles
   delegate_belongs_to :user, :email
 
@@ -37,6 +37,11 @@ class Spree::Wholesaler < ActiveRecord::Base
 
   def self.term_options
     ["Credit Card", "Net 30"]
+  end
+
+  # Added for address form functionality
+  def shipping_eq_billing_address?
+    (bill_address.empty? && ship_address.empty?) || bill_address.same_as?(ship_address)
   end
 
   private
