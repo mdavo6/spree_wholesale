@@ -6,29 +6,29 @@
         <%= bill_form.label :firstname, t(:first_name) %><span class="req">*</span><br />
         <%= bill_form.text_field :firstname, :class => 'form-control required' %>
       </p>
-      <p class="field" id="blastname">
+      <p class="form-group" id="blastname">
         <%= bill_form.label :lastname, t(:last_name) %><span class="req">*</span><br />
-        <%= bill_form.text_field :lastname, :class => 'required' %>
+        <%= bill_form.text_field :lastname, :class => 'form-control required' %>
       </p>
-      <p class="field" id="baddress1">
+      <p class="form-group" id="baddress1">
         <%= bill_form.label :address1, t(:street_address) %><span class="req">*</span><br />
-        <%= bill_form.text_field :address1, :class => 'required' %>
+        <%= bill_form.text_field :address1, :class => 'form-control required' %>
       </p>
-      <p class="field" id="baddress2">
+      <p class="form-group" id="baddress2">
         <%= bill_form.label :address2, t(:street_address_2) %><br />
-        <%= bill_form.text_field :address2 %>
+        <%= bill_form.text_field :address2, :class => 'form-control' %>
       </p>
-      <p class="field" id="bcity">
+      <p class="form-group" id="bcity">
         <%= bill_form.label :city, t(:city) %><span class="req">*</span><br />
-        <%= bill_form.text_field :city, :class => 'required' %>
+        <%= bill_form.text_field :city, :class => 'form-control required' %>
       </p>
 
       <% if Spree::Config[:address_requires_state] %>
-        <p class="field" id="bstate">
+        <p class="form-group" id="bstate">
           <% have_states = !@wholesaler.bill_address.country.states.empty? %>
           <%= bill_form.label :state_id, t(:state) %><span class="req">*</span><br />
           <noscript>
-            <%= bill_form.text_field :state_name, :class => 'required' %>
+            <%= bill_form.text_field :state_name, :class => 'form-control required' %>
           </noscript>
           <% state_elements = [
              bill_form.collection_select(:state_id, @wholesaler.bill_address.country.states,
@@ -47,19 +47,19 @@
         </p>
       <% end %>
 
-      <p class="field" id="bzipcode">
+      <p class="form-group" id="bzipcode">
         <%= bill_form.label :zipcode, t(:zip) %><span class="req">*</span><br />
-        <%= bill_form.text_field :zipcode, :class => 'required' %>
+        <%= bill_form.text_field :zipcode, :class => 'form-control' %>
       </p>
-      <p class="field" id="bcountry">
+      <p class="form-group" id="bcountry">
         <%= bill_form.label :country_id, t(:country) %><span class="req">*</span><br />
         <span id="bcountry">
-          <%= bill_form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'required'} %>
+          <%= bill_form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'form-control required'} %>
         </span>
       </p>
-      <p class="field" id="bphone">
+      <p class="form-group" id="bphone">
         <%= bill_form.label :phone, t(:phone) %><span class="req">*</span><br />
-        <%= bill_form.text_field :phone, :class => 'required' %>
+        <%= bill_form.text_field :phone, :class => 'form-control required' %>
       </p>
     </div>
   <% end %>
@@ -68,38 +68,38 @@
 <fieldset id="shipping" data-hook>
   <%= form.fields_for :ship_address do |ship_form| %>
     <legend><%= t(:shipping_address)%></legend>
-    <p class="field checkbox" data-hook="use_billing">
+    <p class="form-group checkbox" data-hook="use_billing">
       <%= check_box_tag 'wholesaler[use_billing]', '1', (!(@wholesaler.bill_address.empty? && @wholesaler.ship_address.empty?) && @wholesaler.bill_address.eql?(@wholesaler.ship_address)) %>
       <%= label_tag :wholesaler_use_billing, t(:use_billing_address) %>
     </p>
     <div class="inner" data-hook="shipping_inner">
-      <p class="field" id="sfirstname">
+      <p class="form-group" id="sfirstname">
         <%= ship_form.label :firstname, t(:first_name) %><span class="req">*</span><br />
-        <%= ship_form.text_field :firstname, :class => 'required' %>
+        <%= ship_form.text_field :firstname, :class => 'form-control required' %>
       </p>
-      <p class="field" id="slastname">
+      <p class="form-group" id="slastname">
         <%= ship_form.label :lastname, t(:last_name) %><span class="req">*</span><br />
-        <%= ship_form.text_field :lastname, :class => 'required' %>
+        <%= ship_form.text_field :lastname, :class => 'form-control required' %>
       </p>
-      <p class="field" id="saddress1">
+      <p class="form-group" id="saddress1">
         <%= ship_form.label :address1, t(:street_address) %><span class="req">*</span><br />
-        <%= ship_form.text_field :address1, :class => 'required' %>
+        <%= ship_form.text_field :address1, :class => 'form-control required' %>
       </p>
-      <p class="field" id="saddress2">
+      <p class="form-group" id="saddress2">
         <%= ship_form.label :address2, t(:street_address_2) %><br />
-        <%= ship_form.text_field :address2 %>
+        <%= ship_form.text_field :address2, :class => 'form-control' %>
       </p>
-      <p class="field" id="scity">
+      <p class="form-group" id="scity">
         <%= ship_form.label :city, t(:city) %><span class="req">*</span><br />
-        <%= ship_form.text_field :city, :class => 'required' %>
+        <%= ship_form.text_field :city, :class => 'form-control' %>
       </p>
 
       <% if Spree::Config[:address_requires_state] %>
-        <p class="field" id="sstate">
+        <p class="form-group" id="sstate">
           <% have_states = !@wholesaler.ship_address.country.states.empty? %>
           <%= ship_form.label :state_id, t(:state) %><span class="req">*</span><br />
           <noscript>
-            <%= ship_form.text_field :state_name, :class => 'required' %>
+            <%= ship_form.text_field :state_name, :class => 'form-control required' %>
           </noscript>
           <% state_elements = [
              ship_form.collection_select(:state_id, @wholesaler.ship_address.country.states,
@@ -118,19 +118,19 @@
         </p>
       <% end %>
 
-      <p class="field" id="szipcode">
+      <p class="form-group" id="szipcode">
         <%= ship_form.label :zipcode, t(:zip) %><span class="req">*</span><br />
-        <%= ship_form.text_field :zipcode, :class => 'required' %>
+        <%= ship_form.text_field :zipcode, :class => 'form-control required' %>
       </p>
-      <p class="field" id="scountry">
+      <p class="form-group" id="scountry">
         <%= ship_form.label :country_id, t(:country) %><span class="req">*</span><br />
         <span id="scountry">
-          <%= ship_form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'required'} %>
+          <%= ship_form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'form-control required'} %>
         </span>
       </p>
-      <p class="field" id="sphone">
+      <p class="form-group" id="sphone">
         <%= ship_form.label :phone, t(:phone) %><span class="req">*</span><br />
-        <%= ship_form.text_field :phone, :class => 'required' %>
+        <%= ship_form.text_field :phone, :class => 'form-control required' %>
       </p>
     </div>
   <% end %>
