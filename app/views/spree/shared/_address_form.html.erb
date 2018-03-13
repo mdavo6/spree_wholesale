@@ -67,7 +67,7 @@
         <%= bill_form.label :zipcode do %>
           <%= Spree.t(:zip) %><% if @wholesaler.bill_address.require_zipcode? %><abbr class="required" title="required">*</abbr><% end %>
         <% end %>
-        <%= bill_form.text_field :zipcode, :class => "form-control #{'required' if @whoelsaler.bill_address.require_zipcode?}" %>
+        <%= bill_form.text_field :zipcode, :class => "form-control #{'required' if @wholesaler.bill_address.require_zipcode?}" %>
       </p>
 
       <p class="form-group" id="bphone">
