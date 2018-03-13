@@ -47,7 +47,7 @@
             <%= Spree.t(:state) %><abbr class='required' title="required" id=<%="bstate-required"%>>*</abbr>
           <% end %>
           <%== state_elements = [
-            bill_form.collection_select(:state_id, bill_address.country.states,
+            bill_form.collection_select(:state_id, @wholesaler.bill_address.country.states,
                       :id, :name,
                       {:include_blank => true},
                       {:class => have_states ? 'form-control required' : 'form-control hidden',
