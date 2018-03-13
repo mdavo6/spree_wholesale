@@ -14,40 +14,40 @@
       <%= form.label :company do %>
         <%= Spree.t(:company) %><abbr class="required" title="required">*</abbr>
       <% end %>
-      <%= bill_form.text_field :company, :class => 'form-control required' %>
+      <%= form.text_field :company, :class => 'form-control required' %>
     </p>
 
     <p class="form-group" id="buyer_contact">
-      <%= bill_form.label :buyer_contact do %>
+      <%= form.label :buyer_contact do %>
         <%= Spree.t(:buyer_contact) %><abbr class="required" title="required">*</abbr>
       <% end %>
-      <%= bill_form.text_field :buyer_contact, :class => 'form-control required' %>
+      <%= form.text_field :buyer_contact, :class => 'form-control required' %>
     </p>
 
     <p class="form-group" id="phone">
-      <%= bill_form.label :phone do %>
+      <%= form.label :phone do %>
         <%= Spree.t(:phone) %><abbr class="required" title="required">*</abbr>
       <% end %>
-      <%= bill_form.text_field :phone, :class => 'form-control required' %>
+      <%= form.text_field :phone, :class => 'form-control required' %>
     </p>
 
     <p class="form-group" id="web_address">
-      <%= bill_form.label :web_address do %>
+      <%= form.label :web_address do %>
         <%= Spree.t(:website) %><abbr class="required" title="required">*</abbr>
       <% end %>
-      <%= bill_form.text_field :web_address, :class => 'form-control required' %>
+      <%= form.text_field :web_address, :class => 'form-control required' %>
     </p>
 
     <p class="form-group" id="terms">
-      <%= bill_form.label :terms do %>
+      <%= form.label :terms do %>
         <%= Spree.t(:terms) %><abbr class="required" title="required">*</abbr>
       <% end %>
-      <%= bill_form.select :terms, Spree::Wholesaler.term_options, :class => 'form-control required' %>
+      <%= form.select :terms, Spree::Wholesaler.term_options, :class => 'form-control required' %>
     </p>
 
     <p class="form-group" id="notes">
-      <%= bill_form.label :notes, Spree.t(:notes) %><br />
-      <%= bill_form.text_field :notes, :class => 'form-control' %>
+      <%= form.label :notes, Spree.t(:notes) %><br />
+      <%= form.text_field :notes, :class => 'form-control' %>
     </p>
 
   </fieldset>
