@@ -3,7 +3,9 @@
     <legend><%= t(:billing_address)%></legend>
     <div class="inner" data-hook="billing_inner">
       <p class="form-group" id="bfirstname">
-        <%= bill_form.label :firstname, t(:first_name) %><span class="req">*</span><br />
+        <%= bill_form.label :firstname do %>
+          <%= Spree.t(:first_name) %><abbr class="required" title="required">*</abbr>
+        <% end %>
         <%= bill_form.text_field :firstname, :class => 'form-control required' %>
       </p>
       <p class="form-group" id="blastname">
