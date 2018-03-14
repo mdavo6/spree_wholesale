@@ -72,14 +72,19 @@ class Spree::WholesalersController < Spree::StoreController
     respond_with(@wholesaler)
   end
 
-  # Introduces a registration step whenever the +registration_step+ preference is true.
+  # Introduces a registration step.
   def check_registration
     # Always want registration so comment out config
     #return unless Spree::Auth::Config[:registration_step]
 
     return if spree_current_user or current_order.email
     store_location
-    redirect_to spree.checkout_registration_path
+    redirect_to spree.edit_wholesaler_path
+  end
+
+  def check_if_active
+    if
+    redirect_to spree.edit_wholesaler_path
   end
 
   private
