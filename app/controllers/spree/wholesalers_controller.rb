@@ -82,11 +82,6 @@ class Spree::WholesalersController < Spree::StoreController
     redirect_to spree.edit_wholesaler_path
   end
 
-  def check_if_active
-    if
-    redirect_to spree.edit_wholesaler_path
-  end
-
   private
 
   def permitted_address_attributes
