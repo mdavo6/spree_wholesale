@@ -1,0 +1,7 @@
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @wholesaler } %>
+<h1><%= Spree.t(:wholesale_registration) %></h1>
+<div id="wholesaler_registration" class="row" data-hook>
+  <div id="account">
+    <%= render :partial => 'new_wholesaler' %>
+  </div>
+</div>

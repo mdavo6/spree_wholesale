@@ -3,7 +3,7 @@ class Spree::WholesalersController < Spree::StoreController
   before_filter :check_registration, :except => [:registration, :update_registration]
 
   def registration
-    @user = Spree::Wholesaler.new
+    @wholesaler = Spree::Wholesaler.new
     @wholesaler.build_user
     respond_with(@wholesaler)
   end
@@ -77,9 +77,9 @@ class Spree::WholesalersController < Spree::StoreController
     # Always want registration so comment out config
     #return unless Spree::Auth::Config[:registration_step]
 
-    return if spree_current_user or current_order.email
+    return if spree_current_user
     store_location
-    redirect_to spree.edit_wholesaler_path
+    redirect_to spree.wholesaler_registration_path
   end
 
   private
