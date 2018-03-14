@@ -1,6 +1,6 @@
 <h1><%= t('wholesale_signup') %></h1>
 
-<%= form_for @wholesaler, html: { class: "wholesaler_form" } do |form| %>
+<%= form_for @wholesaler, html: { class: "wholesaler-form" } do |form| %>
   <%= render "spree/shared/error_messages", :target => @wholesaler %>
   <%= render 'fields', :form => form %>
 
