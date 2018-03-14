@@ -1,6 +1,24 @@
 class Spree::WholesalersController < Spree::StoreController
   respond_to :html, :xml
+  before_filter :check_registration, :except => [:registration, :update_registration]
 
+  def registration
+    @user = Spree::Wholesaler.new
+    @wholesaler.build_user
+    respond_with(@wholesaler)
+  end
+
+  def update_registration
+    if params[:order][:email] =~ Devise.email_regexp && current_order.update_attribute(:email, params[:order][:email])
+      redirect_to spree.checkout_path
+    else
+      flash[:registration_error] = t(:email_is_invalid, :scope => [:errors, :messages])
+      @user = Spree::User.new
+      render 'registration'
+    end
+  end
+
+  # Commented out as SSL is required site-wide
   #ssl_required :new, :create
 
   def index
@@ -52,6 +70,16 @@ class Spree::WholesalersController < Spree::StoreController
     @wholesaler.destroy
     flash[:notice] = I18n.t('spree.wholesaler.destroy_success')
     respond_with(@wholesaler)
+  end
+
+  # Introduces a registration step whenever the +registration_step+ preference is true.
+  def check_registration
+    # Always want registration so comment out config
+    #return unless Spree::Auth::Config[:registration_step]
+
+    return if spree_current_user or current_order.email
+    store_location
+    redirect_to spree.checkout_registration_path
   end
 
   private
