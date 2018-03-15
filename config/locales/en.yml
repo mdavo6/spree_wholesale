@@ -1,32 +1,32 @@
 en:
-  billing_firstname: "Billing First Name"
-  billing_lastname: "Billing Last Name"
-  shipping_firstname: "Shipping First Name"
-  shipping_lastname: "Shipping Last Name"
+  billing_firstname: Billing First Name
+  billing_lastname: Billing Last Name
+  shipping_firstname: Shipping First Name
+  shipping_lastname: Shipping Last Name
 
-  buyer_contact: "Buyer Contact"
+  buyer_contact: Contact Person
 
-  wholesale: "Wholesale"
-  wholesaler: "Wholesaler"
-  wholesalers: "Wholesalers"
-  new_wholesaler: "New Wholesaler"
-  editing_wholesaler: "Edit Wholesaler"
-  wholesaler_account: "Wholesaler Account"
-  listing_wholesalers: "Listing Wholesaler"
-  wholesale_login: "Wholesale Login"
-  wholesale_apply: "Apply for a wholesale account"
-  wholesale_signup: "Wholesale Signup"
-  wholesale_update: "Wholesale Update"
-  wholesale_price: "Wholesale Price"
+  wholesale: Wholesale
+  wholesaler: Wholesaler
+  wholesalers: Wholesalers
+  new_wholesaler: New Wholesaler
+  editing_wholesaler: Edit Wholesaler
+  wholesaler_account: Wholesaler Account
+  listing_wholesalers: Listing Wholesaler
+  wholesale_login: Wholesale Login
+  wholesale_apply: Apply for a wholesale account
+  wholesale_signup: Wholesale Signup
+  wholesale_update: Wholesale Update
+  wholesale_price: Wholesale Price
 
   actions:
-    cancel: "Cancel"
+    cancel: Cancel
 
   shared:
     address_form:
-      use_for_shipping: "Use billing address for shipping"
+      use_for_shipping: Use billing address for shipping
 
-  wholesale_customer: "Wholesale Customer ID: %{id}"
+  wholesale_customer: Wholesale Customer ID: %{id}
 
   spree:
 
@@ -42,18 +42,18 @@ en:
 
     admin:
 
-      manage_wholesale_configurations: "Manage Wholesale Configurations"
-      wholesale_configurations: "Wholesale Configurations"
+      manage_wholesale_configurations: Manage Wholesale Configurations
+      wholesale_configurations: Wholesale Configurations
 
       hooks:
         product_form_right:
-          master_wholesale_price: "Master Wholesale Price"
+          master_wholesale_price: Master Wholesale Price
         admin_orders_index_search:
-          show_only_wholesale_orders: "Show only wholesale orders"
+          show_only_wholesale_orders: Show only wholesale orders
 
       variants:
         form:
-          wholesale_price: "Wholesale Price"
+          wholesale_price: Wholesale Price
 
       wholesaler:
         success: Wholesale account was successfully created
@@ -64,20 +64,21 @@ en:
 
       wholesalers:
         index:
-          company: "Company"
-          buyer_contact: "Buyer contact"
-          manager_contact: "Manager contact"
-          notes: "Notes"
+          company: Company
+          buyer_contact: Company Contact
+          manager_contact: Manager contact
+          notes: Notes
         form:
-          company: "Company"
-          buyer_contact: "Buyer contact"
-          manager_contact: "Manager contact"
-          phone: "Phone"
-          fax: "Fax"
-          resale_number: "Resale number"
-          taxid: "Taxid"
-          web_address: "Web address"
-          terms: "Terms"
-          notes: "Notes"
+          company: Company
+          buyer_contact: Company contact
+          manager_contact: Manager contact
+          phone: Phone
+          fax: Fax
+          resale_number: Resale number
+          taxid: Taxid
+          web_address: Website address
+          terms: Terms
+          notes: Notes
+          comments: Other comments
 
-    contact: "Contact" 
+    contact: Contact

@@ -5,13 +5,13 @@
 </div>
 
 <div class="row">
-  <div class="col-md-offset-3 col-md-6">
+  <div class="col-md-offset-3 col-md-6" id="wholesaler-details">
     <%= form_for @wholesaler, html: { class: "wholesaler-form" } do |form| %>
       <%= render "spree/shared/error_messages", :target => @wholesaler %>
       <%= render 'company_info', :form => form %>
 
       <p class="action">
-        <%= form.submit t("wholesale_apply"), :class => 'button' %>
+        <%= form.submit t("wholesale_apply"), :class => 'btn btn-lg btn-success' %>
       </p>
     <% end %>
   </div>
