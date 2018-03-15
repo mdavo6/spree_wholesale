@@ -4,7 +4,7 @@
       <h3 class="panel-title"><%= Spree.t(:create_a_new_wholesale_account) %></h3>
     </div>
     <div id="new-wholesaler" class="panel-body" data-hook="login">
-      <%= form_for @wholesaler, :as => :spree_user, :url => spree.registration_path(@wholesaler) do |f| %>
+      <%= form_for @user, :as => :spree_user, :url => spree.registration_path(@user) do |f| %>
         <div data-hook="signup_inside_form">
           <%= render :partial => 'spree/shared/user_form', :locals => { :f => f } %>
           <div class="form-group">
