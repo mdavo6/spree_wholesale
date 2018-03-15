@@ -7,6 +7,12 @@
       <%= form_for @wholesaler, :as => :spree_user, :url => spree.registration_path(@wholesaler) do |f| %>
         <div data-hook="signup_inside_form">
           <%= render :partial => 'spree/shared/user_form', :locals => { :f => f } %>
+          <div class="form-group">
+            <%= label_tag :wholesale_request, :id => 'wholesale_request' do %>
+              <%= f.check_box_tag :wholesale_request, '1' %>
+              <%= Spree.t(:wholesale_request) %>
+            <% end %>
+          </div>
           <p><%= f.submit Spree.t(:create), :class => 'btn btn-lg btn-success btn-block' %></p>
         </div>
       <% end %>
