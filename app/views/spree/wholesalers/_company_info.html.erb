@@ -1,12 +1,5 @@
 <fieldset class="leftie">
 
-  <fieldset class="user-details">
-    <legend>User</legend>
-    <%= form.fields_for :user do |uf| %>
-      <%= render 'spree/shared/user_form', :f => uf %>
-    <% end %>
-  </fieldset>
-
   <fieldset class="wholesaler-details">
     <legend>Company Information</legend>
 
@@ -53,6 +46,6 @@
   </fieldset>
 </fieldset>
 
-<fieldset class="rightie">
+<!-- <fieldset class="rightie">
   <%= render "spree/shared/address_form", :form => form %>
-</fieldset>
+</fieldset> -->
