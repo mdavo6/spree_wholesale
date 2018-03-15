@@ -3,9 +3,7 @@ class Spree::WholesalersController < Spree::StoreController
   before_filter :check_registration, :except => [:registration, :update_registration]
 
   def registration
-    @wholesaler = Spree::Wholesaler.new
-    @wholesaler.build_user
-    respond_with(@wholesaler)
+    @user = Spree::User.new
   end
 
   def update_registration
@@ -20,6 +18,11 @@ class Spree::WholesalersController < Spree::StoreController
 
   # Commented out as SSL is required site-wide
   #ssl_required :new, :create
+
+  def new
+    @wholesaler = Spree::Wholesaler.new
+    @wholesaler.user = spree_current_user
+  end
 
   def index
   end
