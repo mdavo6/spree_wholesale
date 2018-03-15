@@ -9,11 +9,11 @@ class Spree::WholesalersController < Spree::StoreController
   end
 
   def update_registration
-    if params[:order][:email] =~ Devise.email_regexp && current_order.update_attribute(:email, params[:order][:email])
+    if params[:wholesaler][:email] =~ Devise.email_regexp && current_order.update_attribute(:email, params[:wholesaler][:email])
       redirect_to spree.checkout_path
     else
       flash[:registration_error] = t(:email_is_invalid, :scope => [:errors, :messages])
-      @user = Spree::User.new
+      @user = Spree::Wholesaler.new
       render 'registration'
     end
   end
@@ -26,14 +26,6 @@ class Spree::WholesalersController < Spree::StoreController
 
   def show
     @wholesaler = Spree::Wholesaler.find(params[:id])
-    respond_with(@wholesaler)
-  end
-
-  def new
-    @wholesaler = Spree::Wholesaler.new
-    @wholesaler.build_user
-    @wholesaler.bill_address = Spree::Address.default
-    @wholesaler.ship_address = Spree::Address.default
     respond_with(@wholesaler)
   end
 

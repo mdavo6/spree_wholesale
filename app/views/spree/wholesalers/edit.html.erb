@@ -1,10 +1,18 @@
-<h1><%= t('wholesale_update') %></h1>
+<div class="row">
+  <div class="col-md-offset-3 col-md-6">
+    <h1><%= t('Company Information') %></h1>
+  </div>
+</div>
 
-<%= form_for @wholesaler do |form| %>
-  <%= render "spree/shared/error_messages", :target => @wholesaler %>
-  <%= render 'fields', :form => form %>
+<div class="row">
+  <div class="col-md-offset-3 col-md-6" id="wholesaler-details">
+    <%= form_for @wholesaler, html: { class: "wholesaler-form" } do |form| %>
+      <%= render "spree/shared/error_messages", :target => @wholesaler %>
+      <%= render 'company_info', :form => form %>
 
-  <p class="action">
-    <%= form.submit t("update"), :class => 'button' %>
-  </p>
-<% end %>
+      <p class="action">
+        <%= form.submit t("wholesale_apply"), :class => 'btn btn-lg btn-success' %>
+      </p>
+    <% end %>
+  </div>
+</div>
