@@ -9,7 +9,7 @@
           <%= render :partial => 'spree/shared/user_form', :locals => { :f => f } %>
           <div class="form-group">
             <%= label_tag :wholesale_request, :id => 'wholesale_request' do %>
-              <%= f.check_box :wholesale_request, '1' %>
+              <%= f.check_box :wholesale_request, { checked: true } %>
               <%= Spree.t(:wholesale_request) %>
             <% end %>
           </div>
