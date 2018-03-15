@@ -12,7 +12,7 @@ class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
 
   def new
     @wholesaler = Spree::Wholesaler.new
-    @wholesaler.build_user
+    @wholesaler.user = spree_current_user
     @wholesaler.bill_address = Spree::Address.default
     @wholesaler.ship_address = Spree::Address.default
     respond_with(@wholesaler)
