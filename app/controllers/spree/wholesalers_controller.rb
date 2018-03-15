@@ -90,11 +90,10 @@ class Spree::WholesalersController < Spree::StoreController
 
   def wholesaler_params
     params.require(:wholesaler).
-      permit(:ship_address, :bill_address, :company, :buyer_contact,
-             :manager_contact, :phone, :fax, :resale_number,
-             :taxid, :web_address, :terms, :notes, :use_billing,
-             user_attributes: [:email, :password, :password_confirmation],
-             bill_address_attributes: permitted_address_attributes,
-             ship_address_attributes: permitted_address_attributes)
+      permit(:ship_address, :bill_address, :company, :contact_person,
+        :phone, :web_address, :social_media, :comments, :use_billing,
+        user_attributes: [:email, :password, :password_confirmation],
+        bill_address_attributes: permitted_address_attributes,
+        ship_address_attributes: permitted_address_attributes)
   end
 end

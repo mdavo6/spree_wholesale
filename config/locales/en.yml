@@ -65,12 +65,12 @@ en:
       wholesalers:
         index:
           company: Company
-          buyer_contact: Company Contact
+          contact_person: Contact person
           manager_contact: Manager contact
           notes: Notes
         form:
           company: Company
-          buyer_contact: Company contact
+          contact_person: Contact person
           manager_contact: Manager contact
           phone: Phone
           fax: Fax

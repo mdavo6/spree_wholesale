@@ -6,10 +6,10 @@
   </div>
 
   <div class="form-group" id="buyer_contact">
-    <%= form.label :buyer_contact do %>
-      <%= Spree.t(:buyer_contact) %><abbr class="required" title="required">*</abbr>
+    <%= form.label :contact_person do %>
+      <%= Spree.t(:contact_person) %><abbr class="required" title="required">*</abbr>
     <% end %>
-    <%= form.text_field :buyer_contact, :class => 'form-control required' %>
+    <%= form.text_field :contact_person, :class => 'form-control required' %>
   </div>
 
   <div class="form-group" id="phone">
