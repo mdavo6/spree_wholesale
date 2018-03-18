@@ -78,7 +78,7 @@ class Spree::WholesalersController < Spree::StoreController
 
     # Wholesale request is a bolean which indicates if the username and password
     # were entered via the wholesaler registration form
-    return if spree_current_user.wholesaler? || spree_current_user.wholesale_request
+    return if spree_current_user && (spree_current_user.wholesaler? || spree_current_user.wholesale_request)
     store_location
     redirect_to spree.wholesaler_registration_path
   end
