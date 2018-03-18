@@ -5,14 +5,16 @@
 </div>
 
 <div class="row">
-  <div class="col-md-offset-3 col-md-6" id="wholesaler-details">
-    <%= form_for @wholesaler, html: { class: "wholesaler-form" } do |form| %>
-      <%= render "spree/shared/error_messages", :target => @wholesaler %>
+  <%= form_for @wholesaler, html: { class: "wholesaler-form" } do |form| %>
+    <%= render "spree/shared/error_messages", :target => @wholesaler %>
+    <div class="col-md-6" id="wholesaler-company-details">
       <%= render 'company_info', :form => form %>
-
-      <p class="action">
-        <%= form.submit t("wholesale_apply"), :class => 'btn btn-lg btn-success' %>
-      </p>
-    <% end %>
-  </div>
+    </div>
+    <div class="col-md-6" id="wholesaler-address-details">
+      <%= render "spree/shared/address_form", :form => form %>
+    </div>
+    <div class="well text-right form-buttons" data-hook="buttons">
+      <%= form.submit t("wholesale_apply"), :class => 'btn btn-lg btn-success' %>
+    </div>
+  <% end %>
 </div>
