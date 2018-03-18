@@ -2,7 +2,6 @@ Spree::Core::Engine.routes.draw do
 
   get '/wholesaler/states' => 'spree/wholesaler_states#index'
 
-  get '/wholesalers/:id/company' => 'wholesalers#company', :as => :company_wholesaler_path(:id)
   get '/wholesalers/registration' => 'wholesalers#registration', :as => :wholesaler_registration
   put '/wholesalers/registration' => 'wholesalers#update_registration', :as => :update_wholesaler_registration
 
