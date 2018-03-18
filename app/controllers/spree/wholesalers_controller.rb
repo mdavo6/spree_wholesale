@@ -89,7 +89,7 @@ class Spree::WholesalersController < Spree::StoreController
     #return unless Spree::Auth::Config[:registration_step]
     user_id = spree_current_user.id
     return if Spree::Wholesaler.find_by_user_id(user_id).present?
-    redirect_to spree.new_wholesaler
+    redirect_to spree.new_wholesaler_path
   end
 
   private
