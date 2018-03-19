@@ -74,27 +74,9 @@ class Spree::WholesalersController < Spree::StoreController
   def check_wholesaler_registration
     # Always want registration so comment out config
     #return unless Spree::Auth::Config[:registration_step]
-
-    if spree_current_user
-
-      # Wholesale request is a bolean which indicates if the username and
-      # password were entered via the wholesaler registration form
-      if spree_current_user.wholesaler? || spree_current_user.wholesale_request
-        user_id = spree_current_user.id
-        if Spree::Wholesaler.find_by_user_id(user_id).blank?
-          redirect_to spree.new_wholesaler_path
-        else
-          return
-        end
-      else
-        flash[:notice] = I18n.t('spree.wholesaler.not_a_wholesaler')
-        store_location
-        redirect_to spree.wholesaler_registration_path
-      end
-    else
-      store_location
-      redirect_to spree.wholesaler_registration_path
-    end
+    return if spree_current_user
+    store_location
+    redirect_to spree.wholesaler_registration_path
   end
 
   private
