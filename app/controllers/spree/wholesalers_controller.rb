@@ -1,7 +1,6 @@
 class Spree::WholesalersController < Spree::StoreController
   respond_to :html, :xml
-  before_filter :check_registration, :except => [:registration, :update_registration]
-  before_filter :check_details_entered, :except => [:registration, :update_registration]
+  before_filter :check_wholesaler_registration, :except => [:registration, :update_registration]
 
   def registration
     @user = Spree::User.new
@@ -72,24 +71,30 @@ class Spree::WholesalersController < Spree::StoreController
   end
 
   # Introduces a registration step.
-  def check_registration
+  def check_wholesaler_registration
     # Always want registration so comment out config
     #return unless Spree::Auth::Config[:registration_step]
 
-    # Wholesale request is a bolean which indicates if the username and password
-    # were entered via the wholesaler registration form
-    return if spree_current_user && (spree_current_user.wholesaler? || spree_current_user.wholesale_request)
-    store_location
-    redirect_to spree.wholesaler_registration_path
-  end
+    if spree_current_user
 
-  # Introduces a registration step.
-  def check_details_entered
-    # Always want registration so comment out config
-    #return unless Spree::Auth::Config[:registration_step]
-    user_id = spree_current_user.id
-    return if Spree::Wholesaler.find_by_user_id(user_id).present?
-    redirect_to spree.new_wholesaler_path
+      # Wholesale request is a bolean which indicates if the username and
+      # password were entered via the wholesaler registration form
+      if spree_current_user.wholesaler? || spree_current_user.wholesale_request
+        user_id = spree_current_user.id
+        if Spree::Wholesaler.find_by_user_id(user_id).blank?
+          redirect_to spree.new_wholesaler_path
+        else
+          return
+        end
+      else
+        flash[:notice] = I18n.t('spree.wholesaler.not_a_wholesaler')
+        store_location
+        redirect_to spree.wholesaler_registration_path
+      end
+    else
+      store_location
+      redirect_to spree.wholesaler_registration_path
+    end
   end
 
   private

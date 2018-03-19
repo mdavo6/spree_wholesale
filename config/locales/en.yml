@@ -39,6 +39,7 @@ en:
       failed: Wholesale account could not be created
       update_failed: Wholesale account could not be updated
       destroy_success: Wholesale account was successfully deleted
+      not_a_wholesaler: You are not currently registered as a wholesale account. Please log out of your current account and create a new wholesale account to continue.
 
     admin:
 
@@ -69,16 +70,11 @@ en:
           manager_contact: Manager contact
           notes: Notes
         form:
-          company: Company
+          company: Company name
           contact_person: Contact person
           manager_contact: Manager contact
           phone: Phone
-          fax: Fax
-          resale_number: Resale number
-          taxid: Taxid
           web_address: Website address
-          terms: Terms
-          notes: Notes
           comments: Other comments
 
     contact: Contact
