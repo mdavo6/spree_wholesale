@@ -1,37 +1,44 @@
-  <div class="form-group" id="company">
-    <%= form.label :company do %>
-      <%= Spree.t(:company) %><abbr class="required" title="required">*</abbr>
-    <% end %>
-    <%= form.text_field :company, :class => 'form-control required' %>
+<div class="panel panel-default" id="company-info" data-hook>
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= Spree.t(:company_information) %></h3>
   </div>
+  <div class="panel-body">
+    <div class="form-group" id="company">
+      <%= form.label :company do %>
+        <%= Spree.t(:company) %><abbr class="required" title="required">*</abbr>
+      <% end %>
+      <%= form.text_field :company, :class => 'form-control required' %>
+    </div>
 
-  <div class="form-group" id="buyer_contact">
-    <%= form.label :contact_person do %>
-      <%= Spree.t(:contact_person) %><abbr class="required" title="required">*</abbr>
-    <% end %>
-    <%= form.text_field :contact_person, :class => 'form-control required' %>
-  </div>
+    <div class="form-group" id="buyer_contact">
+      <%= form.label :contact_person do %>
+        <%= Spree.t(:contact_person) %><abbr class="required" title="required">*</abbr>
+      <% end %>
+      <%= form.text_field :contact_person, :class => 'form-control required' %>
+    </div>
 
-  <div class="form-group" id="phone">
-    <%= form.label :phone do %>
-      <%= Spree.t(:phone) %><abbr class="required" title="required">*</abbr>
-    <% end %>
-    <%= form.text_field :phone, :class => 'form-control required' %>
-  </div>
+    <div class="form-group" id="phone">
+      <%= form.label :phone do %>
+        <%= Spree.t(:phone) %><abbr class="required" title="required">*</abbr>
+      <% end %>
+      <%= form.text_field :phone, :class => 'form-control required' %>
+    </div>
 
-  <div class="form-group" id="web_address">
-    <%= form.label :web_address do %>
-      <%= Spree.t(:website) %><abbr class="required" title="required">*</abbr>
-    <% end %>
-    <%= form.text_field :web_address, :class => 'form-control required' %>
-  </div>
+    <div class="form-group" id="web_address">
+      <%= form.label :web_address do %>
+        <%= Spree.t(:website) %><abbr class="required" title="required">*</abbr>
+      <% end %>
+      <%= form.text_field :web_address, :class => 'form-control required' %>
+    </div>
 
-  <div class="form-group" id="social_media">
-    <%= form.label :social_media, Spree.t(:social_media) %><br />
-    <%= form.text_field :social_media, :class => 'form-control' %>
-  </div>
+    <div class="form-group" id="social_media">
+      <%= form.label :social_media, Spree.t(:social_media) %><br />
+      <%= form.text_field :social_media, :class => 'form-control' %>
+    </div>
 
-  <div class="form-group" id="comments">
-    <%= form.label :comments, Spree.t(:comments) %><br />
-    <%= form.text_area :comments, :class => 'form-control', rows: 4, placeholder: "Please enter any questions or comments here" %>
+    <div class="form-group" id="comments">
+      <%= form.label :comments, Spree.t(:comments) %><br />
+      <%= form.text_area :comments, :class => 'form-control', rows: 4, placeholder: "Please enter any questions or comments here" %>
+    </div>
   </div>
+</div>
