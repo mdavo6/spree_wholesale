@@ -20,8 +20,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <%= f.label Spree.t(:contact) %>
-            <%= f.text_field :buyer_contact_cont, :class => 'form-control' %>
+            <%= f.label Spree.t(:contact_person) %>
+            <%= f.text_field :contact_person_cont, :class => 'form-control' %>
           </div>
         </div>
         <div class="col-md-6">
@@ -47,7 +47,7 @@
   <thead>
   <tr>
     <th><%= sort_link @search, :company, t('wholesaler') %></th>
-    <th><%= sort_link @search, :buyer_contact, t('buyer_contact') %></th>
+    <th><%= sort_link @search, :contact_person, t('contact_person') %></th>
     <th><%= sort_link @search, :user_email, t('email') %></th>
     <th><%= sort_link @search, :phone, t('phone') %></th>
     <th><%= t('active') %></th>
@@ -60,7 +60,7 @@
       <tr id="<%= dom_id wholesaler %>">
         <%- locals = {:wholesaler => wholesaler} %>
         <td><%=link_to wholesaler.company, object_url(wholesaler) %></td>
-        <td><%= wholesaler.buyer_contact %></td>
+        <td><%= wholesaler.contact_person %></td>
         <td><%= mail_to wholesaler.email %></td>
         <td><%= wholesaler.phone %></td>
         <td width="50px"><%= wholesaler.spree_roles.include?("wholesale") ? 'yes' : 'no' %></td>
