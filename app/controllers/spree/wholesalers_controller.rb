@@ -37,6 +37,7 @@ class Spree::WholesalersController < Spree::StoreController
 
   def create
     @wholesaler = Spree::Wholesaler.new(wholesaler_params)
+    @wholesaler.user = spree_current_user
     if @wholesaler.save
       flash[:notice] = I18n.t('spree.wholesaler.signup_success')
       #WholesaleMailer.new_wholesaler_email(@wholesaler).deliver
