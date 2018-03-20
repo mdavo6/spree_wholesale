@@ -1,6 +1,10 @@
 <% wholesaler ||= @wholesaler %>
 <% if wholesaler.active? %>
-  <%= link_to "Deny", reject_admin_wholesaler_path(wholesaler), class: "btn btn-default" %>
+  <%= link_to reject_admin_wholesaler_path(wholesaler), class: "btn btn-default btn-sm" do %>
+    <i class="glyphicon glyphicon-minus"></i>Deny
+  <% end %>
 <% else %>
-  <%= link_to "Approve", approve_admin_wholesaler_path(wholesaler), class: "btn btn-success" %>
+  <%= link_to approve_admin_wholesaler_path(wholesaler), class: "btn btn-success btn-sm" do %>
+    <i class="glyphicon glyphicon-ok"></i>Approve
+  <% end %>
 <% end %>
