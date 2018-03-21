@@ -4,7 +4,9 @@ en:
   shipping_firstname: Shipping First Name
   shipping_lastname: Shipping Last Name
 
-  buyer_contact: Contact Person
+  contact_person: Contact Person
+  email: Email
+  phone: Phone
 
   wholesale: Wholesale
   wholesaler: Wholesaler

@@ -1,7 +1,7 @@
 <% wholesaler ||= @wholesaler %>
 <% if wholesaler.active? %>
   <%= link_to reject_admin_wholesaler_path(wholesaler), class: "btn btn-default btn-sm" do %>
-    <i class="glyphicon glyphicon-minus"></i>Deny
+    <i class="glyphicon glyphicon-minus"></i>Deactivate
   <% end %>
 <% else %>
   <%= link_to approve_admin_wholesaler_path(wholesaler), class: "btn btn-success btn-sm" do %>
