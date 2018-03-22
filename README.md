@@ -45,7 +45,7 @@ Demo
 If you'd like a demo of spree_wholesale:
 
 ```bash
-git clone git://github.com/patrickmcelwee/spree_wholesale.git
+git clone git://github.com/mdavo6/spree_wholesale.git
 cd spree_wholesale
 bundle install
 bundle exec rake test_app
@@ -68,15 +68,14 @@ Known Issues
 ------------------------------------------------------------------------------
 
 * A user created in the 'user' tab, or an already existing user with an added 'wholesaler' flag will not be able to purchase at wholesale price. They will see the retail and wholesale price, but when added to cart will purchase at retail price. Only accounts created using wholesale interface work properly.
-* Deface override for admin_tabs (Adds wholesalers tab to admin interface) isn't targeting hook correctly, and has been set to insert to bottom of the div#store-menu ul instead.
 
 
 ------------------------------------------------------------------------------
 Contributors
 ------------------------------------------------------------------------------
 
-* Michael Davidson ([@mdavo6](https://github.com/mdavo6)])
-* Patrick McElwee ([@patrickmcelwee](https://github.com/patrickmcelwee)])
+* Michael Davidson ([@mdavo6](https://github.com/mdavo6))
+* Patrick McElwee ([@patrickmcelwee](https://github.com/patrickmcelwee))
 * Spencer Steffen ([@citrus](https://github.com/citrus))
 * John Hwang      ([@tavon](https://github.com/tavon))
 * Cameron Carroll ([@sanarothe](https://github.com/sanarothe))
