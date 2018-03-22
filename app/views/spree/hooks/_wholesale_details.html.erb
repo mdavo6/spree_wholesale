@@ -1,0 +1,7 @@
+<dl id="company-info">
+    <dt><%= Spree.t(:company_details) %> (<%= link_to Spree.t(:edit), spree.edit_wholesaler_path(spree_current_user.wholesaler) %>)</dt>
+    <dd><%= @user.wholesaler.contact_person %></dd>
+    <br>
+    <dt><%= Spree.t(:user_details) %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)</dt>
+    <dd><%= @user.email %>
+</dl>

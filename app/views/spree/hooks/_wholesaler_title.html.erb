@@ -1,0 +1,5 @@
+<% if @user.wholesaler? %>
+  <h1><%= @user.wholesaler.company %></h1>
+<% else %>
+  <h1><%= accurate_title %></h1>
+<% end %>

@@ -1,9 +1,10 @@
 module SpreeWholesale
   module LineItemDecorator
     def copy_price
-      super
       if variant
-        self.price = (order.is_wholesale? && variant.is_wholesaleable? ? variant.wholesale_price : variant.price) if price.nil?
+        self.price = (order.is_wholesale? && variant.is_wholesaleable? ? variant.wholesale_price : variant.price)
+        self.cost_price = variant.cost_price if cost_price.nil?
+        self.currency = variant.currency if currency.nil?
       end
     end
   end

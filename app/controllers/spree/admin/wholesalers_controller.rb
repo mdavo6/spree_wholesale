@@ -48,8 +48,11 @@ class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
   def destroy
     @wholesaler = Spree::Wholesaler.find(params[:id])
     @wholesaler.destroy
-    flash[:notice] = I18n.t('spree.admin.wholesaler.destroy_success')
-    respond_with(@wholesaler)
+    flash[:success] = I18n.t('spree.admin.wholesaler.destroy_success')
+    respond_with(@wholesaler) do |format|
+      format.html { redirect_to collection_url }
+      format.js  { render_js_for_destroy }
+    end
   end
 
   def approve

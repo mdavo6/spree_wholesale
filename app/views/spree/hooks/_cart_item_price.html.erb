@@ -1,1 +1,5 @@
-<%= Spree::Money.new(line_item.price) %>
+<% if line_item.wholesale_price > 0 %>
+  <%= number_to_currency(line_item.wholesale_price) %>
+<% else %>
+  <%= line_item.single_money.to_html %>
+<% end %>

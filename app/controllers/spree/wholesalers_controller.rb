@@ -57,6 +57,7 @@ class Spree::WholesalersController < Spree::StoreController
     @wholesaler = Spree::Wholesaler.find(params[:id])
 
     if @wholesaler.update_attributes(wholesaler_params)
+      @wholesaler.user = spree_current_user
       flash[:notice] = I18n.t('spree.wholesaler.update_success')
     else
       flash[:error] = I18n.t('spree.wholesaler.update_failed')
@@ -64,12 +65,12 @@ class Spree::WholesalersController < Spree::StoreController
     respond_with(@wholesaler)
   end
 
-  def destroy
-    @wholesaler = Spree::Wholesaler.find(params[:id])
-    @wholesaler.destroy
-    flash[:notice] = I18n.t('spree.wholesaler.destroy_success')
-    respond_with(@wholesaler)
-  end
+  # def destroy
+  #   @wholesaler = Spree::Wholesaler.find(params[:id])
+  #   @wholesaler.destroy
+  #   flash[:notice] = I18n.t('spree.wholesaler.destroy_success')
+  #   respond_with(@wholesaler)
+  # end
 
   # Introduces a registration step.
   def check_wholesaler_registration

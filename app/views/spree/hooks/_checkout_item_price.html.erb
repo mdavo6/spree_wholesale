@@ -1,0 +1,7 @@
+<td class="item-price">
+  <% if @order.is_wholesale? && item.variant.is_wholesaleable? %>
+    <%= number_to_currency(item.variant.wholesale_price) %>
+  <% else %>
+    <%= display_price(item.variant) %>
+  <% end %>
+</td>
