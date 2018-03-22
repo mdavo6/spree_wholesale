@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/mdavo6/spree_wholesale.svg?branch=3-1-stable)](https://travis-ci.org/mdavo6/spree_wholesale)
 
-Spree wholesale is a simple wholesale solution for Spree Commerce. Spree wholesale adds a wholesaler login and signup page as well as an admin to approve and deny applicants. This is a fork from citrus's fantastic original.
+Spree wholesale is a wholesale solution for Spree Commerce. Spree wholesale adds a wholesaler login and signup page as well as an admin to approve and deny applicants. This gem builds on the great work of citrus and patrickmcelwee, and has been updated to Spree v3.1.
+
+PLEASE NOTE: This is a work in progress.
 
 This requires Ruby > 2.0, in order to use module prepend.
 
@@ -13,34 +15,12 @@ Installation
 # spree 3.1
 gem 'spree_wholesale', :git => 'git://github.com/mdavo6/spree_wholesale', :branch => '3-1-stable'
 
-# spree 2.2
-gem 'spree_wholesale', :git => 'git://github.com/patrickmcelwee/spree_wholesale', :branch => 'master'
-
-# spree 2.1
-gem 'spree_wholesale', :git => 'git://github.com/patrickmcelwee/spree_wholesale', :branch => '2-1-stable'
-
-# spree 2.0
-gem 'spree_wholesale', :git => 'git://github.com/patrickmcelwee/spree_wholesale', :branch => '2-0-stable'
-
-# spree 1.3
-gem 'spree_wholesale', :git => 'git://github.com/patrickmcelwee/spree_wholesale', :branch => '1-3-stable'
-
-# spree 1.2
-gem 'spree_wholesale', :git => 'git://github.com/patrickmcelwee/spree_wholesale', :branch => '1-2-stable'
-
 Then install the necessary migrations, db:migrate, and create the wholesale role:
 
 ```bash
 # spree 0.50.x and above
 rails g spree_wholesale:install
 rake db:migrate spree_wholesale:create_role
-
-
-If you'd like to generate sample wholesale prices based on a 66% discount:
-
-```bash
-rake spree_wholesale:assume_wholesale_prices
-```
 
 
 ------------------------------------------------------------------------------
@@ -95,6 +75,7 @@ Known Issues
 Contributors
 ------------------------------------------------------------------------------
 
+* Michael Davidson ([@mdavo6](https://github.com/mdavo6)])
 * Patrick McElwee ([@patrickmcelwee](https://github.com/patrickmcelwee)])
 * Spencer Steffen ([@citrus](https://github.com/citrus))
 * John Hwang      ([@tavon](https://github.com/tavon))
@@ -106,4 +87,4 @@ Contributors
 License
 ------------------------------------------------------------------------------
 
-Copyright (c) 2011 - 2012 Spencer Steffen and Citrus, released under the New BSD License All rights reserved.
+Copyright (c) 2017 Michael Davidson, Spencer Steffen and Citrus, released under the New BSD License All rights reserved.
