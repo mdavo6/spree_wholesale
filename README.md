@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/mdavo6/spree_wholesale.svg?branch=3-1-stable)](https://travis-ci.org/mdavo6/spree_wholesale)
 
-Spree wholesale is a wholesale solution for Spree Commerce. Spree wholesale adds a wholesaler login and signup page as well as an admin to approve and deny applicants. This gem builds on the great work of citrus and patrickmcelwee, and has been updated to Spree v3.1.
+Spree wholesale is a wholesale solution for Spree Commerce. Spree wholesale adds a wholesaler login and signup page as well as an admin to approve and deny applicants. This gem builds on earlier gems developed by Spencer Steffen (@citrus) and Patrick McElwee (@patrickmcelwee), and has been updated to Spree v3.1.
 
 PLEASE NOTE: This is a work in progress.
 
