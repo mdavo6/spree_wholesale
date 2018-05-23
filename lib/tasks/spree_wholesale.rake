@@ -20,13 +20,4 @@ namespace :spree_wholesale do
     puts role.inspect
   end
 
-  desc "Assumes 50% wholesale discount for each variant"
-  task :assume_wholesale_prices do
-    load_environment
-
-    Spree::Variant.all.each do |variant|
-      price = variant.price * 0.5
-      ActiveRecord::Base.connection.execute("UPDATE spree_variants SET wholesale_price = #{price} WHERE id = #{variant.id}")
-    end
-  end
 end
