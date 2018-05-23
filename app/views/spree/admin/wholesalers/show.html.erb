@@ -1,25 +1,57 @@
-<h1><%= t("wholesaler_account") %></h1>
-
-<div class="leftie">
-
-  <h5>Company:</h5>
-  <h3><%= @wholesaler.company %></h3>
-
-  <h5>Contact_person:</h5>
-  <h3><%= @wholesaler.contact_person %></h3>
-
-  <h5>Phone:</h5>
-  <h3><%= @wholesaler.phone %></h3>
-
-  <h5>Web_address:</h5>
-  <h3><%= @wholesaler.web_address %></h3>
-
-  <h5>Social_media:</h5>
-  <h3><%= @wholesaler.social_media %></h3>
-
-  <h5>Comments:</h5>
-  <h3><%= simple_format @wholesaler.comments %></h3>
-
+<div class="row">
+  <div class="col-sm-12" data-hook="wholesaler-account">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1 class="panel-title"><%= Spree.t(:wholesaler_account) %></h1>
+      </div>
+      <div class="panel-body" id="wholesaler-summary">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Company</label>
+            <div class="col-sm-10">
+              <p class="form-control-static"><%= @wholesaler.company %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Buyer</label>
+            <div class="col-sm-10">
+              <p class="form-control-static"><%= @wholesaler.buyer %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Terms</label>
+            <div class="col-sm-10">
+              <p class="form-control-static"><%= @wholesaler.terms %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Website</label>
+            <div class="col-sm-10">
+              <p class="form-control-static"><%= @wholesaler.website %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Phone</label>
+            <div class="col-sm-10">
+              <p class="form-control-static"><%= @wholesaler.phone %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Social Media</label>
+            <div class="col-sm-10">
+              <p class="form-control-static"><%= @wholesaler.social %></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Comments</label>
+            <div class="col-sm-10">
+              <p class="form-control-static"><%= @wholesaler.comments %></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="rightie">

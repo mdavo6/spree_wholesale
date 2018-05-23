@@ -1,0 +1,34 @@
+<% if @user.wholesaler? %>
+  <div data-hook="account_summary" class="account-summary well">
+    <dl id="company-info">
+      <dt><%= Spree.t(:company_details) %> (<%= link_to Spree.t(:edit), spree.edit_wholesaler_path(spree_current_user.wholesaler) %>)</dt>
+      <dd><%= @user.wholesaler.buyer %></dd>
+      <br>
+      <dt><%= Spree.t(:user_details) %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)</dt>
+      <dd><%= @user.email %></dd>
+    </dl>
+  </div>
+<% elsif @user.wholesale_user && @user.wholesaler.present? %>
+  <div class="alert alert-info">
+    <%= link_to Spree.t('wholesaler.review_in_progress_link'), spree.edit_wholesaler_path(spree_current_user.wholesaler), class: 'alert-link'%>
+  </div>
+  <dl id="user-info">
+    <dt><%= Spree.t(:user_details) %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)</dt>
+    <dd><%= @user.email %></dd>
+  </dl>
+<% elsif !@user.wholesaler? && @user.wholesaler.nil? %>
+  <div class="alert alert-warning">
+    <%= link_to Spree.t('wholesaler.more_information_required_link'), spree.new_wholesaler_path, class: 'alert-link' %>
+  </div>
+  <dl id="user-info">
+    <dt><%= Spree.t(:user_details) %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)</dt>
+    <dd><%= @user.email %></dd>
+  </dl>
+<% else %>
+  <div data-hook="account_summary" class="account-summary well">
+    <dl id="user-info">
+      <dt><%= Spree.t(:email) %></dt>
+      <dd><%= @user.email %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)</dd>
+    </dl>
+  </div>
+<% end %>

@@ -1,1 +1,3 @@
-<%= button_link_to Spree.t(:new_order), wholesale_cart_path, :class => "btn-success", :icon => 'add', :id => 'new_wholesale_order' %>
+<% if spree_current_user.wholesaler? %>
+  <%= button_link_to Spree.t(:new_wholesale_order), wholesale_cart_path, :class => "btn-success", :icon => 'add', :id => 'new_wholesale_order' %>
+<% end %>

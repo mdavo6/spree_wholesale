@@ -1,77 +1,54 @@
-module Spree
-  module WholesaleOrderDecorator
-    def payment_required?
+Spree::Order.class_eval do
 
-      #Added following for testing
-      return false
-      #super && !_wholesale_with_net_terms?
-    end
+  # Added to allow admin search for wholesale orders
+  self.whitelisted_ransackable_attributes =  %w[completed_at created_at email number state payment_state shipment_state total considered_risky wholesale]
 
-    def is_wholesale?
-      wholesale
-    end
+  def payment_required?
 
-    def wholesale
-      read_attribute(:wholesale) && !wholesaler.nil?
-    end
+    # Added for Spree Braintree vZero
+    return false if paid_with_paypal_express?
 
-    def wholesaler
-      user && user.wholesaler
-    end
+    !wholesale_with_net_terms?
+  end
 
-    def set_line_item_prices(use_price=:price)
-      line_items.includes(:variant).each do |line_item|
-        line_item.price = line_item.variant.send(use_price)
-        line_item.save
-      end
-    end
+  def is_wholesale?
+    wholesale
+  end
 
-    def to_fullsale!
-      self.wholesale = false
-      set_line_item_prices(:price)
-      update!
-      save
-    end
+  def wholesale
+    read_attribute(:wholesale) && !wholesaler.nil?
+  end
 
-    def to_wholesale!
-      return false unless user && user.wholesaler.present?
-      self.wholesale = true
-      set_line_item_prices(:wholesale_price)
-      update!
-      save
-    end
+  def wholesaler
+    user && user.wholesaler
+  end
 
-    def add_variant(variant, quantity = 1, currency = nil)
-      current_item = find_line_item_by_variant(variant)
-      if current_item
-        current_item.quantity += quantity
-        current_item.currency = currency unless currency.nil?
-        current_item.save
-      else
-        current_item = Spree::LineItem.new(:quantity => quantity)
-        current_item.variant = variant
-        if currency
-          current_item.currency = currency unless currency.nil?
-          current_item.price   = is_wholesale? ? variant.wholesale_price : variant.price_in(currency).amount
-        else
-          current_item.price   = is_wholesale? ? variant.wholesale_price : variant.price
-        end
-        self.line_items << current_item
-      end
-
-      self.reload
-      current_item
-    end
-
-    private
-
-    def _wholesale_with_net_terms?
-      is_wholesale? && wholesaler.terms != 'Credit Card'
+  def set_line_item_prices(use_price=:price)
+    line_items.includes(:variant).each do |line_item|
+      line_item.price = line_item.variant.send(use_price)
+      line_item.save
     end
   end
 
-  Order.class_eval do
-    prepend WholesaleOrderDecorator
+  def to_fullsale!
+    self.wholesale = false
+    set_line_item_prices(:price)
+    update!
+    save
+  end
+
+  def to_wholesale!
+    return false unless user && user.wholesaler.present?
+    self.wholesale = true
+    set_line_item_prices(:wholesale_price)
+    update!
+    save
+  end
+
+  private
+
+  def wholesale_with_net_terms?
+    self.is_wholesale? && wholesaler.terms == 'Net30'
   end
 
 end

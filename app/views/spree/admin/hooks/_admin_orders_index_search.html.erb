@@ -1,4 +1,4 @@
-<div class='checkbox' id='show-wholesale-option'>
+<div class="checkbox">
   <%= label_tag 'q_wholesale_eq' do %>
     <%= f.check_box :wholesale_eq, {:checked => (params[:q][:wholesale_eq] == '1')}, '1', '' %>
     <%= Spree.t(:show_only_wholesale_orders) %>

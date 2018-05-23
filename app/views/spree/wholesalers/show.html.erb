@@ -1,40 +1,38 @@
 <h1><%= t("wholesaler_account") %></h1>
-
-<div class="leftie">
-
-  <h5>Company:</h5>
-  <h3><%= @wholesaler.company %></h3>
-
-  <h5>Contact_person:</h5>
-  <h3><%= @wholesaler.contact_person %></h3>
-
-  <h5>Phone:</h5>
-  <h3><%= @wholesaler.phone %></h3>
-
-  <h5>Web_address:</h5>
-  <h3><%= @wholesaler.web_address %></h3>
-
-  <% if @wholesaler.social_media.present? %>
-    <h5>Social_media:</h5>
-    <h3><%= @wholesaler.social_media %></h3>
-  <% end %>
-
-  <% if @wholesaler.comments.present? %>
-    <h5>Comments:</h5>
-    <h3><%= simple_format @wholesaler.comments %></h3>
-  <% end %>
-</div>
-
-<div class="rightie">
-
-  <div class="adr">
-    <h4><%= t("bill_address") %></h4>
-    <%= render 'spree/admin/shared/address', :address => @wholesaler.bill_address %>
+<div data-hook="company_details_well" class="well">
+  <div class="row">
+    <div class="col-sm-4">
+      <h4><%= Spree.t('company_information') %></h4>
+      <dl id="company_details">
+        <dt>Company</dt>
+        <dd><%= @wholesaler.company %></dd>
+        <dt>Buyer</dt>
+        <dd><%= @wholesaler.buyer %></dd>
+        <dt>Phone</dt>
+        <dd><%= @wholesaler.phone %></dd>
+        <dt>Website</dt>
+        <dd><%= @wholesaler.website %></dd>
+        <% if @wholesaler.social.present? %>
+          <dt>Social media</dt>
+          <dd><%= @wholesaler.social %></dd>
+        <% end %>
+        <% if @wholesaler.comments.present? %>
+          <dt>Comments</dt>
+          <dd><%= simple_format @wholesaler.comments %></dd>
+        <% end %>
+      </dl>
+    </div>
+    <div class="col-sm-4">
+      <div class="adr">
+        <h4><%= t("bill_address") %></h4>
+        <%= render 'spree/admin/shared/address', :address => @wholesaler.bill_address %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="adr">
+        <h4><%= t("ship_address") %></h4>
+        <%= render 'spree/admin/shared/address', :address => @wholesaler.ship_address %>
+      </div>
+    </div>
   </div>
-  <div class="adr">
-    <h4><%= t("ship_address") %></h4>
-    <%= render 'spree/admin/shared/address', :address => @wholesaler.ship_address %>
-  </div>
 </div>
-
-<hr/>

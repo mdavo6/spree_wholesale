@@ -1,5 +1,5 @@
-<% if spree_current_user && spree_current_user.has_spree_role?(:wholesaler) %>
-  <% if product.is_wholesaleable? %>
-    <div class="price wholesale"><%= number_to_currency(product.wholesale_price) %></div>
+<% if spree_current_user && spree_current_user.wholesaler? %>
+  <% if product.is_wholesaleable? && product.wholesale_price.present? %>
+    <div class="price wholesale"><%= display_price(product, true) %></div>
   <% end %>
 <% end %>

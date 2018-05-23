@@ -20,8 +20,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <%= f.label Spree.t(:contact_person) %>
-            <%= f.text_field :contact_person_cont, :class => 'form-control' %>
+            <%= f.label Spree.t(:buyer) %>
+            <%= f.text_field :buyer_cont, :class => 'form-control' %>
           </div>
         </div>
         <div class="col-md-6">
@@ -47,8 +47,9 @@
   <thead>
   <tr>
     <th><%= sort_link @search, :company, t('wholesaler') %></th>
-    <th><%= sort_link @search, :contact_person, t('contact_person') %></th>
+    <th><%= sort_link @search, :buyer, t('buyer') %></th>
     <th><%= sort_link @search, :user_email, t('email') %></th>
+    <th><%= sort_link @search, :website, t('website') %></th>
     <th><%= sort_link @search, :phone, t('phone') %></th>
     <th><%= t('active') %></th>
     <th>
@@ -59,15 +60,16 @@
     <% @wholesalers.each do |wholesaler|%>
       <tr id="<%= dom_id wholesaler %>">
         <%- locals = {:wholesaler => wholesaler} %>
-        <td><%=link_to wholesaler.company, object_url(wholesaler) %></td>
-        <td><%= wholesaler.contact_person %></td>
-        <td><%= mail_to wholesaler.email %></td>
+        <td><%= link_to wholesaler.company, edit_object_url(wholesaler) %></td>
+        <td><%= wholesaler.buyer %></td>
+        <td><%= link_to wholesaler.email, admin_user_path(wholesaler.user) %></td>
+        <td><%= wholesaler.website %></td>
         <td><%= wholesaler.phone %></td>
-        <td width="50px"><%= wholesaler.spree_roles.include?("wholesale") ? 'yes' : 'no' %></td>
+        <td width="50px"><%= wholesaler.active? ? 'Yes' : 'No' %></td>
         <td>
+          <%= render 'user_options', :wholesaler => wholesaler %>
           <%= link_to_edit wholesaler %> &nbsp;
           <%= link_to_delete wholesaler %> &nbsp;
-          <%= render 'user_options', :wholesaler => wholesaler %>
         </td>
       </tr>
     <% end %>

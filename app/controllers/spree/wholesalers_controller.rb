@@ -1,23 +1,6 @@
 class Spree::WholesalersController < Spree::StoreController
   respond_to :html, :xml
-  before_filter :check_wholesaler_registration, :except => [:registration, :update_registration]
-
-  def registration
-    @user = Spree::User.new
-  end
-
-  def update_registration
-    if params[:wholesaler][:email] =~ Devise.email_regexp && current_order.update_attribute(:email, params[:wholesaler][:email])
-      redirect_to spree.checkout_path
-    else
-      flash[:registration_error] = t(:email_is_invalid, :scope => [:errors, :messages])
-      @user = Spree::Wholesaler.new
-      render 'registration'
-    end
-  end
-
-  # Commented out as SSL is required site-wide
-  #ssl_required :new, :create
+  before_filter :check_wholesale_user, :except => [:index, :registration, :update_registration]
 
   def new
     @wholesaler = Spree::Wholesaler.new
@@ -40,8 +23,10 @@ class Spree::WholesalersController < Spree::StoreController
     @wholesaler.user = spree_current_user
     if @wholesaler.save
       flash[:notice] = I18n.t('spree.wholesaler.signup_success')
-      #WholesaleMailer.new_wholesaler_email(@wholesaler).deliver
-      redirect_to spree.wholesalers_path
+      Spree::WholesaleMailer.new_wholesaler_email(@wholesaler).deliver
+      # To be discussed - Could give wholesalers access to wholesale prices immediately?
+      # @wholesaler.activate!
+      redirect_to spree.account_path
     else
       flash[:error] = I18n.t('spree.wholesaler.signup_failed')
       render :action => "new"
@@ -65,32 +50,54 @@ class Spree::WholesalersController < Spree::StoreController
     respond_with(@wholesaler)
   end
 
-  # def destroy
-  #   @wholesaler = Spree::Wholesaler.find(params[:id])
-  #   @wholesaler.destroy
-  #   flash[:notice] = I18n.t('spree.wholesaler.destroy_success')
-  #   respond_with(@wholesaler)
-  # end
-
-  # Introduces a registration step.
-  def check_wholesaler_registration
-    # Always want registration so comment out config
-    #return unless Spree::Auth::Config[:registration_step]
-    return if spree_current_user
-    store_location
-    redirect_to spree.wholesaler_registration_path
+  def destroy
+    @wholesaler = Spree::Wholesaler.find(params[:id])
+    @wholesaler.destroy
+    flash[:notice] = I18n.t('spree.wholesaler.destroy_success')
+    respond_with(@wholesaler)
   end
+
+  # Checks whether the user signed up via the wholesale page (wholesale_user)
+  # A wholesale_user is not the same as a wholesaler - The wholesale_user flag
+  # is used to identify that the user signed up via the wholesalers page, whereas
+  # a wholesaler has been approved.
+
+  def check_wholesale_user
+    # Always want registration so comment out config
+    # return unless Spree::Auth::Config[:registration_step]
+    if spree_current_user
+      return if spree_current_user.wholesale_user
+      flash[:notice] = I18n.t('spree.wholesaler.not_a_wholesaler')
+      redirect_to spree.signup_path(wholesale_user: true)
+    else
+      flash[:notice] = I18n.t('spree.wholesaler.logged_out')
+      redirect_to spree.signup_path(wholesale_user: true)
+    end
+  end
+
+  # Checks whether the user has entered their company details and redirects
+  # to the new wholesaler path
+  # def company_information_entered
+  #   return if spree_current_user.wholesaler?
+  #   if spree_current_user.wholesaler.nil?
+  #     flash[:notice] = I18n.t('spree.wholesaler.more_information_required')
+  #     redirect_to spree.new_wholesaler_path
+  #   else
+  #     flash[:notice] = I18n.t('spree.wholesaler.review_in_progress')
+  #     redirect_to spree.wholesalers_path
+  #   end
+  # end
 
   private
 
   def permitted_address_attributes
-    [:firstname, :lastname, :address1, :address2, :city, :state_id, :zipcode, :country_id, :phone]
+    [:firstname, :lastname, :address1, :address2, :city, :state_id, :zipcode, :country_id, :phone, :id]
   end
 
   def wholesaler_params
     params.require(:wholesaler).
-      permit(:ship_address, :bill_address, :company, :contact_person,
-        :phone, :web_address, :social_media, :comments, :use_billing,
+      permit(:ship_address, :bill_address, :company, :buyer,
+        :terms, :phone, :website, :social, :comments, :use_billing,
         user_attributes: [:email, :password, :password_confirmation],
         bill_address_attributes: permitted_address_attributes,
         ship_address_attributes: permitted_address_attributes)

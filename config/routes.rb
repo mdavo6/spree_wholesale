@@ -6,6 +6,8 @@ Spree::Core::Engine.routes.draw do
   put '/wholesalers/registration' => 'wholesalers#update_registration', :as => :update_wholesaler_registration
   get '/wholesale_cart', to: 'orders#wholesale', as: :wholesale_cart
 
+  get 'wholesalers/welcome' => 'wholesalers#welcome', :as => :wholesaler_welcome
+
   resources :wholesalers
 
   namespace(:admin) do

@@ -1,0 +1,23 @@
+<div class="panel-body no-padding-bottom">
+  <% supported_currencies.each do |currency| %>
+    <% code  = currency.iso_code %>
+    <% price = variant.price_in(code, false) %>
+    <div class="form-group">
+      <%= label_tag "vp[#{variant.id}][#{code}][false]", "Retail #{code}", class: 'control-label col-md-4 text-left' %>
+      <div class="col-md-8">
+        <%= text_field_tag "vp[#{variant.id}][#{code}][false]", (price && price.price ? price.display_amount.money : ''), class: 'form-control' %>
+       </div>
+    </div>
+  <% end %>
+
+  <% supported_currencies.each do |currency| %>
+    <% code  = currency.iso_code %>
+    <% price = variant.price_in(code, true) %>
+    <div class="form-group">
+      <%= label_tag "vp[#{variant.id}][#{code}][true]", "Wholesale #{code}", class: 'control-label col-md-4 text-center' %>
+      <div class="col-md-8">
+        <%= text_field_tag "vp[#{variant.id}][#{code}][true]", (price && price.price ? price.display_amount.money : ''), class: 'form-control' %>
+       </div>
+    </div>
+  <% end %>
+</div>

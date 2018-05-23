@@ -1,4 +1,7 @@
-<h1><%= t("editing_wholesaler") %></h1>
+<% content_for :page_title do %>
+  <%= link_to Spree.t("Wholesalers"), spree.admin_wholesalers_path %> /
+  <%= @wholesaler.company %>
+<% end %>
 
 <%= form_for [:admin, @wholesaler], :html => { :class => "wholesaler-form" } do |f| %>
   <%= render "spree/shared/error_messages", :target => @wholesaler %>

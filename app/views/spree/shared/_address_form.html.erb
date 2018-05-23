@@ -25,7 +25,8 @@
               <%= Spree.t(:use_billing_address) %>
             <% end %>
           </p>
-          <%= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => @wholesaler.ship_address } %>
+          <%= render 'spree/admin/shared/address_form', f: ship_form, type: 'shipping' %>
+          <!-- <%= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => @wholesaler.ship_address } %> -->
         </div>
       <% end %>
     </div>

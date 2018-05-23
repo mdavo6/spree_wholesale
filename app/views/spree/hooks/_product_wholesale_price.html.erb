@@ -1,6 +1,6 @@
 <% if spree_current_user && spree_current_user.has_spree_role?(:wholesaler) %>
-  <% if @product.try(:wholesale_price) && 0 < @product.try(:wholesale_price) %>
+  <% if @product.is_wholesaleable? && @product.wholesale_price.present? %>
     <dt class="wholesale"><%= t(:wholesale_price) %></dt>
-    <dd class="wholesale"><span class="price wholesale"><%= number_to_currency(@product.wholesale_price) %></span></dd>
+    <dd class="wholesale"><span class="price wholesale"><%= display_price(@product, true) %></span></dd>
   <% end %>
 <% end %>

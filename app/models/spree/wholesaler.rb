@@ -10,8 +10,8 @@ class Spree::Wholesaler < ActiveRecord::Base
   accepts_nested_attributes_for :user
 
   attr_accessor :use_billing
-  before_validation :clone_billing_address, :if => "@use_billing"
-  validates :company, :contact_person, :phone, :presence => true
+  before_validation :clone_billing_address, if: :use_billing?
+  validates :company, :buyer, :phone, :presence => true
 
   delegate_belongs_to :user, :spree_roles
   delegate_belongs_to :user, :email
@@ -20,7 +20,7 @@ class Spree::Wholesaler < ActiveRecord::Base
     get_wholesale_role
     return false if user.spree_roles.include?(@role)
     user.spree_roles << @role
-    #WholesaleMailer.approve_wholesaler_email(self).deliver
+    WholesaleMailer.approve_wholesaler_email(self).deliver
     user.save
   end
 
@@ -36,7 +36,7 @@ class Spree::Wholesaler < ActiveRecord::Base
   end
 
   def self.term_options
-    ["Credit Card", "Net 30"]
+    ["Advance", "Net30"]
   end
 
   # Added for address form functionality
@@ -50,7 +50,12 @@ class Spree::Wholesaler < ActiveRecord::Base
     @role = Spree::Role.find_or_create_by(name: "wholesaler")
   end
 
+  def use_billing?
+    use_billing.in?([true, 'true', '1'])
+  end
+
   def clone_billing_address
+    byebug
     if bill_address and self.ship_address.nil?
       self.ship_address = bill_address.clone
     else

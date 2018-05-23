@@ -1,0 +1,19 @@
+<div class="panel panel-default categories">
+  <div class="panel-heading">
+    <h1 class="panel-title">
+      <%= Spree.t(:wholesale_shipping) %>
+    </h1>
+  </div>
+
+  <div class="panel-body">
+    <%= f.field_container :wholesale, :class => ['form-group'] do %>
+        <div class="checkbox">
+          <%= label_tag do %>
+            <%= check_box 'shipping_method', 'wholesale', {}, 'true', 'false' %>
+            <%= Spree.t('wholesale') %>
+          <% end %>
+        </div>
+      <%= f.error_message_on :wholesale %>
+    <% end %>
+  </div>
+</div>

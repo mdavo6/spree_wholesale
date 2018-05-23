@@ -4,7 +4,6 @@ en:
   shipping_firstname: Shipping First Name
   shipping_lastname: Shipping Last Name
 
-  contact_person: Contact Person
   email: Email
   phone: Phone
 
@@ -33,26 +32,39 @@ en:
   spree:
 
     wholesaler:
-      signup_success: Thank you for your interest in becoming a wholesaler! We'll be in touch shortly.
-      signup_failed: Wholesale account could not be created
-      parts_error_message: There are errors with the user or addresses
+      signup_success: Thank you for opening a wholesale account with us. You are now eligible for wholesale pricing. To place your first order click on the 'New Wholesale Order' button below.
+      signup_failed: Wholesale account could not be created. Please check the information entered is correct and try again.
+      review_in_progress: Thank you for submitting your application. We are reviewing your information and will be in touch soon.
+      review_in_progress_link: We are currently reviewing your application. Click on this link to update the information submitted.
       success: Wholesale account was successfully created
       update_success: Wholesale account was successfully updated
       failed: Wholesale account could not be created
       update_failed: Wholesale account could not be updated
       destroy_success: Wholesale account was successfully deleted
-      not_a_wholesaler: You are not currently registered as a wholesale account. Please log out of your current account and create a new wholesale account to continue.
+      not_a_wholesaler: Your account is not currently registered as a wholesale account. Please log out of your current account and create a new wholesale account to continue, or contact us to upgrade your account.
+      more_information_required: Please enter your company details below to complete the registration process.
+      more_information_required_link: Please enter your company details using this link to complete the registration process.
+      logged_out: Please log in or create an account to continue.
 
+    wholesaler_mailer:
+      new_wholesaler_email:
+        to: "Dear %{name},"
+        welcome: Thank you for your interest in becoming a stockist of our products.
+        review: We will be in touch shortly once we have reviewed your application. Approval generally occurs within 24 hours.
+        contact: If you have any questions please don't hesitate to contact us at test@email.com.
+        signoff: Kind regards,
+        from: Sender
+      approve_wholesaler_email:
+        to: "Dear %{name},"
+        outcome: We are pleased to advise your application has been approved.
+        order: You are now eligible for wholesale pricing via our website. To place your first order click on the 'New Wholesale Order' button.
+        contact: If you have any questions or issues making an order please email us at test@email.com.
+        signoff: Kind regards,
+        from: Sender
     admin:
 
       manage_wholesale_configurations: Manage Wholesale Configurations
       wholesale_configurations: Wholesale Configurations
-
-      hooks:
-        product_form_right:
-          master_wholesale_price: Master Wholesale Price
-        admin_orders_index_search:
-          show_only_wholesale_orders: Show only wholesale orders
 
       variants:
         form:
@@ -79,5 +91,12 @@ en:
           web_address: Website address
           comments: Other comments
 
-    contact: Contact
+    buyer: Contact Person
+    website: Website
+    social: Social media
     contact_person: Contact Person
+    new_wholesale_order: New Wholesale Order
+    user_details: User Details
+    company_details: Company Details
+    show_only_wholesale_orders: Show only wholesale orders
+    terms_reminder: Thank you for your order. You have been emailed an invoice for your order. Your order will be shipped following payment. Payment details have been provided on your invoice.
