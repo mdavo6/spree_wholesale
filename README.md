@@ -4,8 +4,6 @@ Spree wholesale is a wholesale solution for Spree Commerce. Spree wholesale adds
 
 PLEASE NOTE: This is a work in progress.
 
-This requires Ruby > 2.0, in order to use module prepend.
-
 ------------------------------------------------------------------------------
 Installation
 ------------------------------------------------------------------------------
