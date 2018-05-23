@@ -60,28 +60,8 @@ To Do
 * Finish i18n implementation
 * Fork this README more
 
-
-------------------------------------------------------------------------------
-Known Issues
-------------------------------------------------------------------------------
-
-* A user created in the 'user' tab, or an already existing user with an added 'wholesaler' flag will not be able to purchase at wholesale price. They will see the retail and wholesale price, but when added to cart will purchase at retail price. Only accounts created using wholesale interface work properly.
-
-
-------------------------------------------------------------------------------
-Contributors
-------------------------------------------------------------------------------
-
-* Michael Davidson ([@mdavo6](https://github.com/mdavo6))
-* Patrick McElwee ([@patrickmcelwee](https://github.com/patrickmcelwee))
-* Spencer Steffen ([@citrus](https://github.com/citrus))
-* John Hwang      ([@tavon](https://github.com/tavon))
-* Cameron Carroll ([@sanarothe](https://github.com/sanarothe))
-* Les Cochrane    ([@oldtinroof](https://github.com/oldtinroof))
-
-
 ------------------------------------------------------------------------------
 License
 ------------------------------------------------------------------------------
 
-Copyright (c) 2017 Michael Davidson, Spencer Steffen and Citrus, released under the New BSD License All rights reserved.
+Copyright (c) 2018 Michael Davidson, released under the New BSD License All rights reserved.
