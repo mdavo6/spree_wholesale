@@ -11,4 +11,5 @@ tmp/**/*
 *.swp
 .rvmrc
 test/dummy
+spec/dummy
 .sass-cache

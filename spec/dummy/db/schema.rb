@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305093973) do
+ActiveRecord::Schema.define(version: 20180523123980) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -364,10 +364,11 @@ ActiveRecord::Schema.define(version: 20180305093973) do
   add_index "spree_preferences", ["key"], name: "index_spree_preferences_on_key", unique: true
 
   create_table "spree_prices", force: :cascade do |t|
-    t.integer  "variant_id",                          null: false
+    t.integer  "variant_id",                                          null: false
     t.decimal  "amount",     precision: 10, scale: 2
     t.string   "currency"
     t.datetime "deleted_at"
+    t.boolean  "wholesale",                           default: false
   end
 
   add_index "spree_prices", ["deleted_at"], name: "index_spree_prices_on_deleted_at"
@@ -714,12 +715,13 @@ ActiveRecord::Schema.define(version: 20180305093973) do
     t.string   "name"
     t.string   "display_on"
     t.datetime "deleted_at"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "tracking_url"
     t.string   "admin_name"
     t.integer  "tax_category_id"
     t.string   "code"
+    t.boolean  "wholesale",       default: false
   end
 
   add_index "spree_shipping_methods", ["deleted_at"], name: "index_spree_shipping_methods_on_deleted_at"
@@ -984,8 +986,8 @@ ActiveRecord::Schema.define(version: 20180305093973) do
     t.string   "persistence_token"
     t.string   "reset_password_token"
     t.string   "perishable_token"
-    t.integer  "sign_in_count",                      default: 0, null: false
-    t.integer  "failed_attempts",                    default: 0, null: false
+    t.integer  "sign_in_count",                      default: 0,     null: false
+    t.integer  "failed_attempts",                    default: 0,     null: false
     t.datetime "last_request_at"
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
@@ -998,14 +1000,15 @@ ActiveRecord::Schema.define(version: 20180305093973) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "reset_password_sent_at"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "spree_api_key",          limit: 48
     t.datetime "remember_created_at"
     t.datetime "deleted_at"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "spree_api_key",          limit: 48
+    t.boolean  "wholesale_user",                     default: false
   end
 
   add_index "spree_users", ["bill_address_id"], name: "index_spree_users_on_bill_address_id"
@@ -1031,7 +1034,6 @@ ActiveRecord::Schema.define(version: 20180305093973) do
     t.datetime "updated_at"
     t.integer  "stock_items_count",                          default: 0,     null: false
     t.datetime "discontinue_on"
-    t.decimal  "wholesale_price",   precision: 8,  scale: 2, default: 0.0,   null: false
   end
 
   add_index "spree_variants", ["deleted_at"], name: "index_spree_variants_on_deleted_at"
@@ -1048,16 +1050,12 @@ ActiveRecord::Schema.define(version: 20180305093973) do
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
     t.string   "company"
-    t.string   "buyer_contact"
-    t.string   "manager_contact"
+    t.string   "buyer"
     t.string   "phone"
-    t.string   "fax"
-    t.string   "resale_number"
-    t.string   "taxid"
-    t.string   "web_address"
-    t.string   "terms"
-    t.string   "alternate_email"
-    t.text     "notes"
+    t.string   "website"
+    t.string   "social"
+    t.string   "terms",               default: "advance"
+    t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

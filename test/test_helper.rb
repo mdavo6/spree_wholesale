@@ -10,7 +10,7 @@ end
 
 require 'rails/test_help'
 require 'shoulda'
-require 'factory_girl'
+require 'factory_bot'
 require 'capybara/rails'
 
 # Load support files
@@ -30,4 +30,4 @@ end
 
 # Default to US
 Spree::Config.set(:default_country_id => 214)
-FactoryGirl.reload
+FactoryBot.reload
