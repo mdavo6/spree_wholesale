@@ -3,24 +3,18 @@
   <div class="row">
     <div class="col-sm-4">
       <h4><%= Spree.t('company_information') %></h4>
-      <dl id="company_details">
-        <dt>Company</dt>
-        <dd><%= @wholesaler.company %></dd>
-        <dt>Buyer</dt>
-        <dd><%= @wholesaler.buyer %></dd>
-        <dt>Phone</dt>
-        <dd><%= @wholesaler.phone %></dd>
-        <dt>Website</dt>
-        <dd><%= @wholesaler.website %></dd>
+      <p>
+        <%= @wholesaler.company %><br/>
+        <%= @wholesaler.buyer %><br/>
+        <%= @wholesaler.phone %><br/>
+        <%= @wholesaler.website %><br/>
         <% if @wholesaler.social.present? %>
-          <dt>Social media</dt>
-          <dd><%= @wholesaler.social %></dd>
+          <%= @wholesaler.social %><br/>
         <% end %>
         <% if @wholesaler.comments.present? %>
-          <dt>Comments</dt>
-          <dd><%= simple_format @wholesaler.comments %></dd>
+          <%= simple_format @wholesaler.comments %><br/>
         <% end %>
-      </dl>
+      </p>
     </div>
     <div class="col-sm-4">
       <div class="adr">

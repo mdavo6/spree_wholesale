@@ -1,7 +1,7 @@
 Deface::Override.new(
-  :virtual_path => 'spree/user_registrations/new',
-  :name => 'signup-wholesale-field',
-  :insert_top => "[data-hook='signup_inside_form']",
-  :partial => "spree/hooks/signup_wholesale_field",
+  :virtual_path => 'spree/shared/_user_form',
+  :name => 'wholesale-user-signup-field',
+  :insert_top => "[data-hook='signup_below_password_fields']",
+  :partial => "spree/hooks/wholesale_user_signup_field",
   :disabled => false
 )

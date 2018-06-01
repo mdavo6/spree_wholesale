@@ -1,7 +1,11 @@
 Spree::PermittedAttributes.variant_attributes << :wholesale_price
 
 Spree::Variant.class_eval do
-  scope :wholesales, ->{where("spree_variants.wholesale_price > 0")}
+
+  scope :wholesales, -> (currency) do
+    currency ||= Spree::Config[:currency]
+    joins(:prices).where("spree_prices.currency = ?", currency).where("spree_prices.wholesale = ?", true).where("spree_prices.amount > ?", 0)
+  end
 
   def is_wholesaleable?
     prices.exists?(currency: currency, wholesale: true)

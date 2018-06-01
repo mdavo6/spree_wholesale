@@ -13,7 +13,6 @@ describe Spree::OrdersController, :type => :controller do
 
   context "#wholesale" do
     it "should handle population" do
-      byebug
       expect {
         spree_post :wholesale
       }.to change { wholesale_user.orders.count }.by(1)

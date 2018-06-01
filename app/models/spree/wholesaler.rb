@@ -36,7 +36,7 @@ class Spree::Wholesaler < ActiveRecord::Base
   end
 
   def self.term_options
-    ["Advance", "Net30"]
+    ["Advance", "Net30", "Transferwise USD", "Transferwise EUR"]
   end
 
   # Added for address form functionality
@@ -55,7 +55,6 @@ class Spree::Wholesaler < ActiveRecord::Base
   end
 
   def clone_billing_address
-    byebug
     if bill_address and self.ship_address.nil?
       self.ship_address = bill_address.clone
     else

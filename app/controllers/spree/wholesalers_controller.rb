@@ -22,7 +22,7 @@ class Spree::WholesalersController < Spree::StoreController
     @wholesaler = Spree::Wholesaler.new(wholesaler_params)
     @wholesaler.user = spree_current_user
     if @wholesaler.save
-      flash[:notice] = I18n.t('spree.wholesaler.signup_success')
+      flash[:notice] = I18n.t('spree.wholesaler.review_in_progress')
       Spree::WholesaleMailer.new_wholesaler_email(@wholesaler).deliver
       # To be discussed - Could give wholesalers access to wholesale prices immediately?
       # @wholesaler.activate!
@@ -66,7 +66,7 @@ class Spree::WholesalersController < Spree::StoreController
     # Always want registration so comment out config
     # return unless Spree::Auth::Config[:registration_step]
     if spree_current_user
-      return if spree_current_user.wholesale_user
+      return if spree_current_user.admin? || spree_current_user.wholesale_user
       flash[:notice] = I18n.t('spree.wholesaler.not_a_wholesaler')
       redirect_to spree.signup_path(wholesale_user: true)
     else

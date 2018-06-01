@@ -8,7 +8,8 @@ Spree::Order.class_eval do
     # Added for Spree Braintree vZero
     return false if paid_with_paypal_express?
 
-    !wholesale_with_net_terms?
+    return true unless payment_via_transferwise || wholesaler_has_net30_terms
+
   end
 
   def is_wholesale?
@@ -47,8 +48,16 @@ Spree::Order.class_eval do
 
   private
 
-  def wholesale_with_net_terms?
+  def payment_via_transferwise
+    self.is_wholesale? && (wholesaler.terms == 'Transferwise USD' || wholesaler.terms == 'Transferwise EUR')
+  end
+
+  def wholesaler_has_net30_terms
     self.is_wholesale? && wholesaler.terms == 'Net30'
+  end
+
+  def wholesaler_with_payment_in_advance?
+    self.is_wholesale? && wholesaler.terms == 'Advance'
   end
 
 end

@@ -32,6 +32,8 @@ en:
   spree:
 
     wholesaler:
+      company: "Company: %{company}"
+      buyer: "Buyer: %{buyer}"
       signup_success: Thank you for opening a wholesale account with us. You are now eligible for wholesale pricing. To place your first order click on the 'New Wholesale Order' button below.
       signup_failed: Wholesale account could not be created. Please check the information entered is correct and try again.
       review_in_progress: Thank you for submitting your application. We are reviewing your information and will be in touch soon.
@@ -49,16 +51,16 @@ en:
     wholesaler_mailer:
       new_wholesaler_email:
         to: "Dear %{name},"
-        welcome: Thank you for your interest in becoming a stockist of our products.
-        review: We will be in touch shortly once we have reviewed your application. Approval generally occurs within 24 hours.
+        welcome: Thank you for your interest in our products.
+        review: We will be in touch again shortly once we have reviewed your application. We generally approve applications within 24 hours.
         contact: If you have any questions please don't hesitate to contact us at test@email.com.
         signoff: Kind regards,
         from: Sender
       approve_wholesaler_email:
         to: "Dear %{name},"
         outcome: We are pleased to advise your application has been approved.
-        order: You are now eligible for wholesale pricing via our website. To place your first order click on the 'New Wholesale Order' button.
-        contact: If you have any questions or issues making an order please email us at test@email.com.
+        order: You are now eligible for wholesale pricing via our website. To place your first order log in and click on the 'New Wholesale Order' button.
+        contact: If you have any questions or issues placing an order please email us at test@email.com.
         signoff: Kind regards,
         from: Sender
     admin:
@@ -91,6 +93,7 @@ en:
           web_address: Website address
           comments: Other comments
 
+    company_store: Store/Company
     buyer: Contact Person
     website: Website
     social: Social media
@@ -99,4 +102,4 @@ en:
     user_details: User Details
     company_details: Company Details
     show_only_wholesale_orders: Show only wholesale orders
-    terms_reminder: Thank you for your order. You have been emailed an invoice for your order. Your order will be shipped following payment. Payment details have been provided on your invoice.
+    terms_reminder: Please note that your order will only be shipped following payment. Payment details have been provided on your invoice.

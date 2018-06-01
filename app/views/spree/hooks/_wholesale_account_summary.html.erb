@@ -16,7 +16,7 @@
     <dt><%= Spree.t(:user_details) %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)</dt>
     <dd><%= @user.email %></dd>
   </dl>
-<% elsif !@user.wholesaler? && @user.wholesaler.nil? %>
+<% elsif @user.wholesale_user && !@user.wholesaler? && @user.wholesaler.nil? %>
   <div class="alert alert-warning">
     <%= link_to Spree.t('wholesaler.more_information_required_link'), spree.new_wholesaler_path, class: 'alert-link' %>
   </div>
