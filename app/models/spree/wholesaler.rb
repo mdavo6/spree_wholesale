@@ -20,7 +20,7 @@ class Spree::Wholesaler < ActiveRecord::Base
     get_wholesale_role
     return false if user.spree_roles.include?(@role)
     user.spree_roles << @role
-    WholesaleMailer.approve_wholesaler_email(self).deliver
+    Spree::WholesaleMailer.approve_wholesaler_email(self).deliver
     user.save
   end
 
