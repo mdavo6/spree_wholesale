@@ -62,7 +62,7 @@
         <%- locals = {:wholesaler => wholesaler} %>
         <td><%= link_to wholesaler.company, edit_object_url(wholesaler) %></td>
         <td><%= wholesaler.buyer %></td>
-        <td><%= link_to wholesaler.user.email, admin_user_path(wholesaler.user) %></td>
+        <td><%= link_to wholesaler.user.email, spree.admin_user_path(wholesaler.user) %></td>
         <td><%= wholesaler.website %></td>
         <td><%= wholesaler.phone %></td>
         <td width="50px"><%= wholesaler.active? ? 'Yes' : 'No' %></td>
