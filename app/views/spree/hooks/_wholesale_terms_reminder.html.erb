@@ -1,7 +1,7 @@
 <% order ||= @order %>
 <% if order && order.is_wholesale? %>
   <% if order.wholesaler.terms == "Transferwise USD" || order.wholesaler.terms == "Transferwise EUR" %>
-    <p><%= Spree.t(:terms_reminder) %></p>
+    <p><strong><%= Spree.t(:terms_reminder) %></strong></p>
   <% end %>
   <p class="wholesale-customer-id">
     <%= t('spree.wholesaler.company', { :company => order.wholesaler.company }) %><br/>
