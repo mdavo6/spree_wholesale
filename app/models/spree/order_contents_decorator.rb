@@ -19,4 +19,24 @@ Spree::OrderContents.class_eval do
     line_item
   end
 
+  def update_cart(params)
+    if order.update_attributes(filter_order_items(params))
+      if order.is_wholesale?
+        order.line_items = order.line_items.select { |li| li.quantity >= 0 }
+      else
+        order.line_items = order.line_items.select { |li| li.quantity > 0 }
+      end
+      # Update totals, then check if the order is eligible for any cart promotions.
+      # If we do not update first, then the item total will be wrong and ItemTotal
+      # promotion rules would not be triggered.
+      persist_totals
+      Spree::PromotionHandler::Cart.new(order).activate
+      order.ensure_updated_shipments
+      persist_totals
+      true
+    else
+      false
+    end
+  end
+
 end
