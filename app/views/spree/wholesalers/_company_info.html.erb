@@ -25,10 +25,8 @@
     </div>
 
     <div class="form-group" id="website">
-      <%= form.label :website do %>
-        <%= Spree.t(:website) %><abbr class="required" title="required">*</abbr>
-      <% end %>
-      <%= form.text_field :website, :class => 'form-control required' %>
+      <%= form.label :website, Spree.t(:website) %><br />
+      <%= form.text_field :website, :class => 'form-control' %>
     </div>
 
     <div class="form-group" id="social">

@@ -47,6 +47,9 @@ en:
       more_information_required: Please enter your company details below to complete the registration process.
       more_information_required_link: Please enter your company details using this link to complete the registration process.
       logged_out: Please log in or create an account to continue.
+      wholesale_cart_instructions: Edit the item quantities below and click refresh to recalculate the order subtotal.
+      wholesale_cart_shipping: Please note that shipping costs will be added during checkout.
+      new_wholesale_account: New Wholesale Account
 
     wholesaler_mailer:
       new_wholesaler_email:
@@ -98,8 +101,9 @@ en:
     website: Website
     social: Social media
     contact_person: Contact Person
-    new_wholesale_order: New Wholesale Order
+    new_wholesale_order: Create New Wholesale Order
     user_details: User Details
     company_details: Company Details
     show_only_wholesale_orders: Show only wholesale orders
     terms_reminder: Please note that your order will only be shipped following payment. Payment details have been provided on your invoice.
+    order_currency: Order currency

@@ -46,14 +46,33 @@ Spree::Order.class_eval do
     save
   end
 
-  private
+  # Associates the specified user with the order.
+  def associate_user!(user, override_email = true)
+    self.user           = user
+    self.email          = user.email if override_email
+    self.created_by   ||= user
+    self.bill_address ||= user.bill_address
+    self.ship_address ||= user.ship_address
 
-  def payment_via_transferwise
-    self.is_wholesale? && (wholesaler.terms == 'Transferwise USD' || wholesaler.terms == 'Transferwise EUR')
+    # Added line to indicate order is wholesale order if user has wholesale role
+    self.wholesale = user.wholesaler?
+
+    # Added wholesale to slice to ensure change above is saved
+    changes = slice(:user_id, :email, :created_by_id, :bill_address_id, :ship_address_id, :wholesale)
+
+    # immediately persist the changes we just made, but don't use save
+    # since we might have an invalid address associated
+    self.class.unscoped.where(id: self).update_all(changes)
   end
 
   def wholesaler_has_net30_terms
     self.is_wholesale? && wholesaler.terms == 'Net30'
+  end
+
+  private
+
+  def payment_via_transferwise
+    self.is_wholesale? && (wholesaler.terms == 'Transferwise USD' || wholesaler.terms == 'Transferwise EUR')
   end
 
   def wholesaler_with_payment_in_advance?

@@ -1,0 +1,5 @@
+<% if spree_current_user.wholesaler? && @order.is_wholesale? %>
+  <p class="text-center">
+    <%= Spree.t('wholesaler.wholesale_cart_instructions') %>
+  </p>
+<% end %>

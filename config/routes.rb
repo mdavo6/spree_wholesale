@@ -19,6 +19,12 @@ Spree::Core::Engine.routes.draw do
       end
     end
 
+    resources :orders, except: [:show] do
+      member do
+        post :currency, defaults: { format: :json }
+      end
+    end
+
     resource :wholesale_configurations
   end
 

@@ -1,6 +1,7 @@
 class Spree::WholesalersController < Spree::StoreController
   respond_to :html, :xml
   before_filter :check_wholesale_user, :except => [:index, :registration, :update_registration]
+  after_filter :persist_user_address, :only => [:create, :update]
 
   def new
     @wholesaler = Spree::Wholesaler.new
@@ -75,18 +76,13 @@ class Spree::WholesalersController < Spree::StoreController
     end
   end
 
-  # Checks whether the user has entered their company details and redirects
-  # to the new wholesaler path
-  # def company_information_entered
-  #   return if spree_current_user.wholesaler?
-  #   if spree_current_user.wholesaler.nil?
-  #     flash[:notice] = I18n.t('spree.wholesaler.more_information_required')
-  #     redirect_to spree.new_wholesaler_path
-  #   else
-  #     flash[:notice] = I18n.t('spree.wholesaler.review_in_progress')
-  #     redirect_to spree.wholesalers_path
-  #   end
-  # end
+  def persist_user_address
+    if spree_current_user
+      spree_current_user.bill_address_id = @wholesaler.billing_address_id
+      spree_current_user.ship_address_id = @wholesaler.shipping_address_id
+      spree_current_user.save
+    end
+  end
 
   private
 

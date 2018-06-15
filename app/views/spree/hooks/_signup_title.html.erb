@@ -1,0 +1,7 @@
+<h1 class="text-center">
+  <% if params[:wholesale_user] || @wholesale_user %>
+    <%= Spree.t('wholesaler.new_wholesale_account') %>
+  <% else %>
+    <%= Spree.t(:new_customer) %>
+  <% end %>
+</h1>
