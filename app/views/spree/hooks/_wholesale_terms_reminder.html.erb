@@ -3,8 +3,4 @@
   <% if order.wholesaler.terms == "Transferwise USD" || order.wholesaler.terms == "Transferwise EUR" %>
     <p><strong><%= Spree.t(:terms_reminder) %></strong></p>
   <% end %>
-  <p class="wholesale-customer-id">
-    <%= t('spree.wholesaler.company', { :company => order.wholesaler.company }) %><br/>
-    <%= t('spree.wholesaler.buyer', { :buyer => order.wholesaler.buyer }) %>
-  </p>
 <% end %>
