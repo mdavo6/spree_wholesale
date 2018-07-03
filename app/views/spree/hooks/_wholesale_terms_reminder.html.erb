@@ -1,6 +1,6 @@
 <% order ||= @order %>
 <% if order && order.is_wholesale? %>
-  <% if order.wholesaler.terms == "Transferwise USD" || order.wholesaler.terms == "Transferwise EUR" %>
+  <% if order.wholesaler.terms == "EFT" || order.wholesaler.terms == "Transferwise USD" || order.wholesaler.terms == "Transferwise EUR" %>
     <p><strong><%= Spree.t(:terms_reminder) %></strong></p>
   <% end %>
 <% end %>
