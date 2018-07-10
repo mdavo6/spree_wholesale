@@ -1,6 +1,7 @@
 class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
   respond_to :html, :xml
   before_filter :approval_setup, :only => [ :approve, :reject ]
+  after_filter :persist_user_address, :only => [:create, :update]
 
   def index
   end
@@ -65,6 +66,12 @@ class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
     return redirect_to request.referer, :flash => { :error => "Wholesaler is already rejected." } unless @wholesaler.active?
     @wholesaler.deactivate!
     redirect_to request.referer, :flash => { :notice => "Wholesaler was successfully rejected." }
+  end
+
+  def persist_user_address
+    @wholesaler.user.bill_address_id = @wholesaler.billing_address_id
+    @wholesaler.user.ship_address_id = @wholesaler.shipping_address_id
+    @wholesaler.save
   end
 
   private
