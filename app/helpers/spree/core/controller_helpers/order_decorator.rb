@@ -15,6 +15,13 @@ Spree::Core::ControllerHelpers::Order.module_eval  do
       # This line added to see the current order as a wholesale order
       @current_order.wholesale = spree_current_user.wholesaler? if spree_current_user
 
+      # If statement added to ensure affiliate or referral code is applied at cart - From Spree_Reffiliate
+      if session[:affiliate]
+        @current_order.affiliate = Spree::Affiliate.find_by(path: session[:affiliate])
+      elsif session[:referral]
+        @current_order.referral = Spree::Referral.find_by(code: session[:referral])
+      end
+
       # See issue #3346 for reasons why this line is here
       @current_order.created_by ||= try_spree_current_user
       @current_order.save!
