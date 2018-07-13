@@ -1,4 +1,5 @@
 class Spree::WholesalersController < Spree::StoreController
+  before_filter :new_subscriber
   respond_to :html, :xml
   before_filter :check_wholesale_user, :except => [:index, :registration, :update_registration]
   after_filter :persist_user_address, :only => [:create, :update]
