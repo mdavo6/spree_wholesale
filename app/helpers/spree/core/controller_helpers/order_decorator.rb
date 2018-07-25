@@ -17,9 +17,9 @@ Spree::Core::ControllerHelpers::Order.module_eval  do
 
       # If statement added to ensure affiliate or referral code is applied at cart - From Spree_Reffiliate
       if session[:affiliate]
-        @current_order.affiliate = Spree::Affiliate.find_by(path: session[:affiliate])
+        @current_order.affiliate = Spree::Affiliate.find_by(path: cookies[:affiliate])
       elsif session[:referral]
-        @current_order.referral = Spree::Referral.find_by(code: session[:referral])
+        @current_order.referral = Spree::Referral.find_by(code: cookies[:referral])
       end
 
       # See issue #3346 for reasons why this line is here
