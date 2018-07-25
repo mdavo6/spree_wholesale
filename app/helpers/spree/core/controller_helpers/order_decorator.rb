@@ -16,9 +16,9 @@ Spree::Core::ControllerHelpers::Order.module_eval  do
       @current_order.wholesale = spree_current_user.wholesaler? if spree_current_user
 
       # If statement added to ensure affiliate or referral code is applied at cart - From Spree_Reffiliate
-      if session[:affiliate]
+      if cookies[:affiliate]
         @current_order.affiliate = Spree::Affiliate.find_by(path: cookies[:affiliate])
-      elsif session[:referral]
+      elsif cookies[:referral]
         @current_order.referral = Spree::Referral.find_by(code: cookies[:referral])
       end
 
