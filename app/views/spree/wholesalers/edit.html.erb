@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-offset-3 col-md-6">
-    <h1 class="text-center"><%= t('Stockist Information') %></h1>
+    <h1 class="text-center"><%= Spree.t(:stockist_information) %></h1>
   </div>
 </div>
 
@@ -44,6 +44,6 @@
   </div>
 
   <div class="well text-right form-buttons" data-hook="buttons">
-    <%= form.submit Spree.t("update"), :class => 'btn btn-lg btn-primary' %>
+    <%= form.submit Spree.t("update"), :class => 'btn btn-dark btn-lg btn-primary' %>
   </div>
 <% end %>
