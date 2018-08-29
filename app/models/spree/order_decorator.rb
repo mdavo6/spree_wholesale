@@ -69,11 +69,11 @@ Spree::Order.class_eval do
     self.is_wholesale? && wholesaler.terms == 'Net30'
   end
 
-  private
-
   def payment_via_transferwise
     self.is_wholesale? && (wholesaler.terms == 'Transferwise USD' || wholesaler.terms == 'Transferwise EUR')
   end
+
+  private
 
   def wholesaler_with_payment_in_advance?
     self.is_wholesale? && wholesaler.terms == 'Advance'
