@@ -23,9 +23,9 @@ Spree::UserRegistrationsController.class_eval do
       # Added to retain wholesale_user param if create fails
       if params[:spree_user][:wholesale_user]
         @wholesale_user = true
-        render :new
+        render :new, status: :unprocessable_entity
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
   end
