@@ -7,4 +7,9 @@ Spree::BaseHelper.class_eval do
       to_html
   end
 
+  def schema_price(product_or_variant, wholesale = false)
+    product_or_variant.price_in(current_currency, wholesale).
+    amount.to_s
+  end
+
 end
