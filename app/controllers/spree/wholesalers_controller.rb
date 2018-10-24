@@ -31,7 +31,7 @@ class Spree::WholesalersController < Spree::StoreController
       redirect_to spree.account_path
     else
       flash[:error] = I18n.t('spree.wholesaler.signup_failed')
-      render :action => "new"
+      render :new, status: :unprocessable_entity
     end
   end
 
