@@ -99,7 +99,7 @@ en:
     company_store: Store/Company
     buyer: Contact Person
     website: Website
-    social: Social media
+    social_media: Social media
     contact_person: Contact Person
     new_wholesale_order: Create New Wholesale Order
     user_details: User Details
