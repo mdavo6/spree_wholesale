@@ -1,5 +1,22 @@
 Spree::OrderContents.class_eval do
 
+  def add_wholesale(variant, quantity = 1, options = {})
+    timestamp = Time.current
+    line_item = add_to_line_item(variant, quantity, options)
+    options[:line_item_created] = true if timestamp <= line_item.created_at
+  end
+
+  def after_wholesale_add(order, options = {})
+    persist_totals
+    shipment = options[:shipment]
+    shipment.present? ? shipment.update_amounts : order.ensure_updated_shipments
+    PromotionHandler::Cart.new(order).activate
+    Adjustable::AdjustmentsUpdater.update(order)
+    TaxRate.adjust(order, line_items) if options[:line_item_created]
+    persist_totals
+  end
+
+
   def add_to_line_item(variant, quantity, options = {})
     line_item = grab_line_item_by_variant(variant, false, options)
 
