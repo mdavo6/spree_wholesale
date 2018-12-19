@@ -7,24 +7,31 @@ Spree::OrdersController.class_eval do
     quantity = 0
     options  = params[:options] || {}
 
-    # 2,147,483,647 is crazy. See issue #2695.
+    # Delete any existing line items
+    order.line_items.destroy_all
+
+    # Create blank array
+    line_items = []
 
     in_stock_wholesale_variants.each do |variant|
-
-      begin
-        order.contents.add_wholesale(variant, quantity, options)
-      rescue ActiveRecord::RecordInvalid => e
-        error = e.record.errors.full_messages.join(", ")
-      end
-
-      if error
-        flash[:error] = error
-        redirect_back_or_default(spree.root_path)
-      end
-
+      # Populate line item array with variant hashes
+      line_items << order.contents.create_wholesale_line_item(variant, quantity, options)
     end
 
-    after_wholesale_add(order, options)
+    begin
+      # Save line item array to order (save only once to reduce load times)
+      order.line_items.create!(line_items)
+    rescue ActiveRecord::RecordInvalid => e
+      error = e.record.errors.full_messages.join(", ")
+    end
+
+    if error
+      flash[:error] = error
+      redirect_back_or_default(spree.root_path)
+    end
+
+    # Update all the totals, checking for relevant taxes or promotions
+    order.contents.after_wholesale_add(order, order.line_items, options)
 
     respond_with(order) do |format|
       format.html { redirect_to cart_path }
