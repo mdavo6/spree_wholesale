@@ -49,7 +49,7 @@ en:
       logged_out: Please log in or create an account to continue.
       wholesale_cart_instructions: Edit the item quantities below and click refresh to recalculate the order subtotal.
       wholesale_cart_shipping: Please note that shipping costs will be added during checkout.
-      new_wholesale_account: New Wholesale Account
+      new_wholesaler_login: New Wholesale Login
 
     wholesaler_mailer:
       new_wholesaler_email:
@@ -108,3 +108,6 @@ en:
     terms_reminder: Please note that your order will only be shipped following payment. Payment details have been provided on your invoice.
     order_currency: Order currency
     stockist_information: Store Information
+    line_sheets: Line Sheets
+    view_cart: View Cart
+    item_added: Item added to cart

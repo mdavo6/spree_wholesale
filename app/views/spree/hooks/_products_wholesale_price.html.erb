@@ -1,5 +1,0 @@
-<% if try_spree_current_user && try_spree_current_user.wholesaler? %>
-  <% if product.is_wholesaleable? && product.wholesale_price.present? %>
-    <div class="price wholesale"><%= display_price(product, true) %></div>
-  <% end %>
-<% end %>

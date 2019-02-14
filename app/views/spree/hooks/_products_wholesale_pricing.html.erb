@@ -1,0 +1,12 @@
+<% if try_spree_current_user && try_spree_current_user.wholesaler? %>
+  <% if product.is_wholesaleable? && product.wholesale_price.present? %>
+    <%= product.sku %>
+    <div class="product-price price wholesale"><%= display_price(product, true) %></div>
+    <span class="price selling" itemprop="price">MSRP <%= display_price(product) %></span>
+    <div id="cart-form" data-hook="cart_form">
+      <%= render :partial => 'spree/shared/cart_form', locals: {product: product} %>
+    </div>
+  <% end %>
+<% else %>
+  <span class="product-price price selling center-block" itemprop="price"><%= display_price(product) %></span>
+<% end %>
