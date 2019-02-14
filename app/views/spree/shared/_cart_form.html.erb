@@ -1,7 +1,7 @@
 <%= form_for :order, url: populate_orders_path, html: { id: "populate-#{product.master.id}", class: "form-inline" }, remote: true do |f| %>
   <div class="row" id="inside-product-cart-form" data-hook="inside_product_cart_form" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
     <% if product.price_in(current_currency) && !product.price.nil? %>
-      <div class="add-to-cart">
+      <div class="add-to-wholesale-cart">
         <% if product.can_supply? %>
           <div class="form-group form-group-sm">
             <%= number_field_tag :quantity, 1, id: "cart-quantity", class: 'title form-control', min: 1 %>
