@@ -4,19 +4,19 @@
       <h3 class="text-left"><%= Spree.t(:line_sheets) %></h3>
     </div>
     <div class="col-xs-6 col-md-3">
-      <%= link_to nested_taxons_path("concrete-jewellery") do %>
+      <%= link_to line_sheets_path("concrete-jewellery") do %>
         <%= image_tag("", class: "img-responsive center-block lazyload", alt: "Mintabie Bangle", data: { src: image_path("Mintabie_Bangle.jpg") }) %>
         <div class="range-link text-center">Cluster Collection</div>
       <% end %>
     </div>
     <div class="col-xs-6 col-md-3">
-      <%= link_to nested_taxons_path("beach-jewellery"), data: {turbolinks: false} do %>
+      <%= link_to line_sheets_path("beach-jewellery"), data: {turbolinks: false} do %>
         <%= image_tag("", class: "img-responsive center-block lazyload", alt: "Lagoon Necklace", data: { src: image_path("LagoonNecklace.jpg") }) %>
         <div class="range-link text-center">Aqua Collection</div>
       <% end %>
     </div>
     <div class="col-xs-6 col-md-3">
-      <%= link_to nested_taxons_path("wood-and-resin") do %>
+      <%= link_to line_sheets_path("wood-and-resin") do %>
         <%= image_tag("", class: "img-responsive center-block lazyload", alt: "Greywood Dangle Earrings in Violet", data: { src: image_path("VioletGreywoodDangle.jpg") }) %>
         <div class="range-link text-center">Ligno Collection</div>
       <% end %>
