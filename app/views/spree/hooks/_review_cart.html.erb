@@ -1,7 +1,0 @@
-<% if try_spree_current_user && try_spree_current_user.wholesaler? %>
-  <div class="row" id="button-row">
-    <div class="col-md-12 text-center">
-      <%= link_to Spree.t(:view_cart), cart_path, class: 'btn btn-lg btn-dark btn-primary checkout-link' %>
-    </div>
-  </div>
-<% end %>
