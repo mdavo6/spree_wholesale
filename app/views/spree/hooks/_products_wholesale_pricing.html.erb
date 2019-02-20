@@ -1,4 +1,4 @@
-<% if wholesaler_signed_in? %>
+<% if try_spree_current_user && try_spree_current_user.wholesaler? %>
   <% if product.is_wholesaleable? && product.wholesale_price.present? %>
     <%= product.sku %>
     <div class="product-price price wholesale"><%= display_price(product, true) %></div>
