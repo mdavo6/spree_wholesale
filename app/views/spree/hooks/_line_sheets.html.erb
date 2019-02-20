@@ -10,7 +10,7 @@
       <% end %>
     </div>
     <div class="col-xs-6 col-md-3">
-      <%= link_to nested_taxons_path("beach-jewellery") do %>
+      <%= link_to nested_taxons_path("beach-jewellery"), data: {turbolinks: false} do %>
         <%= image_tag("", class: "img-responsive center-block lazyload", alt: "Lagoon Necklace", data: { src: image_path("LagoonNecklace.jpg") }) %>
         <div class="range-link text-center">Aqua Collection</div>
       <% end %>
