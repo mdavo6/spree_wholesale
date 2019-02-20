@@ -9,7 +9,7 @@ Spree::Core::Engine.routes.draw do
   get 'wholesalers/welcome' => 'wholesalers#welcome', :as => :wholesaler_welcome
 
   # For line sheets
-  get '/l/*id', to: 'taxons#wholesale_show', as: :wholesale_taxon
+  get '/line-sheets/*id', to: 'taxons#line_sheet', as: :line_sheets
 
   resources :wholesalers
 
