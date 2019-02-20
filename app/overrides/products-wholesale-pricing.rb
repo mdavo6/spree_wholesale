@@ -3,5 +3,5 @@ Deface::Override.new(
   :name => 'products-wholesale-pricing',
   :replace => "[data-hook='products_list_item'] .price.selling",
   :partial => "spree/hooks/products_wholesale_pricing",
-  :disabled => false
+  :disabled => true
 )
