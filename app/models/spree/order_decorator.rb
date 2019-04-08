@@ -66,6 +66,10 @@ Spree::Order.class_eval do
   end
 
   def wholesaler_has_net30_terms
+    self.is_wholesale? && (wholesaler.terms == 'Net30' || wholesaler.terms == 'Transferwise USD Net30')
+  end
+
+  def payment_via_eft_net30
     self.is_wholesale? && wholesaler.terms == 'Net30'
   end
 
@@ -73,14 +77,26 @@ Spree::Order.class_eval do
     self.is_wholesale? && (wholesaler.terms == 'Transferwise USD' || wholesaler.terms == 'Transferwise EUR')
   end
 
-  private
+  def payment_via_transferwise_eur
+    self.is_wholesale? && wholesaler.terms == 'Transferwise EUR'
+  end
 
-  def wholesaler_with_payment_in_advance?
-    self.is_wholesale? && wholesaler.terms == 'Advance'
+  def payment_via_transferwise_usd
+    self.is_wholesale? && (wholesaler.terms == 'Transferwise USD' || wholesaler.terms == 'Transferwise USD Net30')
+  end
+
+  def payment_via_transferwise_usd_net30
+    self.is_wholesale? && wholesaler.terms == 'Transferwise USD Net30'
   end
 
   def payment_via_eft
     self.is_wholesale? && wholesaler.terms == 'EFT'
+  end
+
+  private
+
+  def wholesaler_with_payment_in_advance?
+    self.is_wholesale? && wholesaler.terms == 'Advance'
   end
 
 end

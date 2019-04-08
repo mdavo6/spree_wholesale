@@ -40,10 +40,14 @@ class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
 
     if @wholesaler.update_attributes(wholesaler_params)
       flash[:notice] = I18n.t('spree.admin.wholesaler.update_success')
+      respond_with(@wholesaler) do |format|
+        format.html { redirect_to location_after_save }
+        format.js { render layout: false }
+      end
     else
       flash[:error] = I18n.t('spree.admin.wholesaler.update_failed')
+      respond_with(@wholesaler)
     end
-    respond_with(@wholesaler)
   end
 
   def destroy
