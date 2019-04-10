@@ -105,7 +105,7 @@ en:
     user_details: User Details
     company_details: Company Details
     show_only_wholesale_orders: Show only wholesale orders
-    terms_reminder: Please note that your order will only be shipped following payment. Payment details have been provided on your invoice.
+    terms_reminder: Please note that your order will not be shipped until payment is received. Payment details have been provided in your order confirmation email.
     order_currency: Order currency
     stockist_information: Store Information
     line_sheets: Line Sheets
