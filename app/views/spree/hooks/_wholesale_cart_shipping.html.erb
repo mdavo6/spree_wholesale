@@ -1,4 +1,4 @@
-<% if try_spree_current_user && try_spree_current_user.wholesaler? && @order.is_wholesale? %>
+<% if try_spree_current_user && try_spree_current_user.wholesaler_or_lead? && @order.is_wholesale_or_lead? %>
   <p class="text-right">
     <%= Spree.t('wholesaler.wholesale_cart_shipping') %>
   </p>

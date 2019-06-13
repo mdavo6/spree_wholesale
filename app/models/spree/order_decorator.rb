@@ -24,6 +24,18 @@ Spree::Order.class_eval do
     user && user.wholesaler
   end
 
+  def is_lead?
+    lead
+  end
+
+  def lead
+    user && user.lead?
+  end
+
+  def is_wholesale_or_lead?
+    is_wholesale? || is_lead?
+  end
+
   def set_line_item_prices(use_price=:price)
     line_items.includes(:variant).each do |line_item|
       line_item.price = line_item.variant.send(use_price)

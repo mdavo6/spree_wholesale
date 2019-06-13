@@ -1,7 +1,7 @@
 class Spree::WholesalersController < Spree::StoreController
   before_filter :new_subscriber
   respond_to :html, :xml
-  before_filter :check_wholesale_user, :except => [:index, :registration, :update_registration]
+  before_filter :check_wholesale_user, :except => [:new, :index, :registration, :update_registration]
   after_filter :persist_user_address, :only => [:create, :update]
 
   def new
@@ -24,11 +24,20 @@ class Spree::WholesalersController < Spree::StoreController
     @wholesaler = Spree::Wholesaler.new(wholesaler_params)
     @wholesaler.user = spree_current_user
     if @wholesaler.save
-      flash[:notice] = I18n.t('spree.wholesaler.review_in_progress')
-      Spree::WholesaleMailer.new_wholesaler_email(@wholesaler).deliver
-      # To be discussed - Could give wholesalers access to wholesale prices immediately?
-      # @wholesaler.activate!
-      redirect_to spree.account_path
+      if @wholesaler.user.lead?
+        @wholesaler.convert_lead_to_wholesaler!
+        if current_order
+          redirect_to checkout_state_path(current_order.state)
+        else
+          redirect_to spree.account_path
+        end
+      else
+        flash[:notice] = I18n.t('spree.wholesaler.review_in_progress')
+        Spree::WholesaleMailer.new_wholesaler_email(@wholesaler).deliver
+        # To be discussed - Could give wholesalers access to wholesale prices immediately?
+        # @wholesaler.activate!
+        redirect_to spree.account_path
+      end
     else
       flash[:error] = I18n.t('spree.wholesaler.signup_failed')
       render :new, status: :unprocessable_entity
@@ -68,7 +77,7 @@ class Spree::WholesalersController < Spree::StoreController
     # Always want registration so comment out config
     # return unless Spree::Auth::Config[:registration_step]
     if spree_current_user
-      return if spree_current_user.admin? || spree_current_user.wholesale_user
+      return if spree_current_user.admin? || spree_current_user.wholesale_user || spree_current_user.lead?
       flash[:notice] = I18n.t('spree.wholesaler.not_a_wholesaler')
       redirect_to spree.signup_path(wholesale_user: true)
     else

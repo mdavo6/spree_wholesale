@@ -1,4 +1,4 @@
-<% if spree_current_user.wholesaler? %>
+<% if spree_current_user.wholesaler_or_lead? %>
   <div class="row">
     <div class="col-md-12">
       <h3 class="text-left"><%= Spree.t(:line_sheets) %></h3>

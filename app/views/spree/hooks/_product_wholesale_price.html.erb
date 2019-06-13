@@ -1,4 +1,4 @@
-<% if spree_current_user && spree_current_user.has_spree_role?(:wholesaler) %>
+<% if spree_current_user && spree_current_user.wholesaler_or_lead? %>
   <% if @product.is_wholesaleable? && @product.wholesale_price.present? %>
     <dt class="wholesale"><%= t(:wholesale_price) %></dt>
     <dd class="wholesale"><span class="price wholesale"><%= display_price(@product, true) %></span></dd>

@@ -8,7 +8,7 @@ Spree::OrderContents.class_eval do
       line_item.currency = currency unless currency.nil?
     else
       # Added wholesale option
-      opts = { currency: order.currency, wholesale: (order.is_wholesale? && variant.is_wholesaleable?) }.
+      opts = { currency: order.currency, wholesale: (order.is_wholesale_or_lead? && variant.is_wholesaleable?) }.
                                           merge ActionController::Parameters.new(options).
                                           permit(Spree::PermittedAttributes.line_item_attributes)
       line_item = order.line_items.new(quantity: quantity,

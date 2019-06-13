@@ -24,6 +24,17 @@ class Spree::Wholesaler < ActiveRecord::Base
     user.save
   end
 
+  def convert_lead_to_wholesaler!
+    get_wholesale_role
+    return false if user.spree_roles.include?(@role)
+    user.spree_roles << @role
+    get_lead_role
+    return false unless user.spree_roles.include?(@role)
+    user.spree_roles.delete(@role)
+    Spree::WholesaleMailer.approve_wholesaler_email(self).deliver
+    user.save
+  end
+
   def deactivate!
     get_wholesale_role
     return false unless user.spree_roles.include?(@role)
@@ -48,6 +59,10 @@ class Spree::Wholesaler < ActiveRecord::Base
 
   def get_wholesale_role
     @role = Spree::Role.find_or_create_by(name: "wholesaler")
+  end
+
+  def get_lead_role
+    @role = Spree::Role.find_or_create_by(name: "lead")
   end
 
   def use_billing?
