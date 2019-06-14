@@ -77,7 +77,7 @@ class Spree::WholesalersController < Spree::StoreController
     # Always want registration so comment out config
     # return unless Spree::Auth::Config[:registration_step]
     if spree_current_user
-      return if spree_current_user.admin? || spree_current_user.wholesale_user || spree_current_user.wholesaler?
+      return if spree_current_user.admin? || spree_current_user.wholesale_user || spree_current_user.wholesaler_or_lead?
       flash[:notice] = I18n.t('spree.wholesaler.not_a_wholesaler')
       redirect_to spree.signup_path(wholesale_user: true)
     else
