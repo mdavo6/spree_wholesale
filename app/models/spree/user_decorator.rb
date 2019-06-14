@@ -1,7 +1,7 @@
 Spree::User.class_eval do
   has_one :wholesaler, :class_name => "Spree::Wholesaler"
 
-  before_save :generate_auth_token, if: :lead?
+  before_create :generate_auth_token, if: :lead?
   before_save :delete_auth_token, unless: :lead?
 
   scope :wholesale, -> { includes(:spree_roles).where("spree_roles.name" => "wholesaler") }
