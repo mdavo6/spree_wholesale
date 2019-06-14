@@ -1,7 +1,21 @@
 Spree::Order.class_eval do
 
+  after_validation :check_wholesaler_addresses, if: :is_wholesale?
+
   # Added to allow admin search for wholesale orders
   self.whitelisted_ransackable_attributes =  %w[completed_at created_at email number state payment_state shipment_state total considered_risky wholesale]
+
+  def check_wholesaler_addresses
+    if new_addresses
+      wholesaler.bill_address = bill_address
+      wholesaler.ship_address = ship_address
+      wholesaler.save
+    end
+  end
+
+  def new_addresses
+    wholesaler.bill_address != bill_address || wholesaler.ship_address != ship_address
+  end
 
   def payment_required?
 

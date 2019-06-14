@@ -55,10 +55,10 @@ class Spree::WholesalersController < Spree::StoreController
     if @wholesaler.update_attributes(wholesaler_params)
       @wholesaler.user = spree_current_user
       flash[:notice] = I18n.t('spree.wholesaler.update_success')
+      redirect_to spree.account_path
     else
-      flash[:error] = I18n.t('spree.wholesaler.update_failed')
+      render :edit
     end
-    respond_with(@wholesaler)
   end
 
   def destroy
@@ -77,7 +77,7 @@ class Spree::WholesalersController < Spree::StoreController
     # Always want registration so comment out config
     # return unless Spree::Auth::Config[:registration_step]
     if spree_current_user
-      return if spree_current_user.admin? || spree_current_user.wholesale_user || spree_current_user.lead?
+      return if spree_current_user.admin? || spree_current_user.wholesale_user || spree_current_user.wholesaler?
       flash[:notice] = I18n.t('spree.wholesaler.not_a_wholesaler')
       redirect_to spree.signup_path(wholesale_user: true)
     else
