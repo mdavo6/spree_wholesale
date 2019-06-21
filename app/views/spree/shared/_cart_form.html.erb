@@ -31,8 +31,30 @@
 
     <% if product.variants_and_option_values(current_currency).any? %>
       <div id="product-variants" class="col-md-12">
-        <h6 class="product-section-title"><%= Spree.t(:variants) %></h6>
-        <ul id="variant-list">
+        <% if product.option_types.exists?(name: "Resin Colour") %>
+          <h6 class="products-section-title"><%= Spree.t(:select_colour) %></h6>
+          <ul id="colour-variant-list" class="list-inline">
+          <% product.variants_and_option_values(current_currency).each_with_index do |variant, index| %>
+            <li>
+              <%= radio_button_tag "variant_id", variant.id, index == 0,
+                  'data-price' => variant.price_in(current_currency).money,
+                  'data-in-stock' => variant.can_supply?
+              %>
+              <%= label_tag "variant_id_#{ variant.id }", class: "coloured-circle #{variant_colour variant}" do %>
+                <i class="fa fa-circle fa-2x"></i>
+                <% if variant_price variant %>
+                  <span class="price diff"><%= variant_price variant %></span>
+                <% end %>
+                <% unless variant.can_supply? %>
+                  <span class="out-of-stock"><%= Spree.t(:out_of_stock) %></span>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+          </ul>
+        <% else %>
+          <h6 class="products-section-title"><%= Spree.t(:variants) %></h6>
+          <ul id="variant-list">
           <% product.variants_and_option_values(current_currency).each_with_index do |variant, index| %>
             <li>
               <%= radio_button_tag "variant_id", variant.id, index == 0,
@@ -51,7 +73,9 @@
                 <% end %>
               <% end %>
             </li>
-          <% end%>
+          <% end %>
+          </ul>
+        <% end%>
         </ul>
       </div>
     <% else %>
