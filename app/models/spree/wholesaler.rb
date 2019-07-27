@@ -47,7 +47,7 @@ class Spree::Wholesaler < ActiveRecord::Base
   end
 
   def self.term_options
-    ["Advance", "EFT", "Net30", "Transferwise USD", "Transferwise EUR", "Transferwise USD Net30"]
+    ["Advance", "EFT", "Net30", "Transferwise USD", "Transferwise EUR", "Transferwise USD Net30", "Paypal Invoice"]
   end
 
   # Added for address form functionality
