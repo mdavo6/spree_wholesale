@@ -95,7 +95,7 @@ class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
   end
 
   def permitted_address_attributes
-    [:firstname, :lastname, :address1, :address2, :city, :state_id, :zipcode, :country_id, :phone, :id]
+    [:firstname, :lastname, :company, :address1, :address2, :city, :state_id, :zipcode, :country_id, :phone, :id]
   end
 
   def wholesaler_params
