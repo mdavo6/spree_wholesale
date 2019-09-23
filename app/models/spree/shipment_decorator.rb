@@ -12,7 +12,7 @@ Spree::Shipment.class_eval do
     return 'shipped' if shipped?
 
     # Added wholesaler has net terms to allow order to be shipped prior to payment being received.
-    order.paid? || Spree::Config[:auto_capture_on_dispatch] || order.wholesaler_has_net30_terms || order.payment_via_transferwise ? 'ready' : 'pending'
+    order.paid? || Spree::Config[:auto_capture_on_dispatch] || order.wholesaler_is_net30_or_paypal || order.payment_via_transferwise ? 'ready' : 'pending'
   end
 
 end

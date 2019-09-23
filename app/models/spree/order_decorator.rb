@@ -95,6 +95,10 @@ Spree::Order.class_eval do
     self.is_wholesale? && (wholesaler.terms == 'Net30' || wholesaler.terms == 'Transferwise USD Net30')
   end
 
+  def wholesaler_is_net30_or_paypal
+    self.is_wholesale? && (wholesaler.terms == 'Net30' || wholesaler.terms == 'Transferwise USD Net30' || wholesaler.terms == 'Paypal Invoice')
+  end
+
   def payment_via_eft_net30
     self.is_wholesale? && wholesaler.terms == 'Net30'
   end
