@@ -4,17 +4,23 @@ class Spree::Wholesaler < ActiveRecord::Base
   belongs_to :user, :class_name => "Spree::User"
   belongs_to :bill_address, :foreign_key => "billing_address_id", :class_name => "Spree::Address", :dependent => :destroy
   belongs_to :ship_address, :foreign_key => "shipping_address_id", :class_name => "Spree::Address", :dependent => :destroy
+  belongs_to :visible_address, :foreign_key => "visible_address_id", :class_name => "Spree::Address", :dependent => :destroy
 
   accepts_nested_attributes_for :bill_address
   accepts_nested_attributes_for :ship_address
+  accepts_nested_attributes_for :visible_address
   accepts_nested_attributes_for :user
 
   attr_accessor :use_billing
   before_validation :clone_billing_address, if: :use_billing?
+  before_validation :clone_visible_address
   validates :company, :buyer, :phone, :presence => true
 
   delegate_belongs_to :user, :spree_roles
   delegate_belongs_to :user, :email
+
+  scope :is_visible, -> { where(visible: true) }
+  scope :has_visible_address, -> { where.not(visible_address: nil) }
 
   def activate!
     get_wholesale_role
@@ -50,6 +56,10 @@ class Spree::Wholesaler < ActiveRecord::Base
     ["Advance", "EFT", "Net30", "Transferwise USD", "Transferwise EUR", "Transferwise USD Net30", "Paypal Invoice"]
   end
 
+  def self.visible_address_options
+    ["Billing Address", "Shipping Address", "Another Address"]
+  end
+
   # Added for address form functionality
   def shipping_eq_billing_address?
     (bill_address.empty? && ship_address.empty?) || bill_address.same_as?(ship_address)
@@ -74,6 +84,16 @@ class Spree::Wholesaler < ActiveRecord::Base
       self.ship_address = bill_address.clone
     else
       self.ship_address.attributes = bill_address.attributes.except("id", "updated_at", "created_at")
+    end
+    true
+  end
+
+  def clone_visible_address
+    # Required to prevent validation error
+    if ship_address && visible_address_string == "Shipping Address"
+      self.visible_address = ship_address.clone
+    elsif bill_address && visible_address_string == "Billing Address"
+      self.visible_address = bill_address.clone
     end
     true
   end

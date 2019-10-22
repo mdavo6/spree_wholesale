@@ -13,6 +13,12 @@ class Spree::WholesalersController < Spree::StoreController
   end
 
   def index
+    @wholesalers = Spree::Wholesaler.is_visible.has_visible_address
+    @countries = {}
+    @wholesalers.group_by { |w| w.visible_address.country.try(:name) }.each do |country, wholesalers|
+      states = wholesalers.map { |w| w.visible_address.state.name }.uniq.to_a
+      @countries[country] = states
+    end
   end
 
   def show

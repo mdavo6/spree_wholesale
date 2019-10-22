@@ -16,6 +16,7 @@ class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
     @wholesaler.build_user
     @wholesaler.bill_address = Spree::Address.default
     @wholesaler.ship_address = Spree::Address.default
+    @wholesaler.visible_address = Spree::Address.default
     respond_with(@wholesaler)
   end
 
@@ -32,6 +33,9 @@ class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
 
   def edit
     @wholesaler = Spree::Wholesaler.find(params[:id])
+    if @wholesaler.visible_address.nil?
+      @wholesaler.visible_address = Spree::Address.default
+    end
     respond_with(@wholesaler)
   end
 
@@ -101,9 +105,10 @@ class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
   def wholesaler_params
     params.require(:wholesaler).
       permit(:ship_address, :bill_address, :company, :buyer,
-        :terms, :phone, :website, :social, :comments, :use_billing,
+        :terms, :phone, :website, :social, :comments, :use_billing, :visible, :visible_address_string,
         user_attributes: [:email, :password, :password_confirmation, :wholesale_user],
         bill_address_attributes: permitted_address_attributes,
-        ship_address_attributes: permitted_address_attributes)
+        ship_address_attributes: permitted_address_attributes,
+        visible_address_attributes: permitted_address_attributes)
   end
 end

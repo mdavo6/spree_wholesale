@@ -25,6 +25,18 @@
               <% end %>
               <%= form.select :terms, Spree::Wholesaler.term_options, {}, :class => 'form-control required' %>
             </div>
+            <div class="form-group">
+              <div class="checkbox-inline">
+                <%= form.check_box :visible %>
+                <%= form.label :visible, Spree.t(:visible) %>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= form.label :visible_address do %>
+                <%= Spree.t(:visible_address) %>
+              <% end %>
+              <%= form.select :visible_address_string, Spree::Wholesaler.visible_address_options, {}, :class => 'form-control' %>
+            </div>
           </div>
           <div class="col-sm-6">
             <p class="form-group">
@@ -116,6 +128,19 @@
           </div>
 
           <%= render 'spree/admin/shared/address_form', f: sa_form, type: 'shipping' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div data-hook="visible_address_wrapper" class="col-md-6" id="visible-address-wrapper">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1 class="panel-title"><%= Spree.t(:visible_address) %></h1>
+      </div>
+      <div class="panel-body">
+        <%= form.fields_for :visible_address do |va_form| %>
+          <%= render 'spree/admin/shared/address_form', f: va_form, type: "visible" %>
         <% end %>
       </div>
     </div>
