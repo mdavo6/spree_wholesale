@@ -116,3 +116,5 @@ en:
     login_link: Login Link
     create_a_password: Create a password
     password_set: Password set successfully
+    total_orders: Total Orders
+    most_recent_order: Most Recent Order

@@ -95,7 +95,7 @@ class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
     params[:search] ||= {}
     params[:search][:meta_sort] ||= "company.asc"
     @search = Spree::Wholesaler.ransack(params[:q])
-    @collection = @search.result.page(params[:page]).per(Spree::Config[:admin_products_per_page])
+    @collection = @search.result.page(params[:page]).per(params[:per_page] || Spree::Config[:admin_products_per_page])
   end
 
   def permitted_address_attributes

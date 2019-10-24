@@ -42,6 +42,7 @@
   </div>
 <% end %>
 
+<%= render 'spree/admin/shared/index_table_options', collection: @wholesalers %>
 
 <table class="table" id="listing_wholesalers" data-hook>
   <thead>
@@ -49,7 +50,8 @@
     <th><%= sort_link @search, :company, t('wholesaler') %></th>
     <th><%= sort_link @search, :buyer, t('buyer') %></th>
     <th><%= sort_link @search, :user_email, t('email') %></th>
-    <th><%= sort_link @search, :website, t('website') %></th>
+    <th><%= t('total_orders') %></th>
+    <th><%= t('most_recent_order') %></th>
     <th><%= sort_link @search, :phone, t('phone') %></th>
     <th><%= t('active') %></th>
     <th>
@@ -63,7 +65,12 @@
         <td><%= link_to wholesaler.company, edit_object_url(wholesaler) %></td>
         <td><%= wholesaler.buyer %></td>
         <td><%= link_to wholesaler.email, spree.admin_user_path(wholesaler.user) %></td>
-        <td><%= wholesaler.website %></td>
+        <td><%= link_to wholesaler.user.orders.count, spree.orders_admin_user_path(wholesaler.user) %></td>
+        <% if wholesaler.user.orders.exists? %>
+          <td><%= link_to time_ago_in_words(wholesaler.user.orders.reverse_chronological.first.updated_at.to_s), edit_admin_order_path(wholesaler.user.orders.reverse_chronological.first) %></td>
+        <% else %>
+          <td><%= Spree.t('none') %></td>
+        <% end %>
         <td><%= wholesaler.phone %></td>
         <td width="50px"><%= wholesaler.active? ? 'Yes' : 'No' %></td>
         <td>
