@@ -11,7 +11,7 @@ Spree::Core::Engine.routes.draw do
   # For line sheets
   get '/line-sheets/*id', to: 'taxons#line_sheet', as: :line_sheets
 
-  resources :wholesalers
+  resources :wholesalers, except: :index
 
   namespace(:admin) do
 

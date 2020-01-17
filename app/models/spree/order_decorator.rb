@@ -1,5 +1,8 @@
 Spree::Order.class_eval do
 
+  scope :wholesale, -> { where(wholesale: true) }
+  scope :retail, -> { where.not(wholesale: true) }
+
   after_validation :check_wholesaler_addresses, if: :is_wholesale?
 
   # Added to allow admin search for wholesale orders
