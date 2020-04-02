@@ -1,8 +1,8 @@
 class Spree::WholesalersController < Spree::StoreController
-  before_filter :new_subscriber
+  before_action :new_subscriber
   respond_to :html, :xml
-  before_filter :check_wholesale_user, :except => [:new, :index, :registration, :update_registration]
-  after_filter :persist_user_address, :only => [:create, :update]
+  before_action :check_wholesale_user, :except => [:new, :index, :registration, :update_registration]
+  after_action :persist_user_address, :only => [:create, :update]
 
   def new
     @wholesaler = Spree::Wholesaler.new
