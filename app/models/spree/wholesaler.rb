@@ -16,8 +16,7 @@ class Spree::Wholesaler < ActiveRecord::Base
   before_validation :clone_visible_address
   validates :company, :buyer, :phone, :presence => true
 
-  delegate_belongs_to :user, :spree_roles
-  delegate_belongs_to :user, :email
+  delegate :spree_roles, :email, to: :user
 
   scope :is_visible, -> { where(visible: true) }
   scope :has_visible_address, -> { where.not(visible_address: nil) }
