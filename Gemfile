@@ -4,7 +4,7 @@ group :development, :test do
   gem 'spree', github: 'spree/spree', branch: 'master'
   gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: 'master'
   gem 'spree_multi_currency', github: 'spree-contrib/spree_multi_currency'
-  gem 'spree_braintree_vzero', github: 'mdavo6/spree_braintree_vzero', branch: 'rails5'
+  gem 'spree_braintree_vzero', github: 'spree-contrib/spree_braintree_vzero'
 
   gem 'rspec-rails', '~> 3.4.1'
   gem 'factory_bot_rails'
