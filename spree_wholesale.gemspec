@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_wholesale'
-  s.version     = '3.5.0'
+  s.version     = '3.6.1'
   s.authors     = ['Michael Davidson', 'Patrick McElwee']
   s.email       = ['michael@boldb.com.au']
   s.homepage    = 'https://github.com/mdavo6/spree_wholesale'
@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
   s.require_paths = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 3.5.0'
-  s.add_dependency 'spree_frontend', '~> 3.5.0'
-  s.add_dependency 'spree_backend', '~> 3.5.0'
+  s.add_dependency 'spree_core', '~> 3.6.1'
+  s.add_dependency 'spree_frontend', '~> 3.6.1'
+  s.add_dependency 'spree_backend', '~> 3.6.1'
   s.add_dependency 'spree_auth_devise', '~> 3.3'
 
   s.add_development_dependency 'sqlite3'
