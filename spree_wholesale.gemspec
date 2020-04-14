@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'spree_core', '~> 4.0'
   s.add_dependency 'spree_frontend', '~> 4.0'
   s.add_dependency 'spree_backend', '~> 4.0'
-  s.add_dependency 'spree_auth_devise', '~> 3.6'
+  s.add_dependency 'spree_auth_devise', '~> 4.0'
 
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'sass-rails'
