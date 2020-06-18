@@ -118,3 +118,5 @@ en:
     password_set: Password set successfully
     total_orders: Total Orders
     most_recent_order: Most Recent Order
+    minimum_order_message: Minimum wholesale order is $250.
+    minimum_order_message_euros: Minimum wholesale order is €200.
