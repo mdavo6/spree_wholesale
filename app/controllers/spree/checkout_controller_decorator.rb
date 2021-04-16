@@ -1,8 +1,8 @@
 Spree::CheckoutController.class_eval do
-  before_filter :get_addresses
+  before_action :get_addresses
   before_action :check_minimum_met
-  before_filter :create_a_password
-  before_filter :register_as_wholesaler
+  before_action :create_a_password
+  before_action :register_as_wholesaler
 
   def get_addresses
     return unless spree_current_user && spree_current_user.wholesaler? && !spree_current_user.wholesaler.nil?

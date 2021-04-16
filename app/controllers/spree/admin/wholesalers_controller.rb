@@ -1,7 +1,7 @@
 class Spree::Admin::WholesalersController < Spree::Admin::ResourceController
   respond_to :html, :xml
-  before_filter :approval_setup, :only => [ :approve, :reject ]
-  after_filter :persist_user_address, :only => [:create, :update]
+  before_action :approval_setup, :only => [ :approve, :reject ]
+  after_action :persist_user_address, :only => [:create, :update]
 
   def index
   end
