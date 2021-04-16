@@ -1,6 +1,6 @@
 Spree::LineItem.class_eval do
-  delegate_belongs_to :variant, :wholesale_price
-  delegate_belongs_to :variant, :is_wholesaleable?
+  delegate :wholesale_price, to: :variant
+  delegate :is_wholesaleable?, to: :variant
 
   def update_price
     currency_price = Spree::Price.where(
