@@ -6,7 +6,7 @@ Spree::Stock::Estimator.class_eval do
 
       # Added extra condition to check if wholesale order as
       # different shipping options may apply
-      ship_method.available_to_display(display_filter) &&
+      ship_method.available_to_display?(display_filter) &&
       ship_method.include?(order.ship_address) &&
       ship_method.valid_for_order_type(order.wholesale) &&
       calculator.available?(package) &&
