@@ -1,5 +1,9 @@
-Spree::Address.class_eval do
-  def require_phone?
-    false
+module Spree
+  module AddressDecorator
+    def require_phone?
+      false
+    end
   end
 end
+
+::Spree::Address.prepend(Spree::AddressDecorator)
