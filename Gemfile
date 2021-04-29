@@ -3,8 +3,8 @@ source "http://rubygems.org"
 group :development, :test do
   gem 'spree', github: 'spree/spree'
   gem 'spree_auth_devise', github: 'spree/spree_auth_devise'
-  gem 'spree_multi_currency', github: 'mdavo6/spree_multi_currency', branch: 'spree3.4'
-  gem 'spree_braintree_vzero', github: 'mdavo6/spree_braintree_vzero', branch: 'spree3.4'
+  gem 'spree_multi_currency', github: 'spree-contrib/spree_multi_currency'
+  gem 'spree_braintree_vzero', '~> 3.5'
 
   gem 'rspec-rails', '~> 3.4.1'
   gem 'factory_bot_rails'
