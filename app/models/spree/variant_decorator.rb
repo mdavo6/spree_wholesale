@@ -7,6 +7,7 @@ module Spree
       base.scope :wholesales, -> (currency) do
         currency ||= Spree::Config[:currency]
         joins(:prices).where("spree_prices.currency = ?", currency).where("spree_prices.wholesale = ?", true).where("spree_prices.amount > ?", 0)
+      end
     end
 
     def is_wholesaleable?
