@@ -15,4 +15,4 @@ module Spree
   end
 end
 
-::Spree::Order::CurrencyUpdater.prepend(Spree::Order::CurrencyUpdaterDecorator)
+::Spree::Order.prepend(Spree::Order::CurrencyUpdaterDecorator)
