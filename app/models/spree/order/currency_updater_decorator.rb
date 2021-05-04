@@ -1,5 +1,5 @@
 module Spree
-  module Order
+  class Order < Spree::Base
     module CurrencyUpdaterDecorator
 
       # Returns the price object from given item
