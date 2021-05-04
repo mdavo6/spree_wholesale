@@ -3,13 +3,11 @@ module Spree
 
     def self.prepended(base)
       base.has_one :wholesaler, :class_name => "Spree::Wholesaler"
+      base.before_create :generate_auth_token, if: :lead?
+      base.before_save :delete_auth_token, unless: :lead?
+      base.scope :wholesale, -> { includes(:spree_roles).where("spree_roles.name" => "wholesaler") }
+      base.scope :lead, -> { includes(:spree_roles).where("spree_roles.name" => "lead") }
     end
-
-    before_create :generate_auth_token, if: :lead?
-    before_save :delete_auth_token, unless: :lead?
-
-    scope :wholesale, -> { includes(:spree_roles).where("spree_roles.name" => "wholesaler") }
-    scope :lead, -> { includes(:spree_roles).where("spree_roles.name" => "lead") }
 
     def wholesaler?
       has_spree_role?("wholesaler") && !wholesaler.nil?
