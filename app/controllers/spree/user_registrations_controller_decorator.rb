@@ -1,33 +1,23 @@
 module Spree
   module UserRegistrationsControllerDecorator
 
-    def create
-      @user = build_resource(spree_user_params)
-      resource_saved = resource.save
-      yield resource if block_given?
-      if resource_saved
-        if resource.active_for_authentication?
-          set_flash_message :notice, :signed_up
-          if current_order
-            current_order.associate_user! @user
-          end
-          sign_up(resource_name, resource)
-          session[:spree_user_signup] = true
-          respond_with resource, location: after_sign_up_path_for(resource)
-        else
-          set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
-          expire_data_after_sign_in!
-          respond_with resource, location: after_inactive_sign_up_path_for(resource)
-        end
+    def self.prepended(base)
+      base.include Spree::WholesaleHelper
+    end
+
+    protected
+
+    private
+
+    def redirect_to_checkout_or_account_path(resource)
+      resource_path = after_sign_up_path_for(resource)
+
+      if current_store.code.include?("wholesale")
+        respond_with resource, location: new_wholesaler_path
+      elsif resource_path == spree.checkout_state_path(:address)
+        respond_with resource, location: spree.checkout_state_path(:address)
       else
-        clean_up_passwords(resource)
-        # Added to retain wholesale_user param if create fails
-        if params[:spree_user][:wholesale_user]
-          @wholesale_user = true
-          render :new, status: :unprocessable_entity
-        else
-          render :new, status: :unprocessable_entity
-        end
+        respond_with resource, location: spree.account_path
       end
     end
 

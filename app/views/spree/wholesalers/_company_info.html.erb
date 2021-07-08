@@ -1,42 +1,30 @@
 <div class="panel panel-default" id="company-info" data-hook>
-  <div class="panel-heading">
-    <h3 class="panel-title"><%= Spree.t(:company_information) %></h3>
-  </div>
   <div class="panel-body">
-    <div class="form-group" id="company">
-      <%= form.label :company do %>
-        <%= Spree.t(:company_store) %><abbr class="required" title="required">*</abbr>
-      <% end %>
-      <%= form.text_field :company, :class => 'form-control required' %>
+    <div class="form-group mb-4">
+      <%= float_label_field(form, :company, true) %>
     </div>
 
-    <div class="form-group" id="buyer_contact">
-      <%= form.label :buyer do %>
-        <%= Spree.t(:buyer) %><abbr class="required" title="required">*</abbr>
-      <% end %>
-      <%= form.text_field :buyer, :class => 'form-control required' %>
+    <div class="form-group mb-4">
+      <%= float_label_field(form, :buyer, true) %>
     </div>
 
-    <div class="form-group" id="phone">
-      <%= form.label :phone do %>
-        <%= Spree.t(:phone) %><abbr class="required" title="required">*</abbr>
-      <% end %>
-      <%= form.text_field :phone, :class => 'form-control required' %>
+    <div class="form-group mb-4">
+      <%= float_label_field(form, :phone, true) %>
     </div>
 
-    <div class="form-group" id="website">
-      <%= form.label :website, Spree.t(:website) %><br />
-      <%= form.text_field :website, :class => 'form-control' %>
+    <div class="form-group mb-4">
+      <%= float_label_field(form, :website, false) %>
     </div>
 
-    <div class="form-group" id="social">
-      <%= form.label :social, Spree.t(:social_media) %><br />
-      <%= form.text_field :social, :class => 'form-control' %>
+    <div class="form-group mb-4">
+      <%= float_label_field(form, :social, false) %>
     </div>
 
-    <div class="form-group" id="comments">
-      <%= form.label :comments, Spree.t(:comments) %><br />
-      <%= form.text_area :comments, :class => 'form-control', rows: 4, placeholder: "Please enter any questions or comments here" %>
+    <div class="form-group mb-5">
+      <div id="comments" class="form-group checkout-content-inner-field has-float-label">
+        <%= form.text_area :comments, class: 'spree-flat-input', rows: 4, required: false, placeholder: Spree.t(:comments), aria: { label: Spree.t(:comments) } %>
+        <%= form.label(:comments, Spree.t(:comments), class: 'text-uppercase') %>
+      </div>
     </div>
   </div>
 </div>

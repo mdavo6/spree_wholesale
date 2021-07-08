@@ -3,5 +3,5 @@ Deface::Override.new(
   :name => 'product-wholesale-price',
   :insert_bottom => "#product-price",
   :partial => "spree/hooks/product_wholesale_price",
-  :disabled => false
+  :disabled => true
 )

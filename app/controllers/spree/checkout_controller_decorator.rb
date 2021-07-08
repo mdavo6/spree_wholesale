@@ -19,10 +19,10 @@ module Spree
     def check_minimum_met
       return unless spree_current_user && spree_current_user.wholesaler_or_lead?
       if current_currency == "EUR" && current_order.item_total < 200
-        flash[:danger] = Spree.t(:minimum_order_message_euros)
+        flash[:error] = Spree.t(:minimum_order_message_euros)
         redirect_back_or_default(cart_path)
       elsif current_currency != "EUR" && current_order.item_total < 250
-        flash[:danger] = Spree.t(:minimum_order_message)
+        flash[:error] = Spree.t(:minimum_order_message)
         redirect_back_or_default(cart_path)
       end
     end

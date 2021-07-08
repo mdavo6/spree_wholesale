@@ -23,7 +23,6 @@ module Spree
         redirect_to admin_product_path(parent)
 
       end
-
     end
   end
 end

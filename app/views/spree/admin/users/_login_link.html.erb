@@ -8,7 +8,7 @@
     <div class="panel-body">
       <div class="form-group">
         <label for="loginLink">Login Link</label>
-        <input type='text' data-link-code=true id='loginLink' value='<%= account_url(user_email: @user.email, user_token: @user.authentication_token) %>' class='form-control referral-url-field' />
+        <input type='text' data-link-code=true id='loginLink' value='<%= root_url(user_email: @user.email, user_token: @user.authentication_token, subdomain: 'wholesale') %>' class='form-control referral-url-field' />
       </div>
       <div class="form-group">
         <button class="btn btn-primary btn-copylink" data-copy-link-code=true type="button" title='Copy login link'><span class='glyphicon glyphicon-copy'></span></button>

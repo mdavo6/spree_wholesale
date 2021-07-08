@@ -1,15 +1,10 @@
 module Spree
   class WholesalersController < Spree::StoreController
-    before_action :new_subscriber
     respond_to :html, :xml
-    before_action :check_wholesale_user, :except => [:new, :index, :offer, :registration, :update_registration]
-    after_action :persist_user_address, :only => [:create, :update]
 
     def new
       @wholesaler = Spree::Wholesaler.new
       @wholesaler.user = spree_current_user
-      @wholesaler.bill_address = Spree::Address.default
-      @wholesaler.ship_address = Spree::Address.default
       respond_with(@wholesaler)
     end
 
@@ -39,11 +34,11 @@ module Spree
             redirect_to spree.account_path
           end
         else
-          flash[:notice] = I18n.t('spree.wholesaler.review_in_progress')
-          Spree::WholesaleMailer.new_wholesaler_email(@wholesaler).deliver
-          # To be discussed - Could give wholesalers access to wholesale prices immediately?
-          # @wholesaler.activate!
-          redirect_to spree.account_path
+          # Add these notifications after address added
+          # flash[:notice] = I18n.t('spree.wholesaler.review_in_progress')
+          # Spree::WholesaleMailer.new_wholesaler_email(@wholesaler).deliver
+
+          redirect_to spree.new_wholesale_address_path
         end
       else
         flash[:error] = I18n.t('spree.wholesaler.signup_failed')
@@ -73,32 +68,6 @@ module Spree
       @wholesaler.destroy
       flash[:notice] = I18n.t('spree.wholesaler.destroy_success')
       respond_with(@wholesaler)
-    end
-
-    # Checks whether the user signed up via the wholesale page (wholesale_user)
-    # A wholesale_user is not the same as a wholesaler - The wholesale_user flag
-    # is used to identify that the user signed up via the wholesalers page, whereas
-    # a wholesaler has been approved.
-
-    def check_wholesale_user
-      # Always want registration so comment out config
-      # return unless Spree::Auth::Config[:registration_step]
-      if spree_current_user
-        return if spree_current_user.admin? || spree_current_user.wholesale_user || spree_current_user.wholesaler_or_lead?
-        flash[:notice] = I18n.t('spree.wholesaler.not_a_wholesaler')
-        redirect_to spree.signup_path(wholesale_user: true)
-      else
-        flash[:notice] = I18n.t('spree.wholesaler.logged_out')
-        redirect_to spree.signup_path(wholesale_user: true)
-      end
-    end
-
-    def persist_user_address
-      if spree_current_user
-        spree_current_user.bill_address_id = @wholesaler.billing_address_id
-        spree_current_user.ship_address_id = @wholesaler.shipping_address_id
-        spree_current_user.save
-      end
     end
 
     private

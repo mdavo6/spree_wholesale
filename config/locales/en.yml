@@ -31,6 +31,18 @@ en:
   wholesale_customer: "Wholesale Customer ID: %{id}"
 
   spree:
+    address_book:
+      submit: Submit
+      new_wholesale_address: Store Address
+    addresses: Addresses
+    application_page:
+      header: New Wholesale Application
+    registration_state:
+      login: Create Login
+      store: Contact Information
+      address: Store Address
+      password: Create a password
+    contact_information: Contact Information
 
     wholesaler:
       company: "Company: %{company}"
@@ -48,7 +60,6 @@ en:
       more_information_required: Please enter your company details below to complete the registration process.
       more_information_required_link: Please enter your company details using this link to complete the registration process.
       logged_out: Please log in or create an account to continue.
-      wholesale_cart_instructions: Edit the item quantities below and click refresh to recalculate the order subtotal.
       wholesale_cart_shipping: Please note that shipping costs will be added during checkout.
       new_wholesaler_login: New Wholesale Login
 
@@ -98,9 +109,12 @@ en:
           comments: Other comments
 
     company_store: Store/Company
+    new_wholesale_customer: Create New Wholesale Login
     buyer: Contact Person
     website: Website
+    social: Social media
     social_media: Social media
+    comments: Any questions or comments?
     contact_person: Contact Person
     new_wholesale_order: Create New Wholesale Order
     user_details: User Details

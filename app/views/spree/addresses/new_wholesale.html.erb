@@ -1,0 +1,21 @@
+<div id="checkout" class="container checkout" data-hook>
+  <%= render 'spree/shared/error_messages', target: @address %>
+  <div class="row align-items-center flex-column checkout-header" data-hook="checkout_header">
+    <div class="text-uppercase checkout-header-title">
+      <h1 data-hook="application_title"><%= Spree.t('application_page.header') %></h1>
+    </div>
+    <div class="checkout-progress" data-hook="checkout_progress" role="navigation" aria-label="<%= Spree.t('checkout_page.checkout_navigation') %>">
+      <%= registration_progress('address') %>
+    </div>
+  </div>
+  <div class="col-lg-6 offset-lg-3">
+    <%= form_for @address, html: { id: 'checkout_form_address' } do |f| %>
+      <%= render 'spree/addresses/form',
+        address_name: 'address',
+        address_form: f,
+        address_type: 'shipping',
+        address: @address %>
+      <%= f.submit t(:save, scope: :address_book), class: 'btn btn-primary btn-block spree-btn mb-5' %>
+    <% end %>
+  </div>
+</div>

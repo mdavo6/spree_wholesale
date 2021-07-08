@@ -1,49 +1,29 @@
-<div class="row">
-  <div class="col-md-offset-3 col-md-6">
-    <h1 class="text-center"><%= t('Stockist Information') %></h1>
+<div id="checkout" class="container checkout" data-hook>
+  <%= render partial: 'spree/shared/error_messages', locals: { target: @wholesaler } %>
+  <% if spree_current_user.lead? %>
+      <div class="col-lg-6 offset-lg-3 mb-5">
+        <h3 class="spree-mb-large spree-mt-large spree-header"><%= Spree.t('registration_state.store') %></h3>
+      </div>
+  <% else %>
+    <div class="row align-items-center flex-column checkout-header" data-hook="checkout_header">
+      <div class="text-uppercase checkout-header-title">
+        <h1 data-hook="application_title"><%= Spree.t('application_page.header') %></h1>
+      </div>
+      <div class="checkout-progress" data-hook="checkout_progress" role="navigation" aria-label="<%= Spree.t('checkout_page.checkout_navigation') %>">
+        <%= registration_progress('store') %>
+      </div>
+    </div>
+  <% end %>
+  <div class="col-lg-6 offset-lg-3">
+    <div id="new-wholesaler" data-hook="login">
+      <%= form_for @wholesaler, html: { class: "wholesaler-form" } do |f| %>
+        <div data-hook="wholesaler_inside_form">
+          <%= render 'company_info', :form => f %>
+          <div>
+            <%= f.submit Spree.t(:next), :class => 'btn btn-primary btn-block spree-btn mb-5' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
-
-<%= form_for @wholesaler, html: { class: "wholesaler-form" } do |form| %>
-  <div class="row">
-    <%= render "spree/shared/error_messages", :target => @wholesaler %>
-    <div class="col-md-4" id="wholesaler-company-details">
-      <%= render 'company_info', :form => form %>
-    </div>
-    <div class="col-md-4" id="wholesaler-billing-address">
-      <div class="panel panel-default" id="billing" data-hook>
-        <%= form.fields_for :bill_address do |bill_form| %>
-          <div class="panel-heading">
-            <h3 class="panel-title"><%= Spree.t(:billing_address) %></h3>
-          </div>
-          <div class="panel-body">
-            <%= render :partial => 'spree/address/form', :locals => { :form => bill_form, :address_type => 'billing', :address => @wholesaler.bill_address } %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="col-md-4" id="wholesaler-shipping-address">
-      <div class="panel panel-default" id="shipping" data-hook>
-        <%= form.fields_for :ship_address do |ship_form| %>
-          <div class="panel-heading">
-            <h3 class="panel-title"><%= Spree.t(:shipping_address) %></h3>
-          </div>
-          <div class="panel-body">
-            <p class="field checkbox" data-hook="use_billing">
-              <%= label_tag :wholesaler_use_billing, :id => 'use_billing' do %>
-                <%= check_box_tag 'wholesaler[use_billing]', '1', @wholesaler.shipping_eq_billing_address? %>
-                <%= Spree.t(:use_billing_address) %>
-              <% end %>
-            </p>
-            <%= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => @wholesaler.ship_address } %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class="well text-right form-buttons" data-hook="buttons">
-    <%= form.submit t("wholesale_apply"), :class => 'btn btn-dark btn-lg btn-primary' %>
-  </div>
-<% end %>

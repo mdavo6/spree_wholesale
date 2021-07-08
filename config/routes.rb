@@ -13,6 +13,8 @@ Spree::Core::Engine.routes.draw do
 
   resources :wholesalers, except: :index
 
+  get '/addresses/new_wholesale' => 'addresses#new_wholesale', :as => :new_wholesale_address
+
   namespace(:admin) do
 
     resources :wholesalers do

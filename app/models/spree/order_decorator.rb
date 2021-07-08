@@ -63,7 +63,7 @@ module Spree
     def to_fullsale!
       self.wholesale = false
       set_line_item_prices(:price)
-      update!
+      update_with_updater!
       save
     end
 
@@ -71,7 +71,7 @@ module Spree
       return false unless user && user.wholesaler.present?
       self.wholesale = true
       set_line_item_prices(:wholesale_price)
-      update!
+      update_with_updater!
       save
     end
 

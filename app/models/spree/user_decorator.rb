@@ -21,6 +21,22 @@ module Spree
       wholesaler? || lead?
     end
 
+    def contact_information_entered?
+      wholesaler.present?
+    end
+
+    def has_address?
+      addresses.present?
+    end
+
+    def permitted_wholesale_user?
+      admin? || wholesaler_or_lead?
+    end
+
+    def application_completed?
+      contact_information_entered? && has_address?
+    end
+
     protected
 
     def generate_auth_token

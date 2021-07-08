@@ -3,9 +3,9 @@ module Spree
     partial_updates = false
 
     belongs_to :user, :class_name => "Spree::User"
-    belongs_to :bill_address, :foreign_key => "billing_address_id", :class_name => "Spree::Address", :dependent => :destroy
-    belongs_to :ship_address, :foreign_key => "shipping_address_id", :class_name => "Spree::Address", :dependent => :destroy
-    belongs_to :visible_address, :foreign_key => "visible_address_id", :class_name => "Spree::Address", :dependent => :destroy
+    belongs_to :bill_address, foreign_key: "billing_address_id", class_name: "Spree::Address", optional: true
+    belongs_to :ship_address, foreign_key: "shipping_address_id", class_name: "Spree::Address", optional: true
+    belongs_to :visible_address, foreign_key: "visible_address_id", class_name: "Spree::Address", optional: true
 
     accepts_nested_attributes_for :bill_address
     accepts_nested_attributes_for :ship_address
@@ -38,7 +38,7 @@ module Spree
       get_lead_role
       return false unless user.spree_roles.include?(@role)
       user.spree_roles.delete(@role)
-      Spree::WholesaleMailer.approve_wholesaler_email(self).deliver
+      #Spree::WholesaleMailer.approve_wholesaler_email(self).deliver
       user.save
     end
 
