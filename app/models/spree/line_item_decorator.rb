@@ -1,7 +1,9 @@
 module Spree
   module LineItemDecorator
-    delegate :wholesale_price, to: :variant
-    delegate :is_wholesaleable?, to: :variant
+    def self.prepended(base)
+      base.delegate :wholesale_price, to: :variant
+      base.delegate :is_wholesaleable?, to: :variant
+    end
 
     def update_price
       currency_price = Spree::Price.where(
