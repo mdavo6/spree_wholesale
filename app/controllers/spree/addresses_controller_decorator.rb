@@ -10,7 +10,7 @@ module Spree
       if @address.save
         if wholesale_store? && !try_spree_current_user.wholesaler?
           flash[:notice] = I18n.t('spree.wholesaler.review_in_progress')
-          Spree::WholesaleMailer.new_wholesaler_email(@wholesaler).deliver
+          Spree::WholesaleMailer.new_wholesaler_email(try_spree_current_user).deliver
         else
           flash[:notice] = I18n.t(:successfully_created, scope: :address_book)
         end
