@@ -30,7 +30,11 @@ module Spree
     end
 
     def is_wholesale?
-      wholesale
+      wholesale || wholesale_store?
+    end
+
+    def wholesale_store?
+      store.code.include?("wholesale")
     end
 
     def wholesale

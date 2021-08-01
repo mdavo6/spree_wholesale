@@ -21,6 +21,8 @@ module Spree
 
       currency = opts.delete(:currency) || order.try(:currency)
       wholesale = opts.delete(:wholesale)
+      # Added to prevent "true" string error
+      wholesale = true?(wholesale)
 
       update_price_from_modifier(currency, wholesale, opts)
       assign_attributes opts
@@ -40,6 +42,10 @@ module Spree
         self.price = variant.price +
           variant.price_modifier_amount(opts)
       end
+    end
+
+    def true?(obj)
+      obj.to_s.downcase == "true"
     end
 
   end
