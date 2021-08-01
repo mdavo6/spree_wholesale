@@ -4,20 +4,7 @@ module Spree
     def self.prepended(base)
       base.scope :wholesale, -> { where(wholesale: true) }
       base.scope :retail, -> { where.not(wholesale: true) }
-      base.after_validation :check_wholesaler_addresses, if: :is_wholesale?
       base.whitelisted_ransackable_attributes << 'wholesale'
-    end
-
-    def check_wholesaler_addresses
-      if new_addresses
-        wholesaler.bill_address = bill_address
-        wholesaler.ship_address = ship_address
-        wholesaler.save
-      end
-    end
-
-    def new_addresses
-      wholesaler.bill_address != bill_address || wholesaler.ship_address != ship_address
     end
 
     def payment_required?
