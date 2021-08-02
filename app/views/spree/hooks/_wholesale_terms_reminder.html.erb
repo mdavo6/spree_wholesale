@@ -1,4 +1,4 @@
 <% order ||= @order %>
-<% if order && (order.payment_via_eft || order.payment_via_transferwise) %>
+<% if order && (order.wholesale_payment_via_eft? || order.payment_via_transferwise?) %>
   <p><strong><%= Spree.t(:terms_reminder) %></strong></p>
 <% end %>
