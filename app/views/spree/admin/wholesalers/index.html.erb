@@ -66,14 +66,17 @@
         <td><%= wholesaler.buyer %></td>
         <% if wholesaler.user.nil? %>
           <td><%= Spree.t('none') %></td>
+          <td><%= Spree.t('none') %></td>
+          <td><%= Spree.t('none') %></td>
         <% else %>
           <td><%= link_to wholesaler.email, spree.admin_user_path(wholesaler.user) %></td>
-        <% end %>
-        <td><%= link_to wholesaler.user.orders.count, spree.orders_admin_user_path(wholesaler.user) %></td>
-        <% if wholesaler.user.orders.exists? %>
-          <td><%= link_to time_ago_in_words(wholesaler.user.orders.reverse_chronological.first.updated_at.to_s), edit_admin_order_path(wholesaler.user.orders.reverse_chronological.first) %></td>
-        <% else %>
-          <td><%= Spree.t('none') %></td>
+          <% if wholesaler.user.orders.present? %>
+            <td><%= link_to wholesaler.user.orders.count, spree.orders_admin_user_path(wholesaler.user) %></td>
+            <td><%= link_to time_ago_in_words(wholesaler.user.orders.reverse_chronological.first.updated_at.to_s), edit_admin_order_path(wholesaler.user.orders.reverse_chronological.first) %></td>
+          <% else %>
+            <td><%= Spree.t('none') %></td>
+            <td><%= Spree.t('none') %></td>
+          <% end %>
         <% end %>
         <td><%= wholesaler.phone %></td>
         <td width="50px"><%= wholesaler.active? ? 'Yes' : 'No' %></td>
