@@ -64,7 +64,11 @@
         <%- locals = {:wholesaler => wholesaler} %>
         <td><%= link_to wholesaler.company, edit_object_url(wholesaler) %></td>
         <td><%= wholesaler.buyer %></td>
-        <td><%= link_to wholesaler.email, spree.admin_user_path(wholesaler.user) %></td>
+        <% if wholesaler.user.nil? %>
+          <td><%= Spree.t('none') %></td>
+        <% else %>
+          <td><%= link_to wholesaler.email, spree.admin_user_path(wholesaler.user) %></td>
+        <% end %>
         <td><%= link_to wholesaler.user.orders.count, spree.orders_admin_user_path(wholesaler.user) %></td>
         <% if wholesaler.user.orders.exists? %>
           <td><%= link_to time_ago_in_words(wholesaler.user.orders.reverse_chronological.first.updated_at.to_s), edit_admin_order_path(wholesaler.user.orders.reverse_chronological.first) %></td>
