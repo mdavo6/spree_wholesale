@@ -3,7 +3,6 @@ module Spree
     module PricesControllerDecorator
 
       def create
-        byebug
         params.require(:vp).permit!
         params[:vp].each do |variant_id, prices|
           next unless variant_id
