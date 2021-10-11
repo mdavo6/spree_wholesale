@@ -3,5 +3,5 @@ Deface::Override.new(
   :name => 'admin-wholesale-prices',
   :replace => 'div.panel-body, div.no-padding-bottom',
   :partial => 'spree/admin/hooks/admin_wholesale_prices',
-  :disabled => false
+  :disabled => true
 )

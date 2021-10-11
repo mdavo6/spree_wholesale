@@ -3,11 +3,15 @@ module Spree
     module PricesControllerDecorator
 
       def create
+        byebug
         params.require(:vp).permit!
         params[:vp].each do |variant_id, prices|
+          next unless variant_id
+
           variant = Spree::Variant.find(variant_id)
           next unless variant
-          supported_currencies.each do |currency|
+
+          supported_currencies_for_all_stores.each do |currency|
             # Save retail price
             price = variant.price_in(currency.iso_code, false)
             price.price = (prices[currency.iso_code][:false].blank? ? nil : prices[currency.iso_code][:false])
