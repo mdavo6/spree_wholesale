@@ -44,7 +44,7 @@ module Spree
       def update
         @wholesaler = Spree::Wholesaler.find(params[:id])
 
-        if @wholesaler.update_attributes(wholesaler_params)
+        if @wholesaler.update(wholesaler_params)
           flash[:notice] = I18n.t('spree.admin.wholesaler.update_success')
           respond_with(@wholesaler) do |format|
             format.html { redirect_to location_after_save }
