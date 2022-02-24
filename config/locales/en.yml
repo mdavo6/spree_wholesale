@@ -43,6 +43,7 @@ en:
       address: Store Address
       password: Create a password
     contact_information: Contact Information
+    export_to_csv: Export To CSV
 
     wholesaler:
       company: "Company: %{company}"

@@ -6,6 +6,18 @@ module Spree
       after_action :persist_user_address, :only => [:create, :update]
 
       def index
+        params[:q] ||= {}
+        @search = ::Spree::Wholesaler.preload(:user).ransack(params[:q])
+
+        if params[:q][:export_to_csv] == '1'
+          @wholesalers = @search.result(distinct: true)
+          send_data export_csv(@wholesalers), filename: "wholesalers-#{Date.today}-#{Time.now}.csv"
+        else
+          @wholesalers = @search.result(distinct: true).
+            page(params[:page]).
+            per(params[:per_page] || ::Spree::Config[:admin_orders_per_page])
+          render
+        end
       end
 
       def show
@@ -82,6 +94,37 @@ module Spree
         @wholesaler.user.bill_address_id = @wholesaler.billing_address_id
         @wholesaler.user.ship_address_id = @wholesaler.shipping_address_id
         @wholesaler.save
+      end
+
+      def export_csv(wholesalers)
+        require 'csv'
+
+        header = ['Store', 'Buyer', 'Email', 'Date of last order', 'Total sales', 'Total orders', 'Average order value', 'Phone number']
+
+        CSV.generate(headers: true) do |csv|
+          csv << header
+
+          wholesaler_attrs = {}
+
+          wholesalers.each do |wholesaler|
+            wholesaler_attrs['Store'] = wholesaler.company
+            wholesaler_attrs['Buyer'] = wholesaler.buyer
+            wholesaler_attrs['Email'] = wholesaler.user.email
+
+            total_orders = wholesaler.user.order_count
+            if total_orders > 0
+              wholesaler_attrs['Date of last order'] = wholesaler.user.orders.complete.reverse_chronological.first.updated_at.strftime('%d/%m/%Y')
+            else
+              wholesaler_attrs['Date of last order'] = 'N/A'
+            end
+            wholesaler_attrs['Total sales'] = wholesaler.user.display_lifetime_value.to_s
+            wholesaler_attrs['Total orders'] = total_orders
+            wholesaler_attrs['Average order value'] = wholesaler.user.display_average_order_value.to_s
+            wholesaler_attrs['Phone number'] = wholesaler.phone
+
+            csv << wholesaler_attrs
+          end
+        end
       end
 
       private

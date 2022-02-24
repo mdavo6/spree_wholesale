@@ -35,6 +35,12 @@
         <%= f.label Spree.t(:phone) %>
         <%= f.text_field :phone_cont, :class => 'form-control' %>
       </div>
+      <div class="checkbox mt-2">
+        <%= label_tag 'q_export_to_csv' do %>
+          <%= f.check_box :export_to_csv, {checked: (params[:q][:export_to_csv] == '1')}, '1', '' %>
+          <%= Spree.t(:export_to_csv) %>
+        <% end %>
+      </div>
       <div data-hook="admin_users_index_search_buttons" class="form-actions">
         <%= button Spree.t(:search), 'search' %>
       </div>
