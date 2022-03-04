@@ -1,3 +1,7 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://maps.google.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.25/gmaps.min.js"></script>
+
 <% content_for :page_title do %>
   <%= Spree.t(:wholesalers) %>
 <% end %>
@@ -6,94 +10,119 @@
   <%= button_link_to Spree.t(:new_wholesaler), new_object_url, icon: 'add', class: 'btn btn-success' %>
 <% end %>
 
-<% content_for :table_filter_title do %>
-  <%= Spree.t(:search) %>
-<% end %>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a href="#list" class="nav-link active" data-bs-toggle="tab">List View</a>
+  </li>
+  <li class="nav-item">
+    <a href="#map" class="nav-link" data-bs-toggle="tab">Map View</a>
+  </li>
+</ul>
 
-<% content_for :table_filter do %>
-  <div data-hook="admin_users_index_search">
-    <%= search_form_for [:admin, @search], url: spree.admin_wholesalers_url do |f| %>
-      <div class="form-group">
-        <%= f.label Spree.t(:company) %>
-        <%= f.text_field :company_cont, class: "form-control js-quick-search-target" %>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="list">
+
+    <% content_for :table_filter_title do %>
+      <%= Spree.t(:search) %>
+    <% end %>
+
+    <% content_for :table_filter do %>
+      <div data-hook="admin_users_index_search">
+        <%= search_form_for [:admin, @search], url: spree.admin_wholesalers_url do |f| %>
           <div class="form-group">
-            <%= f.label Spree.t(:buyer) %>
-            <%= f.text_field :buyer_cont, :class => 'form-control' %>
+            <%= f.label Spree.t(:company) %>
+            <%= f.text_field :company_cont, class: "form-control js-quick-search-target" %>
           </div>
-        </div>
-        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= f.label Spree.t(:buyer) %>
+                <%= f.text_field :buyer_cont, :class => 'form-control' %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= f.label Spree.t(:email) %>
+                <%= f.text_field :user_email_cont, :class => 'form-control' %>
+              </div>
+            </div>
+          </div>
           <div class="form-group">
-            <%= f.label Spree.t(:email) %>
-            <%= f.text_field :user_email_cont, :class => 'form-control' %>
+            <%= f.label Spree.t(:phone) %>
+            <%= f.text_field :phone_cont, :class => 'form-control' %>
           </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <%= f.label Spree.t(:phone) %>
-        <%= f.text_field :phone_cont, :class => 'form-control' %>
-      </div>
-      <div class="checkbox mt-2">
-        <%= label_tag 'q_export_to_csv' do %>
-          <%= f.check_box :export_to_csv, {checked: (params[:q][:export_to_csv] == '1')}, '1', '' %>
-          <%= Spree.t(:export_to_csv) %>
+          <div class="checkbox mt-2">
+            <%= label_tag 'q_export_to_csv' do %>
+              <%= f.check_box :export_to_csv, {checked: (params[:q][:export_to_csv] == '1')}, '1', '' %>
+              <%= Spree.t(:export_to_csv) %>
+            <% end %>
+          </div>
+          <div data-hook="admin_users_index_search_buttons" class="form-actions">
+            <%= button Spree.t(:search), 'search' %>
+          </div>
         <% end %>
-      </div>
-      <div data-hook="admin_users_index_search_buttons" class="form-actions">
-        <%= button Spree.t(:search), 'search' %>
       </div>
     <% end %>
-  </div>
-<% end %>
 
-<%= render 'spree/admin/shared/index_table_options', collection: @wholesalers %>
+    <%= render 'spree/admin/shared/index_table_options', collection: @wholesalers %>
 
-<table class="table" id="listing_wholesalers" data-hook>
-  <thead>
-  <tr>
-    <th><%= sort_link @search, :company, t('wholesaler') %></th>
-    <th><%= sort_link @search, :buyer, t('buyer') %></th>
-    <th><%= sort_link @search, :user_email, t('email') %></th>
-    <th><%= t('total_orders') %></th>
-    <th><%= t('most_recent_order') %></th>
-    <th><%= sort_link @search, :phone, t('phone') %></th>
-    <th><%= t('active') %></th>
-    <th>
-    </th>
-  </tr>
-  </thead>
-  <tbody>
-    <% @wholesalers.each do |wholesaler|%>
-      <tr id="<%= dom_id wholesaler %>">
-        <%- locals = {:wholesaler => wholesaler} %>
-        <td><%= link_to wholesaler.company, edit_object_url(wholesaler) %></td>
-        <td><%= wholesaler.buyer %></td>
-        <% if wholesaler.user.nil? %>
-          <td><%= Spree.t('none') %></td>
-          <td><%= Spree.t('none') %></td>
-          <td><%= Spree.t('none') %></td>
-        <% else %>
-          <td><%= link_to wholesaler.email, spree.admin_user_path(wholesaler.user) %></td>
-          <% if wholesaler.user.orders.present? %>
-            <td><%= link_to wholesaler.user.orders.count, spree.orders_admin_user_path(wholesaler.user) %></td>
-            <td><%= link_to time_ago_in_words(wholesaler.user.orders.reverse_chronological.first.updated_at.to_s), edit_admin_order_path(wholesaler.user.orders.reverse_chronological.first) %></td>
-          <% else %>
-            <td><%= Spree.t('none') %></td>
-            <td><%= Spree.t('none') %></td>
-          <% end %>
-        <% end %>
-        <td><%= wholesaler.phone %></td>
-        <td width="50px"><%= wholesaler.active? ? 'Yes' : 'No' %></td>
-        <td>
-          <%= render 'user_options', :wholesaler => wholesaler %>
-          <%= link_to_edit wholesaler %> &nbsp;
-          <%= link_to_delete wholesaler %> &nbsp;
-        </td>
+    <table class="table" id="listing_wholesalers" data-hook>
+      <thead>
+      <tr>
+        <th><%= sort_link @search, :company, t('wholesaler') %></th>
+        <th><%= sort_link @search, :buyer, t('buyer') %></th>
+        <th><%= sort_link @search, :user_email, t('email') %></th>
+        <th><%= t('total_orders') %></th>
+        <th><%= t('most_recent_order') %></th>
+        <th><%= sort_link @search, :phone, t('phone') %></th>
+        <th><%= t('active') %></th>
+        <th>
+        </th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
+      <tbody>
+        <% @wholesalers.each do |wholesaler|%>
+          <tr id="<%= dom_id wholesaler %>">
+            <%- locals = {:wholesaler => wholesaler} %>
+            <td><%= link_to wholesaler.company, edit_object_url(wholesaler) %></td>
+            <td><%= wholesaler.buyer %></td>
+            <% if wholesaler.user.nil? %>
+              <td><%= Spree.t('none') %></td>
+              <td><%= Spree.t('none') %></td>
+              <td><%= Spree.t('none') %></td>
+            <% else %>
+              <td><%= link_to wholesaler.email, spree.admin_user_path(wholesaler.user) %></td>
+              <% if wholesaler.user.orders.present? %>
+                <td><%= link_to wholesaler.user.orders.count, spree.orders_admin_user_path(wholesaler.user) %></td>
+                <td><%= link_to time_ago_in_words(wholesaler.user.orders.reverse_chronological.first.updated_at.to_s), edit_admin_order_path(wholesaler.user.orders.reverse_chronological.first) %></td>
+              <% else %>
+                <td><%= Spree.t('none') %></td>
+                <td><%= Spree.t('none') %></td>
+              <% end %>
+            <% end %>
+            <td><%= wholesaler.phone %></td>
+            <td width="50px"><%= wholesaler.active? ? 'Yes' : 'No' %></td>
+            <td>
+              <%= render 'user_options', :wholesaler => wholesaler %>
+              <%= link_to_edit wholesaler %> &nbsp;
+              <%= link_to_delete wholesaler %> &nbsp;
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<%= render 'spree/admin/shared/index_table_options', collection: @wholesalers, simple: true %>
+    <%= render 'spree/admin/shared/index_table_options', collection: @wholesalers, simple: true %>
+  </div>
+  <div class="tab-pane fade show active" id="map">
+    <div id="map-div">
+    </div>
+    <script>
+      var map = new GMaps({
+        el: '#map-div',
+        lat: -12.043333,
+        lng: -77.028333
+      });
+    </script>
+  </div>
+</div>
