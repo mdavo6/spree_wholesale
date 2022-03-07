@@ -37,7 +37,9 @@ module Spree
           # Add these notifications after address added
           # flash[:notice] = I18n.t('spree.wholesaler.review_in_progress')
           # Spree::WholesaleMailer.new_wholesaler_email(@wholesaler).deliver
-
+          unless @wholesaler.user.applicant?
+            @wholesaler.add_applicant_role
+          end
           redirect_to spree.new_wholesale_address_path
         end
       else

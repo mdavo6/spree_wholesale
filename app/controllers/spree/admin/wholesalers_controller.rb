@@ -16,6 +16,15 @@ module Spree
           @wholesalers = @search.result(distinct: true).
             page(params[:page]).
             per(params[:per_page] || ::Spree::Config[:admin_orders_per_page])
+          all_wholesalers = @search.result(distinct: true)
+          @mapped_wholesalers = all_wholesalers.reject { |w| w.user.addresses.empty? }.map { |x|
+            [x.company,
+              x.user.addresses.first.latitude,
+              x.user.addresses.first.longitude,
+              x.active?,
+              x.user.orders.complete.present? ? (Date.today - x.user.orders.reverse_chronological.first.updated_at.to_date).to_i : 0
+            ]
+          }
           render
         end
       end

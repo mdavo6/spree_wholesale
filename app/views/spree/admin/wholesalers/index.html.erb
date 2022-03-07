@@ -1,6 +1,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://maps.google.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.25/gmaps.min.js"></script>
 
 <% content_for :page_title do %>
   <%= Spree.t(:wholesalers) %>
@@ -117,12 +115,91 @@
   <div class="tab-pane fade show active" id="map">
     <div id="map-div">
     </div>
+
     <script>
-      var map = new GMaps({
-        el: '#map-div',
-        lat: -12.043333,
-        lng: -77.028333
-      });
+
+      const wholesalers = <%= raw @mapped_wholesalers %>;
+
+      function setMarkers(map) {
+        // Adds markers to the map.
+        // Marker sizes are expressed as a Size of X,Y where the origin of the image
+        // (0,0) is located in the top left of the image.
+        // Origins, anchor positions and coordinates of the marker increase in the X
+        // direction to the right and in the Y direction down.
+        // Shapes define the clickable region of the icon. The type defines an HTML
+        // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+        // The final coordinate closes the poly by connecting to the first coordinate.
+
+        for (let i = 0; i < wholesalers.length; i++) {
+          const wholesaler = wholesalers[i];
+
+          if (wholesaler[4] != 0) {
+            if (wholesaler[4] < 182) {
+              colour = "red";
+              zIndex = 4;
+            } else if ( wholesaler[4] >= 182 && wholesaler[4] < 365 ) {
+              colour = "orange";
+              zIndex = 3;
+            } else {
+              colour = "yellow";
+              zIndex = 2;
+            }
+          } else {
+            if ( wholesaler[3] == true ) {
+              colour = "blue";
+              zIndex = 1;
+            } else {
+              colour = "green";
+              zIndex = 0;
+            }
+          }
+
+          let url = "http://maps.google.com/mapfiles/ms/icons/";
+          url += colour + "-dot.png";
+
+          new google.maps.Marker({
+            map: map,
+            position: { lat: wholesaler[1], lng: wholesaler[2] },
+            title: wholesaler[0],
+            zIndex: zIndex,
+            icon: {
+              url: url
+            }
+          });
+        }
+      }
+
+      function initMap() {
+        // The location of Uluru
+        const uluru = { lat: -25.344, lng: 131.036 };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map-div"), {
+          zoom: 5,
+          center: uluru,
+        });
+        setMarkers(map);
+      }
+
     </script>
+    <script src="https://maps.google.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap&libraries=&v=weekly" async></script>
+    <div class="key">
+      <ul>
+        <li>
+          <%= image_tag("http://maps.google.com/mapfiles/ms/icons/red-dot.png") %> = Current Stockists (Ordered within last 6 months)
+        </li>
+        <li>
+          <%= image_tag("http://maps.google.com/mapfiles/ms/icons/orange-dot.png") %> = Stockist ordered 6 - 12 months ago
+        </li>
+        <li>
+          <%= image_tag("http://maps.google.com/mapfiles/ms/icons/yellow-dot.png") %> = Stockist ordered 12+ months ago
+        </li>
+        <li>
+          <%= image_tag("http://maps.google.com/mapfiles/ms/icons/blue-dot.png") %> = Approved, never ordered
+        </li>
+        <li>
+          <%= image_tag("http://maps.google.com/mapfiles/ms/icons/green-dot.png") %> = Application awaiting approval
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

@@ -27,6 +27,9 @@ module Spree
       get_wholesale_role
       return false if user.spree_roles.include?(@role)
       user.spree_roles << @role
+      get_applicant_role
+      return false unless user.spree_roles.include?(@role)
+      user.spree_roles.delete(@role)
       Spree::WholesaleMailer.approve_wholesaler_email(self).deliver
       user.save
     end
@@ -46,6 +49,13 @@ module Spree
       get_wholesale_role
       return false unless user.spree_roles.include?(@role)
       user.spree_roles.delete(@role)
+      user.save
+    end
+
+    def add_applicant_role
+      get_applicant_role
+      return false if user.spree_roles.include?(@role)
+      user.spree_roles << @role
       user.save
     end
 
@@ -74,6 +84,10 @@ module Spree
 
     def get_lead_role
       @role = Spree::Role.find_or_create_by(name: "lead")
+    end
+
+    def get_applicant_role
+      @role = Spree::Role.find_or_create_by(name: "applicant")
     end
 
     def use_billing?

@@ -7,6 +7,7 @@ module Spree
       base.before_save :delete_auth_token, unless: :lead?
       base.scope :wholesale, -> { includes(:spree_roles).where("spree_roles.name" => "wholesaler") }
       base.scope :lead, -> { includes(:spree_roles).where("spree_roles.name" => "lead") }
+      base.scope :wholesale_or_applicant, -> { includes(:spree_roles).where("spree_roles.name" => ["wholesaler", "applicant"]) }
     end
 
     def wholesaler?
@@ -17,8 +18,16 @@ module Spree
       has_spree_role?('lead')
     end
 
+    def applicant?
+      has_spree_role?('applicant')
+    end
+
     def wholesaler_or_lead?
       wholesaler? || lead?
+    end
+
+    def wholesaler_or_applicant?
+      wholesaler? || applicant?
     end
 
     def contact_information_entered?
