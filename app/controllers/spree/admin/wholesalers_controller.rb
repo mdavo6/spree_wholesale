@@ -22,7 +22,7 @@ module Spree
               x.user.addresses.first.latitude,
               x.user.addresses.first.longitude,
               x.active?,
-              x.user.orders.complete.present? ? (Date.today - x.user.orders.reverse_chronological.first.updated_at.to_date).to_i : 0
+              x.user.orders.complete.present? ? (Date.tomorrow - x.user.orders.reverse_chronological.first.updated_at.to_date).to_i : 0
             ]
           }
           render
