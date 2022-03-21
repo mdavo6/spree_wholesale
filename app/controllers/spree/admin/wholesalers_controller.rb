@@ -108,7 +108,7 @@ module Spree
       def export_csv(wholesalers)
         require 'csv'
 
-        header = ['Store', 'Buyer', 'Email', 'Date of last order', 'Total sales', 'Total orders', 'Average order value', 'Phone number', 'Address1']
+        header = ['Store', 'Buyer', 'Email', 'Date of last order', 'Total sales', 'Total orders', 'Average order value', 'Phone number', 'Address1', 'Days since last order']
 
         CSV.generate(headers: true) do |csv|
           csv << header
@@ -123,8 +123,10 @@ module Spree
             total_orders = wholesaler.user.order_count
             if total_orders > 0
               wholesaler_attrs['Date of last order'] = wholesaler.user.orders.complete.reverse_chronological.first.updated_at.strftime('%d/%m/%Y')
+              wholesaler_attrs['Days since last order'] = (Date.today - time_ago_in_words(wholesaler.user.orders.reverse_chronological.first.updated_at.to_date)).to_i
             else
               wholesaler_attrs['Date of last order'] = 'N/A'
+              wholesaler_attrs['Days since last order'] = 'N/A'
             end
             wholesaler_attrs['Total sales'] = wholesaler.user.display_lifetime_value.to_s
             wholesaler_attrs['Total orders'] = total_orders
