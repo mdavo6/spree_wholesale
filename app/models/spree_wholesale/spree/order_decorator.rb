@@ -21,7 +21,11 @@ module SpreeWholesale
       end
 
       def wholesale_store?
-        store.code.include?("wholesale")
+        if store
+          store.code.include?("wholesale")
+        else
+          current_store.code.include?("wholesale")
+        end
       end
 
       def wholesale
