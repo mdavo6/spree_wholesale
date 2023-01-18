@@ -19,8 +19,8 @@ module Spree
           all_wholesalers = @search.result(distinct: true)
           @mapped_wholesalers = all_wholesalers.reject { |w| w.user.addresses.empty? }.map { |x|
             [x.company,
-              x.user.addresses.first.latitude,
-              x.user.addresses.first.longitude,
+              x.user.has_store_address? ? x.user.addresses.store_address.first.latitude : x.user.addresses.first.latitude,
+              x.user.has_store_address? ? x.user.addresses.store_address.first.longitude : x.user.addresses.first.longitude,
               x.active?,
               x.user.orders.complete.present? ? (Date.tomorrow - x.user.orders.reverse_chronological.first.updated_at.to_date).to_i : 0
             ]

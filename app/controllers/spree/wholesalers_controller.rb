@@ -9,10 +9,10 @@ module Spree
     end
 
     def index
-      @wholesalers = Spree::Wholesaler.is_visible.has_visible_address
+      @addresses = Spree::Address.on_stockist_list
       @countries = {}
-      @wholesalers.group_by { |w| w.visible_address.country.try(:name) }.each do |country, wholesalers|
-        states = wholesalers.map { |w| w.visible_address.state.name }.uniq.to_a
+      @addresses.group_by { |w| w.country.try(:name) }.each do |country, addresses|
+        states = addresses.map { |w| w.state.name }.uniq.to_a
         @countries[country] = states
       end
     end

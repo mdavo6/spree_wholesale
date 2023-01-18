@@ -37,6 +37,15 @@ module Spree
     def has_address?
       addresses.present?
     end
+    
+    def has_store_address?
+      if has_address?
+        addresses.each do |address|
+          return true if address.store
+        end
+      end
+      false
+    end
 
     def permitted_wholesale_user?
       admin? || wholesaler_or_lead?
