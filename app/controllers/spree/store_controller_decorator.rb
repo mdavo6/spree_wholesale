@@ -9,6 +9,10 @@ module Spree
     def wholesale_store?
       current_store.code.include?("wholesale")
     end
+    
+    def international?
+      current_store.code.include?("international")
+    end
 
     def is_home?
       request.path == "/"
