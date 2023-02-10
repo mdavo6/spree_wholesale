@@ -136,16 +136,19 @@
           if (wholesaler[4] != 0) {
             if (wholesaler[4] < 182) {
               colour = "red";
-              zIndex = 4;
+              zIndex = 5;
             } else if ( wholesaler[4] >= 182 && wholesaler[4] < 365 ) {
               colour = "orange";
-              zIndex = 3;
+              zIndex = 4;
             } else {
               colour = "yellow";
-              zIndex = 2;
+              zIndex = 3;
             }
           } else {
-            if ( wholesaler[3] == true ) {
+            if ( wholesaler[5] == true ) {
+              colour = "purple";
+              zIndex = 2;
+            } else if ( wholesaler[3] == true ) {
               colour = "blue";
               zIndex = 1;
             } else {
@@ -192,6 +195,9 @@
         </li>
         <li>
           <%= image_tag("http://maps.google.com/mapfiles/ms/icons/yellow-dot.png") %> = Stockist ordered 12+ months ago
+        </li>
+        <li>
+          <%= image_tag("http://maps.google.com/mapfiles/ms/icons/purple-dot.png") %> = Stockist on Faire
         </li>
         <li>
           <%= image_tag("http://maps.google.com/mapfiles/ms/icons/blue-dot.png") %> = Approved, never ordered

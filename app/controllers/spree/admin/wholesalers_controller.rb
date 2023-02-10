@@ -22,7 +22,8 @@ module Spree
               x.user.has_store_address? ? x.user.addresses.store_address.first.latitude : x.user.addresses.first.latitude,
               x.user.has_store_address? ? x.user.addresses.store_address.first.longitude : x.user.addresses.first.longitude,
               x.active?,
-              x.user.orders.complete.present? ? (Date.tomorrow - x.user.orders.reverse_chronological.first.updated_at.to_date).to_i : 0
+              x.user.orders.complete.present? ? (Date.tomorrow - x.user.orders.reverse_chronological.first.updated_at.to_date).to_i : 0,
+              x.faire
             ]
           }
           render
@@ -171,7 +172,7 @@ module Spree
       def wholesaler_params
         params.require(:wholesaler).
           permit(:ship_address, :bill_address, :company, :buyer,
-            :terms, :phone, :website, :social, :comments, :use_billing, :visible, :visible_address_string,
+            :terms, :phone, :website, :social, :comments, :use_billing, :faire, :visible, :visible_address_string,
             user_attributes: [:email, :password, :password_confirmation, :wholesale_user],
             bill_address_attributes: permitted_address_attributes,
             ship_address_attributes: permitted_address_attributes,

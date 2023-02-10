@@ -27,6 +27,12 @@
             </div>
             <div class="form-group">
               <div class="checkbox-inline">
+                <%= form.check_box :faire %>
+                <%= form.label :faire, Spree.t(:faire) %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="checkbox-inline">
                 <%= form.check_box :visible %>
                 <%= form.label :visible, Spree.t(:visible) %>
               </div>
