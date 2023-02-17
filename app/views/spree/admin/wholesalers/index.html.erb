@@ -133,7 +133,10 @@
         for (let i = 0; i < wholesalers.length; i++) {
           const wholesaler = wholesalers[i];
 
-          if (wholesaler[4] != 0) {
+          if ( wholesaler[5] == true ) {
+            colour = "pink";
+            zIndex = 2;
+          } else if (wholesaler[4] != 0) {
             if (wholesaler[4] < 182) {
               colour = "red";
               zIndex = 5;
@@ -145,10 +148,7 @@
               zIndex = 3;
             }
           } else {
-            if ( wholesaler[5] == true ) {
-              colour = "pink";
-              zIndex = 2;
-            } else if ( wholesaler[3] == true ) {
+            if ( wholesaler[3] == true ) {
               colour = "blue";
               zIndex = 1;
             } else {
@@ -191,13 +191,13 @@
           <%= image_tag("http://maps.google.com/mapfiles/ms/icons/red-dot.png") %> = Current Stockists (Ordered within last 6 months)
         </li>
         <li>
+          <%= image_tag("http://maps.google.com/mapfiles/ms/icons/pink-dot.png") %> = Stockist on Faire
+        </li>
+        <li>
           <%= image_tag("http://maps.google.com/mapfiles/ms/icons/orange-dot.png") %> = Stockist ordered 6 - 12 months ago
         </li>
         <li>
           <%= image_tag("http://maps.google.com/mapfiles/ms/icons/yellow-dot.png") %> = Stockist ordered 12+ months ago
-        </li>
-        <li>
-          <%= image_tag("http://maps.google.com/mapfiles/ms/icons/pink-dot.png") %> = Stockist on Faire
         </li>
         <li>
           <%= image_tag("http://maps.google.com/mapfiles/ms/icons/blue-dot.png") %> = Approved, never ordered
