@@ -11,9 +11,11 @@ module Spree
     def index
       @addresses = Spree::Address.on_stockist_list
       @countries = {}
+      @grouped_addresses = {}
       @addresses.group_by { |w| w.country.try(:name) }.each do |country, addresses|
         states = addresses.map { |w| w.state.name }.uniq.to_a
         @countries[country] = states
+        @grouped_addresses[country] = addresses.group_by { |w| w.state.try(:name) }
       end
     end
 
