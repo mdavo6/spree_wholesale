@@ -109,7 +109,7 @@ module Spree
       def export_csv(wholesalers)
         require 'csv'
 
-        header = ['Store', 'Buyer', 'Email', 'Date of last order', 'Total sales', 'Total orders', 'Average order value', 'Phone number', 'Address1', 'Days since last order']
+        header = ['Store', 'Buyer', 'Email', 'Date of last order', 'Total sales', 'Total orders', 'Average order value', 'Phone number', 'Address1', 'City', 'Country', 'Days since last order']
 
         CSV.generate(headers: true) do |csv|
           csv << header
@@ -135,6 +135,8 @@ module Spree
             wholesaler_attrs['Phone number'] = wholesaler.phone
             if wholesaler.user.addresses.present?
               wholesaler_attrs['Address1'] = wholesaler.user.addresses.first.address1.to_s
+              wholesaler_attrs['City'] = wholesaler.user.addresses.first.city.to_s
+              wholesaler_attrs['Country'] = wholesaler.user.addresses.first.country.name.to_s
 
             #   wholesaler_attrs['Address1'] = wholesaler.user.shipping_address.address1.to_s
             # elsif wholesaler.ship_address.present?
@@ -143,6 +145,8 @@ module Spree
             #   wholesaler_attrs['Address1'] = wholesaler.user.addresses.first.address1.to_s
             else
               wholesaler_attrs['Address1'] = ''
+              wholesaler_attrs['City'] = ''
+              wholesaler_attrs['Country'] = ''
             end
             csv << wholesaler_attrs
           end
