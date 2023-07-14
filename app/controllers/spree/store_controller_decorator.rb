@@ -23,13 +23,13 @@ module Spree
     end
 
     def check_wholesale_authorisation
-      if spree_current_user
-        return if spree_current_user.permitted_wholesale_user?
-        redirect_to spree.account_path
-      else
-        flash[:notice] = I18n.t('spree.wholesaler.logged_out')
-        redirect_to spree.login_path
-      end
+      # if spree_current_user
+      #   return if spree_current_user.permitted_wholesale_user?
+      #   redirect_to spree.account_path
+      # else
+      #   flash[:notice] = I18n.t('spree.wholesaler.logged_out')
+      #   redirect_to spree.login_path
+      # end
     end
 
   end
