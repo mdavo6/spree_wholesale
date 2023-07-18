@@ -9,13 +9,15 @@
     </div>
   </div>
   <div class="col-lg-6 offset-lg-3">
-    <%= form_for @address, html: { id: 'checkout_form_address' } do |f| %>
-      <%= render 'spree/addresses/form',
-        address_name: 'address',
-        address_form: f,
-        address_type: 'shipping',
-        address: @address %>
-      <%= f.submit t(:save, scope: :address_book), class: 'btn btn-primary btn-block spree-btn mb-5' %>
-    <% end %>
+    <div id="new_wholesale_address" data-hook="new_wholesale_address">
+      <%= form_for @address, html: { id: 'checkout_form_address' } do |f| %>
+        <%= render 'spree/addresses/form',
+          address_name: 'address',
+          address_form: f,
+          address_type: 'shipping',
+          address: @address %>
+        <%= f.submit t(:save, scope: :address_book), class: 'btn btn-primary btn-block spree-btn mb-5', id: 'save-new-wholesaler' %>
+      <% end %>
+    </div>
   </div>
 </div>
