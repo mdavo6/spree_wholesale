@@ -2,7 +2,7 @@ module Spree
   module AddressesControllerDecorator
 
     def new_wholesale
-      @address = Spree::Address.default
+      @address = Spree::Address.new(country: current_store.default_country)
     end
 
     def create
