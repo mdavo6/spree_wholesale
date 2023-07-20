@@ -14,4 +14,6 @@ SpreeLinkCopy.prototype.bindEvents = function() {
 $(document).ready(function() {
   var spreeLinkCopy = new SpreeLinkCopy("[data-link-code]", "[data-copy-link-code]")
   spreeLinkCopy.bindEvents()
+  var spreeLinkCopyUS = new SpreeLinkCopy("[data-link-code-us]", "[data-copy-link-code-us]")
+  spreeLinkCopyUS.bindEvents()
 })
