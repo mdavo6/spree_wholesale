@@ -135,8 +135,8 @@ module Spree
             wholesaler_attrs['Phone number'] = wholesaler.phone
             if wholesaler.user.addresses.present?
               wholesaler_attrs['Address1'] = wholesaler.user.addresses.first.address1.to_s
-              wholesaler_attrs['City'] = wholesaler.user.addresses.first.zipcode.to_s
-              wholesaler_attrs['Postcode'] = wholesaler.user.addresses.first.city.to_s
+              wholesaler_attrs['City'] = wholesaler.user.addresses.first.city.to_s
+              wholesaler_attrs['Postcode'] = wholesaler.user.addresses.first.zipcode.to_s
               wholesaler_attrs['Country'] = wholesaler.user.addresses.first.country.name.to_s
 
             #   wholesaler_attrs['Address1'] = wholesaler.user.shipping_address.address1.to_s
