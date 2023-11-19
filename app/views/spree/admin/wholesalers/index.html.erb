@@ -19,48 +19,7 @@
 
 <div class="tab-content">
   <div class="tab-pane fade show active" id="list">
-
-    <% content_for :table_filter_title do %>
-      <%= Spree.t(:search) %>
-    <% end %>
-
-    <% content_for :table_filter do %>
-      <div data-hook="admin_users_index_search">
-        <%= search_form_for [:admin, @search], url: spree.admin_wholesalers_url do |f| %>
-          <div class="form-group">
-            <%= f.label Spree.t(:company) %>
-            <%= f.text_field :company_cont, class: "form-control js-quick-search-target" %>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <%= f.label Spree.t(:buyer) %>
-                <%= f.text_field :buyer_cont, :class => 'form-control' %>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <%= f.label Spree.t(:email) %>
-                <%= f.text_field :user_email_cont, :class => 'form-control' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <%= f.label Spree.t(:phone) %>
-            <%= f.text_field :phone_cont, :class => 'form-control' %>
-          </div>
-          <div class="checkbox mt-2">
-            <%= label_tag 'q_export_to_csv' do %>
-              <%= f.check_box :export_to_csv, {checked: (params[:q][:export_to_csv] == '1')}, '1', '' %>
-              <%= Spree.t(:export_to_csv) %>
-            <% end %>
-          </div>
-          <div data-hook="admin_users_index_search_buttons" class="form-actions">
-            <%= button Spree.t(:search), 'search' %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <%= render "search" if @wholesalers.any? || params[:q].present? %>
 
     <%= render 'spree/admin/shared/index_table_options', collection: @wholesalers %>
 

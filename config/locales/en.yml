@@ -44,6 +44,7 @@ en:
       password: Create a password
     contact_information: Contact Information
     export_to_csv: Export To CSV
+    search_wholesaler_name: Search wholesaler name
 
     wholesaler:
       company: "Company: %{company}"
