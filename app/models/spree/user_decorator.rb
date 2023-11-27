@@ -10,16 +10,20 @@ module Spree
       base.scope :wholesale_or_applicant, -> { includes(:spree_roles).where("spree_roles.name" => ["wholesaler", "applicant"]) }
     end
 
+    def has_spree_role_old?(role_in_question)
+      spree_roles.any? { |role| role.name == role_in_question.to_s }
+    end
+
     def wholesaler?
-      has_spree_role?("wholesaler") && !wholesaler.nil?
+      has_spree_role_old?("wholesaler") && !wholesaler.nil?
     end
 
     def lead?
-      has_spree_role?('lead')
+      has_spree_role_old?('lead')
     end
 
     def applicant?
-      has_spree_role?('applicant')
+      has_spree_role_old?('applicant')
     end
 
     def wholesaler_or_lead?
