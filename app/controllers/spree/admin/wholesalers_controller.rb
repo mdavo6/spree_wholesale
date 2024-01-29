@@ -109,7 +109,7 @@ module Spree
       def export_csv(wholesalers)
         require 'csv'
 
-        header = ['Store', 'Buyer', 'Email', 'Date of last order', 'Total sales', 'Total orders', 'Average order value', 'Phone number', 'Address1', 'City', 'Postcode', 'Country', 'Days since last order']
+        header = ['Store', 'Buyer', 'Email', 'Date of last order', 'Total sales (AUD)', 'Total sales (USD)', 'Total orders', 'Average order value (AUD)', 'Average order value (USD)', 'Phone number', 'Address1', 'City', 'Postcode', 'Country', 'Days since last order']
 
         CSV.generate(headers: true) do |csv|
           csv << header
@@ -129,9 +129,11 @@ module Spree
               wholesaler_attrs['Date of last order'] = 'N/A'
               wholesaler_attrs['Days since last order'] = 'N/A'
             end
-            wholesaler_attrs['Total sales'] = wholesaler.user.display_lifetime_value.to_s
-            wholesaler_attrs['Total orders'] = total_orders
-            wholesaler_attrs['Average order value'] = wholesaler.user.display_average_order_value.to_s
+            wholesaler_attrs['Total sales (AUD)'] = wholesaler.user.display_total_lifetime_value(currency: 'AUD').to_s
+            wholesaler_attrs['Total sales (USD)'] = wholesaler.user.display_total_lifetime_value(currency: 'USD').to_s
+            wholesaler_attrs['Total orders'] = wholesaler.user.total_order_count
+            wholesaler_attrs['Average order value (AUD)'] = wholesaler.user.display_total_average_order_value(currency: 'AUD').to_s
+            wholesaler_attrs['Average order value (USD)'] = wholesaler.user.display_total_average_order_value(currency: 'USD').to_s
             wholesaler_attrs['Phone number'] = wholesaler.phone
             if wholesaler.user.addresses.present?
               wholesaler_attrs['Address1'] = wholesaler.user.addresses.first.address1.to_s

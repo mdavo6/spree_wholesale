@@ -1,7 +1,7 @@
 
 <% content_for :table_filter do %>
     <div data-hook="admin_wholesalers_index_search">
-    <%= search_form_for [:admin, @search] do |f| %>
+    <%= search_form_for [:admin, @search], data: {turbo: false} do |f| %>
         <div class="row">
             <div class="form-group">
             <%= f.label Spree.t(:company) %>
@@ -32,7 +32,7 @@
             <% end %>
             </div>
             <div data-hook="admin_users_index_search_buttons" class="form-actions">
-            <%= button Spree.t(:search), 'search' %>
+            <%= button Spree.t(:Search), 'search' %>
             <div class="col-12 col-lg-4">
             <div class="form-group">
                 <%= label_tag :q_company_cont, Spree.t(:search_wholesaler_name) %>

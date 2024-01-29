@@ -2,6 +2,7 @@ module Spree
   module UserDecorator
 
     def self.prepended(base)
+      base.include Spree::TotalReporting
       base.has_one :wholesaler, :class_name => "Spree::Wholesaler"
       base.before_create :generate_auth_token, if: :lead?
       base.before_save :delete_auth_token, unless: :lead?
