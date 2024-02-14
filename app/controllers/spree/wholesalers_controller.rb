@@ -27,7 +27,8 @@ module Spree
 
     def create
       @wholesaler = Spree::Wholesaler.new(wholesaler_params)
-      @wholesaler.user = spree_current_user
+      user = Spree::User.find_by(email: wholesaler_params[:user_attributes][:email])
+      @wholesaler.user = user
       if @wholesaler.save
         if @wholesaler.user.lead?
           @wholesaler.convert_lead_to_wholesaler!
@@ -43,7 +44,7 @@ module Spree
           unless @wholesaler.user.applicant?
             @wholesaler.add_applicant_role
           end
-          redirect_to spree.new_wholesale_address_path
+          redirect_to spree.new_wholesale_address_path(email: user.email)
         end
       else
         flash[:error] = I18n.t('spree.wholesaler.signup_failed')

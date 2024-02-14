@@ -2,7 +2,8 @@ module Spree
   module AddressesControllerDecorator
 
     def new_wholesale
-      @address = Spree::Address.new(country: current_store.default_country)
+      user = Spree::User.find_by(email: params[:email])
+      @address = Spree::Address.new(country: current_store.default_country, user: user)
     end
 
     def create

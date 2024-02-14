@@ -33,7 +33,7 @@ module Spree
           Rails.application.config.cache_classes ? require(c) : load(c)
         end
 
-        Spree::Ability.register_ability(WholesalerAbility)
+        #Spree::Ability.register_ability(WholesalerAbility)
       end
 
       config.to_prepare &method(:activate).to_proc

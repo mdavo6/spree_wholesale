@@ -26,5 +26,8 @@
         <%= form.label(:comments, Spree.t(:comments), class: 'text-uppercase') %>
       </div>
     </div>
+    <%= form.fields_for :user do |uf| %>
+      <%= uf.hidden_field :email, value: @wholesaler.user.email %>
+    <% end %>
   </div>
 </div>
