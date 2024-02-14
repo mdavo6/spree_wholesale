@@ -1,0 +1,9 @@
+<% if success = flash.discard(:success) %>
+    show_flash('success', "<%= j success %>");
+    document.querySelector("#admin_user_rep_states").remove();
+    document.querySelector("#message_after_delete").classList.remove("d-none");
+<% end %>
+
+<% if error = flash.discard(:error) %>
+    show_flash('error', "<%= j error %>");
+<% end %>

@@ -6,6 +6,7 @@ module Spree
     belongs_to :bill_address, foreign_key: "billing_address_id", class_name: "Spree::Address", optional: true
     belongs_to :ship_address, foreign_key: "shipping_address_id", class_name: "Spree::Address", optional: true
     belongs_to :visible_address, foreign_key: "visible_address_id", class_name: "Spree::Address", optional: true
+    belongs_to :rep, class_name: "Spree::User", optional: :true
 
     accepts_nested_attributes_for :bill_address
     accepts_nested_attributes_for :ship_address

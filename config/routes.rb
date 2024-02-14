@@ -31,6 +31,10 @@ Spree::Core::Engine.routes.draw do
     end
 
     resource :wholesale_configurations
+
+    resources :users do
+      resource :territories
+    end
   end
 
 end

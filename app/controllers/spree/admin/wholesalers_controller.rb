@@ -4,11 +4,11 @@ module Spree
       respond_to :html, :xml
       before_action :approval_setup, :only => [ :approve, :reject ]
       after_action :persist_user_address, :only => [:create, :update]
+      before_action :get_reps, :only => [:new, :edit]
 
       def index
         params[:q] ||= {}
-        @search = ::Spree::Wholesaler.preload(:user).ransack(params[:q])
-
+        @search = ::Spree::Wholesaler.accessible_by(current_ability, :index).ransack(params[:q])
         if params[:q][:export_to_csv] == '1'
           @wholesalers = @search.result(distinct: true)
           send_data export_csv(@wholesalers), filename: "wholesalers-#{Date.today}-#{Time.now}.csv"
@@ -45,13 +45,15 @@ module Spree
       end
 
       def create
+        byebug
         @wholesaler = Spree::Wholesaler.new(wholesaler_params)
         if @wholesaler.save
           flash[:notice] = I18n.t('spree.admin.wholesaler.success')
           redirect_to spree.admin_wholesalers_path
         else
           flash[:error] = I18n.t('spree.admin.wholesaler.failed')
-          render :action => "new"
+          get_reps
+          render :new, status: :unprocessable_entity
         end
       end
 
@@ -164,6 +166,10 @@ module Spree
 
       private
 
+      def get_reps
+        @reps = Spree::User.reps
+      end
+
       def approval_setup
         @wholesaler = Spree::Wholesaler.find(params[:id])
         @role = Spree::Role.find_or_create_by(name: 'wholesaler')
@@ -185,7 +191,7 @@ module Spree
       def wholesaler_params
         params.require(:wholesaler).
           permit(:ship_address, :bill_address, :company, :buyer,
-            :terms, :phone, :website, :social, :comments, :use_billing, :faire, :visible, :visible_address_string,
+            :terms, :phone, :website, :rep_id, :social, :comments, :use_billing, :faire, :visible, :visible_address_string,
             user_attributes: [:email, :password, :password_confirmation, :wholesale_user],
             bill_address_attributes: permitted_address_attributes,
             ship_address_attributes: permitted_address_attributes,

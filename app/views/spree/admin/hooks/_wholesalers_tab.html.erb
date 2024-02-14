@@ -1,3 +1,5 @@
-<ul class="nav nav-sidebar border-bottom" id="sidebarWholesale">
-  <%= tab(:wholesalers, spree.admin_wholesalers_path, icon: 'barcode') %>
-</ul>
+ <% if can?(:admin, Spree::Wholesaler) %>
+  <ul class="nav nav-sidebar border-bottom" id="sidebarWholesale">
+    <%= tab(:wholesalers, spree.admin_wholesalers_path, icon: 'shop.svg') %>
+  </ul>
+<% end %>

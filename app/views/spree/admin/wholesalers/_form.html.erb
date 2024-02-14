@@ -2,6 +2,33 @@
   <div class="col-sm-12" data-hook="wholesaler-details">
     <div class="panel panel-default">
       <div class="panel-heading">
+        <h3 class="panel-title"><%= Spree.t(:user_details) %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <p class="form-group">
+              <% if @wholesaler.new_record? %>
+                <%= form.fields_for :user do |uf| %>
+                  <%= render 'user_form', :f => uf %>
+                <% end %>
+              <% else %>
+                <p class="form-group">
+                  <%= form.label :email do %>
+                    <%= Spree.t(:email) %>
+                  <% end %>
+                  <%= link_to @wholesaler.user.email, admin_user_path(@wholesaler.user), :class => 'form-control-static' %>
+                  <%= render "user_options" %>
+                </p>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
         <h3 class="panel-title"><%= Spree.t(:company_information) %></h3>
       </div>
       <div class="panel-body">
@@ -13,36 +40,14 @@
               <% end %>
               <%= form.text_field :company, :class => 'form-control required' %>
             </p>
+          </div>
+          <div class="col-sm-6">
             <p class="form-group">
               <%= form.label :buyer do %>
                 <%= Spree.t(:buyer) %><abbr class="required" title="required">*</abbr>
               <% end %>
               <%= form.text_field :buyer, :class => 'form-control required' %>
             </p>
-            <div class="form-group">
-              <%= form.label :terms do %>
-                <%= Spree.t(:terms) %><abbr class="required" title="required">*</abbr>
-              <% end %>
-              <%= form.select :terms, Spree::Wholesaler.term_options, {}, :class => 'form-control required' %>
-            </div>
-            <div class="form-group">
-              <div class="checkbox-inline">
-                <%= form.check_box :faire %>
-                <%= form.label :faire, Spree.t(:faire) %>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="checkbox-inline">
-                <%= form.check_box :visible %>
-                <%= form.label :visible, Spree.t(:visible) %>
-              </div>
-            </div>
-            <div class="form-group">
-              <%= form.label :visible_address do %>
-                <%= Spree.t(:visible_address) %>
-              <% end %>
-              <%= form.select :visible_address_string, Spree::Wholesaler.visible_address_options, {}, :class => 'form-control' %>
-            </div>
           </div>
           <div class="col-sm-6">
             <p class="form-group">
@@ -51,12 +56,32 @@
               <% end %>
               <%= form.text_field :phone, :class => 'form-control required' %>
             </p>
+          </div>
+          <div class="col-sm-6">
             <p class="form-group">
               <%= form.label :website do %>
                 <%= Spree.t(:website) %>
               <% end %>
               <%= form.text_field :website, :class => 'form-control' %>
             </p>
+          </div>
+          <div class="col-sm-6">
+            <p class="form-group">
+              <%= form.label :rep_id do %>
+                <%= Spree.t(:sales_rep) %>
+              <% end %>
+              <%= form.select :rep_id, options_for_select(@reps.collect {|rep| [ rep.email, rep.id]}, @wholesaler.rep_id), { include_blank: true }, class: 'form-control required' %>
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <%= form.label :terms do %>
+                <%= Spree.t(:terms) %><abbr class="required" title="required">*</abbr>
+              <% end %>
+              <%= form.select :terms, Spree::Wholesaler.term_options, {}, :class => 'form-control required' %>
+            </div>
+          </div>
+          <div class="col-sm-6">
             <p class="form-group">
               <%= form.label :social do %>
                 <%= Spree.t(:social_media) %>
@@ -65,6 +90,30 @@
             </p>
           </div>
         </div>
+        <% if spree_current_user.spree_admin? %>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-check form-check-inline">
+                <div class="checkbox-inline">
+                  <%= form.check_box :faire %>
+                  <%= form.label :faire, Spree.t(:faire) %>
+                </div>
+              </div>
+              <div class="form-check form-check-inline">
+                <div class="checkbox-inline">
+                  <%= form.check_box :visible %>
+                  <%= form.label :visible, Spree.t(:visible) %>
+                </div>
+              </div>
+              <div class="form-group">
+                <%= form.label :visible_address do %>
+                  <%= Spree.t(:visible_address) %>
+                <% end %>
+                <%= form.select :visible_address_string, Spree::Wholesaler.visible_address_options, {}, :class => 'form-control' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
         <div class="row">
           <div class="col-sm-12">
             <p class="form-group">
@@ -75,31 +124,6 @@
             </p>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-12" data-hook="user-details">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= Spree.t(:user_details) %></h3>
-      </div>
-      <div class="panel-body">
-        <% if @wholesaler.new_record? %>
-          <%= form.fields_for :user do |uf| %>
-            <%= render 'spree/shared/user_form', :f => uf %>
-          <% end %>
-        <% else %>
-          <p class="form-group">
-            <%= form.label :email do %>
-              <%= Spree.t(:email) %>
-            <% end %>
-            <%= link_to @wholesaler.user.email, admin_user_path(@wholesaler.user), :class => 'form-control-static' %>
-            <%= render "user_options" %>
-          </p>
-        <% end %>
       </div>
     </div>
   </div>

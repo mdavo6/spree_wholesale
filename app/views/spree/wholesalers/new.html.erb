@@ -1,6 +1,6 @@
 <div id="checkout" class="container checkout" data-hook>
   <%= render partial: 'spree/shared/error_messages', locals: { target: @wholesaler } %>
-  <% if spree_current_user.lead? %>
+  <% if @wholesaler.user.lead? %>
       <div class="col-lg-6 offset-lg-3 mb-5">
         <h3 class="spree-mb-large spree-mt-large spree-header"><%= Spree.t('registration_state.store') %></h3>
       </div>

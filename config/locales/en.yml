@@ -10,6 +10,7 @@ en:
   wholesale: Wholesale
   wholesaler: Wholesaler
   wholesalers: Wholesalers
+  stores: Stores
   new_wholesaler: New Wholesaler
   editing_wholesaler: Edit Wholesaler
   wholesaler_account: Wholesaler Account
@@ -45,6 +46,7 @@ en:
     contact_information: Contact Information
     export_to_csv: Export To CSV
     search_wholesaler_name: Search wholesaler name
+    sales_rep: Sales Rep
 
     wholesaler:
       company: "Company: %{company}"
@@ -81,6 +83,13 @@ en:
         signoff: Kind regards,
         from: Sender
     admin:
+      user:
+        territories: 
+          add_territories: Add Territories
+          territories: Territories
+          update_success: Territories successfully updated
+          update_failed: Territories could not be updated
+          destroy_success: Territories successfully deleted
 
       manage_wholesale_configurations: Manage Wholesale Configurations
       wholesale_configurations: Wholesale Configurations

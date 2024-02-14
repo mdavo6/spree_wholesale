@@ -1,0 +1,23 @@
+<p class="form-group">
+    <%= f.label :email do %>
+        <%= Spree.t(:email) %><abbr class="required" title="required">*</abbr>
+    <% end %>
+    <%= f.email_field :email, class: 'form-control required', placeholder: Spree.t(:email), aria: { label: Spree.t(:email) } %>
+</p>
+
+<div class="form-group">
+    <%= f.label :password do %>
+        <%= Spree.t(:password) %><abbr class="required" title="required">*</abbr>
+    <% end %>
+    <%= f.password_field :password, class: 'form-control required', placeholder: Spree.t(:password), aria: { label: Spree.t(:password) } %>
+</div>
+
+<div class="form-group">
+    <%= f.label :password_confirmation do %>
+        <%= Spree.t(:confirm_password) %><abbr class="required" title="required">*</abbr>
+    <% end %>
+    <%= f.password_field :password_confirmation, class: 'form-control required', placeholder: Spree.t(:confirm_password), aria: { label: Spree.t(:confirm_password) } %>
+</div>
+
+<div data-hook="signup_below_password_fields">
+</div>

@@ -1,0 +1,44 @@
+<%= render partial: 'spree/admin/users/tabs', locals: { current: :territories } %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:"admin.user.territories.add_territories"), spree.new_admin_user_territories_path(@user), class: "btn-success", icon: 'add.svg' %>
+<% end %>
+
+<% if @user.country.present? %>
+  <div id="admin_user_rep_states" data-hook="admin_user_rep_states" class="card mb-3">
+    <div class="card-header">
+      <h5 class="card-title mb-0 h6">
+        <%= @user.country %>
+      </h5>
+    </div>
+    <% if @user.states.any? %>
+      <div class="card-body">
+        <ul class="text_list">
+            <% @user.states.each do |state| %>
+              <li><%= state.name %></li>
+            <% end %>
+        </ul>
+          <td class="actions">
+            <span class="d-flex justify-content-start">
+              <%= link_to_with_icon('edit.svg', Spree.t(:edit), edit_admin_user_territories_path(@user), { data: {action: 'edit'}, class: 'mr-2 btn btn-light btn-sm'}) %>
+              <%= link_to_delete(@user, url: admin_user_territories_path(@user), no_text: false) %>
+            </span>
+          </td>
+        </tr>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="text-center no-objects-found m-5">
+    <%= Spree.t(:no_resource_found, resource: :Territories) %>,
+    <%= link_to(Spree.t(:"admin.user.territories.add_territories"), new_admin_user_territories_path(@user)) %>
+  </div>
+<% end %>
+
+<div id="message_after_delete" class="d-none">
+  <div class="text-center no-objects-found m-5">
+      <%= Spree.t(:no_resource_found, resource: :Territories) %>,
+      <%= link_to(Spree.t(:"admin.user.territories.add_territories"), new_admin_user_territories_path(@user)) %>
+  </div>
+</div>
+<%= render 'spree/admin/users/lifetime_stats' %>

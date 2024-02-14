@@ -13,7 +13,7 @@ module Spree
       resource_path = after_sign_up_path_for(resource)
 
       if current_store.code.include?("wholesale")
-        respond_with resource, location: new_wholesaler_path
+        respond_with resource, location: new_wholesaler_path(email: resource.email)
       elsif resource_path == spree.checkout_state_path(:address)
         respond_with resource, location: spree.checkout_state_path(:address)
       else

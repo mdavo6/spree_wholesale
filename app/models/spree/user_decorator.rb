@@ -15,6 +15,10 @@ module Spree
       spree_roles.any? { |role| role.name == role_in_question.to_s }
     end
 
+    def rep?
+      has_spree_role_old?('rep')
+    end
+
     def wholesaler?
       has_spree_role_old?("wholesaler") && !wholesaler.nil?
     end
