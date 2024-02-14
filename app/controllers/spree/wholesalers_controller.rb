@@ -3,7 +3,6 @@ module Spree
     respond_to :html, :xml
 
     def new
-      byebug
       @user = Spree::User.find_by(email: params[:email])
       @wholesaler = Spree::Wholesaler.new
       @wholesaler.user = @user

@@ -45,7 +45,6 @@ module Spree
       end
 
       def create
-        byebug
         @wholesaler = Spree::Wholesaler.new(wholesaler_params)
         if @wholesaler.save
           flash[:notice] = I18n.t('spree.admin.wholesaler.success')
