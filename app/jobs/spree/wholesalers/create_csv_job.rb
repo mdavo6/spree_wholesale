@@ -60,7 +60,7 @@ module Spree
                         csv << wholesaler_attrs
                     end
                 end
-                Spree::WholesaleMailer.csv_export_email(csv_file, user).deliver_later
+                Spree::WholesaleMailer.csv_export_email(csv_file, user).deliver_now
             end
         end
     end
