@@ -16,5 +16,12 @@ module Spree
         :from => "noreply@example.com",
         :subject => subject)
     end
+
+    def csv_export_email(csv_file, current_user)
+      attachments['wholesalers.csv'] = csv_file
+      subject = "Wholesalers CSV Export"
+      mail(:to => current_user.email,
+      :from => 'wholesale@boldb.com.au',
+      :subject => subject)
   end
 end
