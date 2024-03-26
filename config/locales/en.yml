@@ -104,6 +104,7 @@ en:
         failed: Wholesale account could not be created
         update_failed: Wholesale account could not be updated
         destroy_success: Wholesale account was successfully deleted
+        csv_export_success: Wholesale customers successfully exported to CSV. Please check your email for the file.
 
       wholesalers:
         index:

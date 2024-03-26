@@ -12,7 +12,8 @@ module Spree
         if params[:q][:export_to_csv] == '1'
           @wholesalers = @search.result(distinct: true)
           #send_data export_csv(@wholesalers), filename: "wholesalers-#{Date.today}-#{Time.now}.csv"
-          Spree::Wholesalers::CreateCsvJob.perform_later(@wholesalers, spree_current_user)
+          Spree::Wholesalers::CreateCsvJob.perform_later(spree_current_user)
+          flash[:notice] = I18n.t('spree.admin.wholesaler.csv_export_success')
         else
           @wholesalers = @search.result(distinct: true).
             page(params[:page]).

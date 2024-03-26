@@ -1,15 +1,17 @@
 module Spree
     module Wholesalers
-        class CreateCsvJob < ApplicationJob
+        class CreateCsvJob < Spree::BaseJob
             queue_as :spree_wholesalers_create_csv
 
-            def perform(wholesalers, user)
+            def perform(user)
+
+                wholesalers = Spree::Wholesaler.all
 
                 require 'csv'
 
                 header = ['Store', 'Buyer', 'Email', 'Date of last order', 'Total sales (AUD)', 'Total sales (USD)', 'Total orders', 'Average order value (AUD)', 'Average order value (USD)', 'Phone number', 'Address1', 'City', 'State', 'Postcode', 'Country', 'Days since last order']
 
-                CSV.generate(headers: true) do |csv|
+                csv_file = CSV.generate(headers: true) do |csv|
                     csv << header
 
                     wholesaler_attrs = {}
@@ -58,7 +60,7 @@ module Spree
                         csv << wholesaler_attrs
                     end
                 end
-                Spree::WholesaleMailer.csv_export_email(CSV, user).deliver_later
+                Spree::WholesaleMailer.csv_export_email(csv_file, user).deliver_later
             end
         end
     end
