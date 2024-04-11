@@ -1,0 +1,30 @@
+<div class="panel panel-default" id="company-info" data-hook>
+  <div class="panel-body">
+    <div class="form-group mb-4">
+      <%= float_label_field(form, :company, true) %>
+    </div>
+
+    <div class="form-group mb-4">
+      <%= float_label_field(form, :buyer, true) %>
+    </div>
+
+    <div class="form-group mb-4">
+      <%= float_label_field(form, :phone, true) %>
+    </div>
+
+    <div class="form-group mb-4">
+      <%= float_label_field(form, :website, false) %>
+    </div>
+
+    <div class="form-group mb-4">
+      <%= float_label_field(form, :social, false) %>
+    </div>
+
+    <div class="form-group mb-5">
+      <div id="comments" class="form-group checkout-content-inner-field has-float-label">
+        <%= form.text_area :comments, class: 'spree-flat-input', rows: 4, required: false, placeholder: Spree.t(:comments), aria: { label: Spree.t(:comments) } %>
+        <%= form.label(:comments, Spree.t(:comments), class: 'text-uppercase') %>
+      </div>
+    </div>
+  </div>
+</div>

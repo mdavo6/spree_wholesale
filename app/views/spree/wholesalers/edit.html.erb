@@ -1,29 +1,39 @@
 <div class="row">
-  <div class="col-md-offset-3 col-md-6">
+  <div class="col-md-12 mb-5">
     <h1 class="text-center"><%= Spree.t(:stockist_information) %></h1>
   </div>
 </div>
 
-<%= form_for @wholesaler, html: { class: "wholesaler-form" } do |form| %>
+<%= form_for @wholesaler, html: { class: "wholesaler-form" }, data: {turbo: false} do |form| %>
   <div class="row">
-    <%= render "spree/shared/error_messages", :target => @wholesaler %>
-    <div class="col-md-4" id="wholesaler-company-details">
-      <%= render 'company_info', :form => form %>
+    <div class="offset-md-4 col-md-4" id="wholesaler-company-details">
+      <%= render "spree/shared/error_messages", :target => @wholesaler %>
+      <div class="panel panel-default" id="company" data-hook>
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= Spree.t(:store_information) %></h3>
+        </div>
+        <div class="panel-body">
+          <%= render 'company_information', :form => form %>
+        </div>
+      </div>
     </div>
-    <div class="col-md-4" id="wholesaler-billing-address">
+  </div>
+  <div class="row">
+    <div class="offset-md-4 col-md-4" id="wholesaler-billing-address">
       <div class="panel panel-default" id="billing" data-hook>
         <%= form.fields_for :bill_address do |bill_form| %>
           <div class="panel-heading">
             <h3 class="panel-title"><%= Spree.t(:billing_address) %></h3>
           </div>
           <div class="panel-body">
-            <%= render :partial => 'spree/address/form', :locals => { :form => bill_form, :address_type => 'billing', :address => @wholesaler.bill_address } %>
+            <%= render 'spree/addresses/form', address_name: 'address', address_form: bill_form, address_type: 'billing', address: @wholesaler.bill_address %>
           </div>
         <% end %>
       </div>
     </div>
-
-    <div class="col-md-4" id="wholesaler-shipping-address">
+  </div>
+  <div class="row">
+    <div class="offset-md-4 col-md-4" id="wholesaler-shipping-address">
       <div class="panel panel-default" id="shipping" data-hook>
         <%= form.fields_for :ship_address do |ship_form| %>
           <div class="panel-heading">
@@ -36,14 +46,17 @@
                 <%= Spree.t(:use_billing_address) %>
               <% end %>
             </p>
-            <%= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => @wholesaler.ship_address } %>
+            <%= render 'spree/addresses/form', address_name: 'address', address_form: ship_form, address_type: 'shipping', address: @wholesaler.ship_address %>
           </div>
         <% end %>
       </div>
     </div>
   </div>
-
-  <div class="well text-right form-buttons" data-hook="buttons">
-    <%= form.submit Spree.t("update"), :class => 'btn btn-dark btn-lg btn-primary' %>
+  <div class="row">
+    <div class="offset-md-4 col-md-4">
+      <div class="well text-right form-buttons" data-hook="buttons">
+        <%= form.submit Spree.t("update"), :class => 'btn btn-primary btn-block spree-btn mb-5' %>
+      </div>
+    </div>
   </div>
 <% end %>

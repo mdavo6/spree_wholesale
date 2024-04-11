@@ -134,7 +134,8 @@ en:
     show_only_wholesale_orders: Show only wholesale orders
     terms_reminder: Please note that your order will not be shipped until payment is received. Payment details have been provided in your order confirmation email.
     order_currency: Order currency
-    stockist_information: Store Information
+    stockist_information: Contact Information
+    store_information: Store Information
     line_sheets: Line Sheets
     view_cart: View Cart
     item_added: Item added to cart
