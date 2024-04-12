@@ -3,7 +3,7 @@ module Spree
     respond_to :html, :xml
 
     def new
-      @user = Spree::User.find_by(email: params[:email])
+      @user = spree_current_user
       @wholesaler = Spree::Wholesaler.new
       @wholesaler.user = @user
       respond_with(@wholesaler)
