@@ -26,6 +26,15 @@ module Spree
       end
     end
 
+    def update
+      if update_service.call(address: @address, address_params: address_params).success?
+        flash[:notice] = Spree.t(:successfully_updated, scope: :address_book)
+        redirect_to spree.account_path
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
   end
 end
 

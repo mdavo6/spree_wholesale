@@ -2,6 +2,8 @@ module Spree
   module UsersControllerDecorator
 
     def update
+      @user = Spree::User.find(params[:id])
+      
       if @user.update(user_params)
         if params[:user][:password].present?
           # this logic needed b/c devise wants to log us out after password changes
