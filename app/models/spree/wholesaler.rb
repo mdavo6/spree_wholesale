@@ -65,7 +65,7 @@ module Spree
     end
 
     def self.term_options
-      ["Advance", "EFT", "Net30", "Transferwise USD", "Transferwise EUR", "Transferwise USD Net30", "Paypal Invoice"]
+      ["Advance", "EFT", "Net30", "Transferwise USD", "Transferwise EUR", "Transferwise USD Net30", "Paypal Invoice", "Airwallex USD Net30"]
     end
 
     def self.visible_address_options

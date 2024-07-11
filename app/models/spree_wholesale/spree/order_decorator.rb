@@ -94,11 +94,11 @@ module SpreeWholesale
       end
 
       def wholesaler_has_net30_terms?
-        wholesale_order_and_user? && (wholesaler.terms == 'Net30' || wholesaler.terms == 'Transferwise USD Net30')
+        wholesale_order_and_user? && (wholesaler.terms == 'Net30' || wholesaler.terms == 'Transferwise USD Net30' || wholesaler.terms == 'Airwallex USD Net30')
       end
 
       def wholesaler_is_net30_or_paypal?
-        wholesale_order_and_user? && (wholesaler.terms == 'Net30' || wholesaler.terms == 'Transferwise USD Net30' || wholesaler.terms == 'Paypal Invoice')
+        wholesale_order_and_user? && (wholesaler.terms == 'Net30' || wholesaler.terms == 'Transferwise USD Net30' || wholesaler.terms == 'Paypal Invoice' || wholesaler.terms == 'Airwallex USD Net30')
       end
 
       def payment_via_eft_net30?
@@ -119,6 +119,10 @@ module SpreeWholesale
 
       def payment_via_transferwise_usd_net30?
         wholesale_order_and_user? && wholesaler.terms == 'Transferwise USD Net30'
+      end
+
+      def payment_via_airwallex_usd_net30?
+        wholesale_order_and_user? && wholesaler.terms == 'Airwallex USD Net30'
       end
 
       def wholesale_payment_via_eft?
